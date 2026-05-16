@@ -97,9 +97,19 @@ namespace Team_Fisherman
             coords = Vector2.Clamp(coords, Vector2.Zero, new Vector2(119, 27));
             if (buffer[To_Index(coords, size)] == '#')
                 return false;
-            if (buffer[To_Index(coords, size)] == '~')
+            else if (buffer[To_Index(coords, size)] == '~')
             {
                 Fishing();
+                return false;
+            }
+            else if (buffer[To_Index(coords, size)] == 's')
+            {
+                Shopping();
+                return false;
+            }
+            else if (buffer[To_Index(coords, size)] == 'm'){
+                Fighting();
+                return false;
             }
 
             return true;
@@ -111,12 +121,7 @@ namespace Team_Fisherman
             return index;
         }
 
-        static void Fishing()
-        {
-
-
-
-        }
+        
         static void Menu()
         {
             StringBuilder buffer = new StringBuilder();
@@ -148,15 +153,15 @@ namespace Team_Fisherman
                     char_pos.Y += 1;
                     char_pos.X = 0;
                 }
-                
+
 
 
                 current = Vector2.Clamp(current, play_pos, exit_pos);
 
-                
+
                 for (int x = (int)current.X; x < current.X + 23; x++)
                 {
-                    buffer[To_Index( new Vector2(x, 24), screen_size)] = '#';
+                    buffer[To_Index(new Vector2(x, 24), screen_size)] = '#';
                 }
 
 
@@ -185,9 +190,29 @@ namespace Team_Fisherman
                 }
             }
         }
+        static void Fishing()
+        {
 
 
+            Console.WriteLine("Fishing");
+            Thread.Sleep(2000);
+            Console.Clear();
 
+        }
+        static void Shopping()
+        {
+
+
+            Console.WriteLine("Shopping");
+            Thread.Sleep(2000);
+
+
+        }
+        static void Fighting()
+        {
+            Console.WriteLine("Fighting");
+            Thread.Sleep(2000); 
+        }
 
 
 
