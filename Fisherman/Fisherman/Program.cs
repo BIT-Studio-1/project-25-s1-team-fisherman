@@ -12,9 +12,10 @@ namespace Team_Fisherman
             StringBuilder buffer = new StringBuilder();
             Console.CursorVisible = false;
             Vector2 screen_size = new Vector2(120, 28);
-            Vector2 player_pos = new Vector2(0, 0);
             Vector2 half_screen = new Vector2(screen_size.X / 2, screen_size.Y / 2);
+            Vector2 player_pos = half_screen;
             bool map_open = false;
+            Menu();
             while (true)
             {
 
@@ -111,6 +112,13 @@ namespace Team_Fisherman
                 Fighting();
                 return false;
             }
+            else if (buffer[To_Index(coords, size)] == 'd')
+            {
+                //add logic for key
+                
+                return true;
+            }
+
 
             return true;
         }
@@ -130,6 +138,7 @@ namespace Team_Fisherman
             Vector2 play_pos = new Vector2(34, 25);
             Vector2 exit_pos = new Vector2(62, 25);
             Vector2 current = play_pos;
+            
             while (in_menu)
             {
                 buffer.Clear();
