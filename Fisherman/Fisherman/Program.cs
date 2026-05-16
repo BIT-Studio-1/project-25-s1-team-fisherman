@@ -5,14 +5,16 @@ namespace Team_Fisherman
 {
     internal class Program
     {
+        public bool map_open = true;
         static void Main(string[] args)
         {
             //this is a stringbuilder that makes it easy to edit the console output. it works like an a array 
             StringBuilder buffer = new StringBuilder();
             Console.CursorVisible = false;
             Vector2 screen_size = new Vector2(120, 28);
-            Vector2 player_pos = new Vector2(0,0);
+            Vector2 player_pos = new Vector2(0, 0);
             Vector2 half_screen = new Vector2(screen_size.X / 2, screen_size.Y / 2);
+            bool map_open = false;
             while (true)
             {
 
@@ -26,6 +28,8 @@ namespace Team_Fisherman
                     }
                     buffer.Append('\n');
                 }
+
+
                 Vector2 char_pos = new Vector2(0, 0);
                 foreach (string line in File.ReadLines("Map/map.txt"))
                 {
@@ -40,7 +44,7 @@ namespace Team_Fisherman
 
 
 
-                
+
                 //This sets the player's pos
                 buffer[To_Index(player_pos, screen_size)] = 'P';
 
@@ -49,8 +53,8 @@ namespace Team_Fisherman
                 //this removes the flickering that happens when you clear the console and redraw everything, instead of clearing the console we just move the cursor back to the top left and overwrite the existing output with the new output, this makes it look like the player is moving smoothly without any flickering
                 Console.SetCursorPosition(0, 0);
                 Console.Write(buffer.ToString());
-
                 player_pos = Move(player_pos, buffer, screen_size);
+
 
 
             }
@@ -63,7 +67,7 @@ namespace Team_Fisherman
             switch (Key)
             {
                 case ConsoleKey.W:
-                   if (Is_Valid(new Vector2(offset.X, offset.Y - 1), size, buffer))
+                    if (Is_Valid(new Vector2(offset.X, offset.Y - 1), size, buffer))
                         offset.Y -= 1;
                     break;
                 case ConsoleKey.S:
@@ -78,6 +82,10 @@ namespace Team_Fisherman
                     if (Is_Valid(new Vector2(offset.X + 1, offset.Y), size, buffer))
                         offset.X += 1;
                     break;
+                case ConsoleKey.Escape:
+
+                    Menu();
+                    break;
             }
 
             offset = Vector2.Clamp(offset, Vector2.Zero, new Vector2(119, 27));
@@ -89,7 +97,11 @@ namespace Team_Fisherman
             coords = Vector2.Clamp(coords, Vector2.Zero, new Vector2(119, 27));
             if (buffer[To_Index(coords, size)] == '#')
                 return false;
-            
+            if (buffer[To_Index(coords, size)] == '~')
+            {
+                Fishing();
+            }
+
             return true;
         }
         //this function converts a Vector2 into an index for thhe buffer, this means you can access the buffer my chosing the pixel in the console
@@ -105,8 +117,74 @@ namespace Team_Fisherman
 
 
         }
+        static void Menu()
+        {
+            StringBuilder buffer = new StringBuilder();
+            bool in_menu = true;
+            Vector2 screen_size = new Vector2(120, 28);
+            Vector2 play_pos = new Vector2(34, 25);
+            Vector2 exit_pos = new Vector2(62, 25);
+            Vector2 current = play_pos;
+            while (in_menu)
+            {
+                buffer.Clear();
+                for (int y = 0; y < screen_size.Y; y++)
+                {
+                    for (int x = 0; x < screen_size.X; x++)
+                    {
+                        buffer.Append(' ');
+                    }
+                    buffer.Append('\n');
+                }
+
+                Vector2 char_pos = new Vector2(0, 0);
+                foreach (string line in File.ReadLines("Map/menu.txt"))
+                {
+                    foreach (char c in line)
+                    {
+                        buffer[To_Index(char_pos, screen_size)] = c;
+                        char_pos.X += 1;
+                    }
+                    char_pos.Y += 1;
+                    char_pos.X = 0;
+                }
+                
 
 
+                current = Vector2.Clamp(current, play_pos, exit_pos);
+
+                
+                for (int x = (int)current.X; x < current.X + 23; x++)
+                {
+                    buffer[To_Index( new Vector2(x, 24), screen_size)] = '#';
+                }
+
+
+                Console.SetCursorPosition(0, 0);
+                Console.Write(buffer.ToString());
+                var Key = Console.ReadKey(true).Key;
+                switch (Key)
+                {
+                    case ConsoleKey.A:
+                        current.X -= 28;
+                        break;
+                    case ConsoleKey.D:
+                        current.X += 28;
+                        break;
+                    default:
+                        if (current == play_pos)
+                        {
+                            in_menu = false;
+                        }
+                        else if (current == exit_pos)
+                        {
+                            Environment.Exit(0);
+                        }
+                        break;
+
+                }
+            }
+        }
 
 
 
