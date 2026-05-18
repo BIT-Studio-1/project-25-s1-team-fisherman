@@ -684,7 +684,7 @@ namespace Team_Fisherman
         static void GameIntro()
         {
             Console.WriteLine();
-            Console.WriteLine("Are you okay?")
+            Console.WriteLine("Are you okay?");
             Console.WriteLine();
             Console.WriteLine("You've finally returned.");
             Console.WriteLine();
