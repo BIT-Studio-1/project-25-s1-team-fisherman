@@ -636,19 +636,43 @@ namespace Team_Fisherman
             Console.BackgroundColor = ConsoleColor.DarkBlue;
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
+            Console.WriteLine("Press Enter to continue");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine("A violent storm swallows the sea.");
             Console.WriteLine();
             Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.ReadLine();
             Console.WriteLine("You - A simple fisherman, out alone on a late-night fishing trip. What began as a calm evening quickly turns into chaos as dark clouds cover the sky and enormous waves crash against your boat.");
-            Console.WriteLine("Just as you try to turn back, a massive wave smashes into the ship");
+            Console.WriteLine("Just as you try to turn back, a massive wave smashes into the ship.");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
             Thread.Sleep(2000);
+            Console.ReadLine();
             
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
             Console.WriteLine(".....");
             Console.WriteLine();
-            Console.WriteLine("Everything goes black.");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("                                                Everything goes black                                               ");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
@@ -659,6 +683,10 @@ namespace Team_Fisherman
 
         static void GameIntro()
         {
+            Console.WriteLine();
+            Console.WriteLine("Are you okay?")
+            Console.WriteLine();
+            Console.WriteLine("You've finally returned.");
             Console.WriteLine();
         }
     }
