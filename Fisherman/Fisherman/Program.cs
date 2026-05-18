@@ -5,16 +5,20 @@ namespace Team_Fisherman
 {
     internal class Program
     {
-        public bool map_open = true;
+        
         static void Main(string[] args)
         {
             //this is a stringbuilder that makes it easy to edit the console output. it works like an a array 
             StringBuilder buffer = new StringBuilder();
             Console.CursorVisible = false;
+
+            //the coordenets are stroed in a vector2, this has an X and Y value that represent the position on the screen, X is the number of charcters from the left and Y is the number of lines from the top, the top left corner is (0,0) and the bottom right corner is (119,27) since the screen size is 120x28. please use integers for the coordenets to avoid issues with indexing.
+
             Vector2 screen_size = new Vector2(120, 28);
             Vector2 half_screen = new Vector2(screen_size.X / 2, screen_size.Y / 2);
+            // set this to the starting position of the player, currently it is set to the middle of the screen but you can change it to whatever you want, just make sure it is within the bounds of the screen and not on a wall or other object in the map.
             Vector2 player_pos = half_screen;
-            bool map_open = false;
+            
             Menu();
             while (true)
             {
@@ -30,12 +34,16 @@ namespace Team_Fisherman
                     buffer.Append('\n');
                 }
 
-
+                //allows you to edit the map by changing the text in the map.txt file, it will read the file and draw it to the console, you can change the layout of the map and the characters used for different objects by editing the file, just make sure to keep the player character in mind when designing your map so you don't accidentally block off areas or make it impossible for the player to move.
+                //if you add a file like this make sure to add it to the project and set it to copy to the output directory so it can be read by the program, you can do this by right clicking on the file in the solution explorer and going to properties, then setting "Copy to Output Directory" to "Copy always".
                 Vector2 char_pos = new Vector2(0, 0);
                 foreach (string line in File.ReadLines("Map/map.txt"))
                 {
                     foreach (char c in line)
                     {
+                        
+
+
                         buffer[To_Index(char_pos, screen_size)] = c;
                         char_pos.X += 1;
                     }
@@ -54,6 +62,7 @@ namespace Team_Fisherman
                 //this removes the flickering that happens when you clear the console and redraw everything, instead of clearing the console we just move the cursor back to the top left and overwrite the existing output with the new output, this makes it look like the player is moving smoothly without any flickering
                 Console.SetCursorPosition(0, 0);
                 Console.Write(buffer.ToString());
+
                 player_pos = Move(player_pos, buffer, screen_size);
 
 
@@ -114,31 +123,32 @@ namespace Team_Fisherman
             }
             else if (buffer[To_Index(coords, size)] == 'd')
             {
-                //add logic for key
-                
+                //add logic for key to unlock a door.
+                //return true means the player can stand on that tile but it will trigger the door logic, you can change this to false if you want the player to not be able to stand on the tile and just trigger the door logic when they are next to it.
                 return true;
             }
 
 
             return true;
         }
-        //this function converts a Vector2 into an index for thhe buffer, this means you can access the buffer my chosing the pixel in the console
+        //this function converts a Vector2 into an index for thhe buffer, this means you can access the buffer my chosing the pixel in the console. it takes a Vector2 (coords) and a Vector2 (size) and returns an int (index) for accessing the buffer.
         static int To_Index(Vector2 coords, Vector2 size)
         {
             int index = (int)(coords.X + (coords.Y * (size.X + 1)));
             return index;
         }
 
-        
+        //displays the menu and allows the player to choose between starting the game or exiting.
         static void Menu()
         {
+            //this is a stringbuilder that makes it easy to edit the console output. it works like an a array
             StringBuilder buffer = new StringBuilder();
             bool in_menu = true;
             Vector2 screen_size = new Vector2(120, 28);
             Vector2 play_pos = new Vector2(34, 25);
             Vector2 exit_pos = new Vector2(62, 25);
             Vector2 current = play_pos;
-            
+            //this is the menu loop, it will keep running until the player chooses to start the game or exit, it works by drawing the menu and then checking for input, if the player presses A or D it will move the current selection left or right, if they press any other key it will check which option is currently selected and either start the game or exit based on that
             while (in_menu)
             {
                 buffer.Clear();
@@ -150,7 +160,7 @@ namespace Team_Fisherman
                     }
                     buffer.Append('\n');
                 }
-
+                //allows you to edit the menu by changing the text in the menu.txt file, it will read the file and draw it to the console, you can change the text and layout of the menu by editing the file, just make sure to keep the play and exit options in the same place or update the play_pos and exit_pos variables to match the new positions. File.ReadLines("Map/menu.txt") returns an array of strings, each string is a line in the file, the foreach loop goes through each line and then through each character in the line and draws it to the buffer at the correct position based on the char_pos variable which is updated as it goes through the characters and lines.
                 Vector2 char_pos = new Vector2(0, 0);
                 foreach (string line in File.ReadLines("Map/menu.txt"))
                 {
@@ -167,15 +177,17 @@ namespace Team_Fisherman
 
                 current = Vector2.Clamp(current, play_pos, exit_pos);
 
-
+                //adds an underline to the current selection by stepping through the array and changing the characters to '#' for the length of the text.
                 for (int x = (int)current.X; x < current.X + 23; x++)
                 {
                     buffer[To_Index(new Vector2(x, 24), screen_size)] = '#';
                 }
 
-
+                //this removes the flickering that happens when you clear the console and redraw everything, instead of clearing the console we just move the cursor back to the top left and overwrite the existing output with the new output, this makes it look like the menu is moving smoothly without any flickering
                 Console.SetCursorPosition(0, 0);
                 Console.Write(buffer.ToString());
+
+                //this gets the input from the player and updates the current selection based on the input, if they press A it will move the selection left, if they press D it will move the selection right;
                 var Key = Console.ReadKey(true).Key;
                 switch (Key)
                 {
@@ -188,10 +200,12 @@ namespace Team_Fisherman
                     default:
                         if (current == play_pos)
                         {
+                            //breakes the while statement and starts the game.
                             in_menu = false;
                         }
                         else if (current == exit_pos)
                         {
+                            //closes the game.
                             Environment.Exit(0);
                         }
                         break;
@@ -199,6 +213,7 @@ namespace Team_Fisherman
                 }
             }
         }
+        //Put the code for fishing in here.
         static void Fishing()
         {
 
@@ -208,6 +223,7 @@ namespace Team_Fisherman
             Console.Clear();
 
         }
+        //Put the code for shopping in here.
         static void Shopping()
         {
 
@@ -217,10 +233,19 @@ namespace Team_Fisherman
 
 
         }
+        //Put the code for fighting in here.
         static void Fighting()
         {
             Console.WriteLine("Fighting");
             Thread.Sleep(2000); 
+            //Dodging();
+        }
+        //Put the code for dodging in here.
+        static void Dodging()
+        {
+            
+            Console.WriteLine("Dodging");
+            Thread.Sleep(2000);
         }
 
 
