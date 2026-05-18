@@ -7,7 +7,7 @@ namespace Team_Fisherman
 {
     internal class Program
     {
-        //These are ANSI escape sequences, they are the same thing as \n and \t but use a slightly different format. these color the text placed after them until the RESET is added, there are other sequences like underlining and italics as well. Theses are needed beacuse i am using string builders and Console.Color doesnt work with them. you can also combine them.
+        //These are ANSI escape sequences, they are the same thing as \n and \t but use a slightly different format. these color the text placed after them until the RESET is added, there are other sequences like underlining and italics as well. Theses are needed because i am using string builders and Console.Color doesn't work with them. you can also combine them.
         //format for custom color is \x1b[38;5;{ID}m for foreground \x1b[48;5;{ID}m for background where {ID} is from the image in the discord
         const string BLUE = "\x1b[38;5;73m";
         const string RED = "\x1b[91m";
@@ -20,14 +20,14 @@ namespace Team_Fisherman
         {
             //this is a stringbuilder that makes it easy to edit the console output. it works like an a array 
             StringBuilder buffer = new StringBuilder();
-            //Colored buffer just for display, dont use for any checks as To_Index wont work on it, holds the color codes as well so is longer than buffer 
+            //Colored buffer just for display, don't use for any checks as To_Index wont work on it, holds the color codes as well so is longer than buffer 
             StringBuilder color_buffer = new StringBuilder();
-            
+
 
             Console.CursorVisible = false;
             Console.Title = "Fishing";
 
-            //the coordenets are stroed in a vector2, this has an X and Y value that represent the position on the screen, X is the number of charcters from the left and Y is the number of lines from the top, the top left corner is (0,0) and the bottom right corner is (119,27) since the screen size is 120x28. please use integers for the coordenets to avoid issues with indexing.
+            //the coordenets are stored in a vector2, this has an X and Y value that represent the position on the screen, X is the number of characters from the left and Y is the number of lines from the top, the top left corner is (0,0) and the bottom right corner is (119,27) since the screen size is 120x28. please use integers for the coordenets to avoid issues with indexing.
 
             Vector2 screen_size = new Vector2(120, 28);
             Vector2 half_screen = new Vector2(screen_size.X / 2, screen_size.Y / 2);
@@ -40,7 +40,7 @@ namespace Team_Fisherman
 
                 buffer.Clear();
                 color_buffer.Clear();
-                //sets the buffer to be a grid of ' ' characters with the size of the screen, this is the background of the game and will be overwritten with the player and any other objects in the game, you can change the character to whatever you want to make it look different. not needed but will leave commented for refrence.
+                //sets the buffer to be a grid of ' ' characters with the size of the screen, this is the background of the game and will be overwritten with the player and any other objects in the game, you can change the character to whatever you want to make it look different. not needed but will leave commented for reference.
 
                 //for (int y = 0; y < screen_size.Y; y++)
                 //{
@@ -92,7 +92,7 @@ namespace Team_Fisherman
                             buffer.Append(c);
                         }
 
-                            
+
                         //buffer.Append(c);
                         char_pos.X += 1;
                     }
@@ -152,7 +152,7 @@ namespace Team_Fisherman
             offset = Vector2.Clamp(offset, Vector2.Zero, new Vector2(119, 27));
             return offset;
         }
-        //Checks if the new position is valid by checking if there is a '#' in the buffer at the new position, if there is it returns false and the player will not move, if there isn't it returns true and the player will move to the new position, add another if statment 
+        //Checks if the new position is valid by checking if there is a '#' in the buffer at the new position, if there is it returns false and the player will not move, if there isn't it returns true and the player will move to the new position, add another if statement 
         static bool Is_Valid(Vector2 coords, Vector2 size, StringBuilder buffer)
         {
             coords = Vector2.Clamp(coords, Vector2.Zero, new Vector2(119, 27));
@@ -179,18 +179,18 @@ namespace Team_Fisherman
                 //return true means the player can stand on that tile but it will trigger the door logic, you can change this to false if you want the player to not be able to stand on the tile and just trigger the door logic when they are next to it.
                 return true;
             }
-            
+
 
             return true;
         }
-        //this helper function converts a Vector2 into an index for the buffer, this means you can access the buffer my chosing the pixel in the console. it takes a Vector2 (coords) and a Vector2 (size) and returns an int (index) for accessing the buffer.
+        //this helper function converts a Vector2 into an index for the buffer, this means you can access the buffer my choosing the pixel in the console. it takes a Vector2 (coords) and a Vector2 (size) and returns an int (index) for accessing the buffer.
         static int To_Index(Vector2 coords, Vector2 size)
         {
             int index = (int)(coords.X + (coords.Y * (size.X + 1)));
             return index;
         }
-        //This returns the escape code for the specifed color based on the image in the discord, seting the is_foreground changes if the text color cahnges or the highlight color
-        static string Color_Helper(int id,bool is_foreground)
+        //This returns the escape code for the specified color based on the image in the discord, setting the is_foreground changes if the text color changes or the highlight color
+        static string Color_Helper(int id, bool is_foreground)
         {
             string color = "";
             if (is_foreground)
@@ -218,7 +218,7 @@ namespace Team_Fisherman
             Vector2 exit_pos = new Vector2(62, 24);
             Vector2 current = play_pos;
 
-            
+
 
 
             //this is the menu loop, it will keep running until the player chooses to start the game or exit, it works by drawing the menu and then checking for input, if the player presses A or D it will move the current selection left or right, if they press any other key it will check which option is currently selected and either start the game or exit based on that
@@ -235,22 +235,17 @@ namespace Team_Fisherman
                 //}
 
                 //allows you to edit the menu by changing the text in the menu.txt file, it will read the file and draw it to the console, you can change the text and layout of the menu by editing the file, just make sure to keep the play and exit options in the same place or update the play_pos and exit_pos variables to match the new positions. File.ReadLines("Map/menu.txt") returns an array of strings, each string is a line in the file, the foreach loop goes through each line and then through each character in the line and draws it to the buffer at the correct position based on the char_pos variable which is updated as it goes through the characters and lines.
-                Vector2 char_pos = new Vector2(0, 0);
+
+                
                 foreach (string line in File.ReadLines("Map/menu.txt"))
                 {
                     foreach (char c in line)
                     {
-                        
 
-
-
-
-                        buffer.Append( c);
-                        char_pos.X += 1;
+                        buffer.Append(c);
                     }
                     buffer.Append("\n");
-                    char_pos.Y += 1;
-                    char_pos.X = 0;
+                    
                 }
 
 
@@ -282,7 +277,7 @@ namespace Team_Fisherman
                     default:
                         if (current == play_pos)
                         {
-                            //breakes the while statement and starts the game.
+                            //breaks the while statement and starts the game.
                             in_menu = false;
                         }
                         else if (current == exit_pos)
@@ -318,9 +313,311 @@ namespace Team_Fisherman
         //Put the code for fighting in here.
         static void Fighting()
         {
-            Console.WriteLine("Fighting");
+            string[] inventory = { "23", "fish", "2", "health potion", "56", "rock" };
+            string[] attacks = { "slash", "jab", "bow", "other" };
 
-            Thread.Sleep(2000);
+            //object[] mixedArray = new object[] { 10, "Hello World", 25, "C# Rocks" };
+
+
+            ConsoleKeyInfo c = new ConsoleKeyInfo();
+
+            Random random = new Random();
+            int x = 0;
+            int health = 100;
+            int badGuyHealth = 100;
+            string badGuyAttack = "";
+            bool gameRunning = true;
+            string badGuyName = "evil guy of doom";
+
+            // the enemys attack
+            void enemyAttack()
+            {
+                //damge
+                int damage = random.Next(20, 40);
+                health -= damage;
+                badGuyAttack = badGuyName + " does " + damage + " damage";
+                return;
+            }
+
+            // this function converts the string num relateing to the "item" to a int then adds or subtracts the "opper" amount
+            void invtoryNum(string item, int opper)
+            {
+                for (int i = 0; i < inventory.Length; i++)
+                {
+                    if (inventory[i] == item)
+                    {
+                        Console.WriteLine(inventory[i - 1]);
+
+                        int intinv = Convert.ToInt32(inventory[i - 1]);
+                        if (intinv > 0)
+                        {
+                            intinv += opper;
+                            inventory[i - 1] = intinv.ToString();
+                        }
+                        else
+                        {
+                            Console.WriteLine("you dont have enough");
+                        }
+                        return;
+                    }
+                }
+            }
+
+
+
+            do
+            {
+                //Console.WriteLine("\nPress a key to display; " +
+                //                  "press the 'z' key to quit.");
+
+                //while (Console.KeyAvailable == false)
+                //{
+                //    //Console.WriteLine("running");
+                //    //Console.WriteLine("ham");
+                //    // running code
+                //    Thread.Sleep(50);
+                //    x++;
+                //}
+
+
+                // bad guy name
+
+
+
+
+                //string enemyIcon1 = "               ";
+                //string enemyIcon2 = "  _____        ";
+                //string enemyIcon3 = " | >:) |    /  ";
+                //string enemyIcon4 = "  -----    /   ";
+                //string enemyIcon5 = "   |_____ /    ";
+                //string enemyIcon6 = "   /|    /|    ";
+
+
+                string enemyIcon1 = "   _/\\___/\\_  ";
+                string enemyIcon2 = "  |  @ __ @ |   ";
+                string enemyIcon3 = "  |_________|   ";
+                string enemyIcon4 = "   /|.   .|\\   ";
+                string enemyIcon5 = "  / |_____| \\  ";
+                string enemyIcon6 = "    |     |     ";
+                Console.Clear();
+
+                Console.WriteLine("0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0"); // 1
+                Console.WriteLine("|                                                                                                                      |"); // 2
+                Console.WriteLine("|                                                                                                                      |"); // 3
+                Console.WriteLine("|                                                                                                                      |"); // 4
+                Console.WriteLine("|                                                                                                                      |"); // 5
+                Console.WriteLine("|                                                                                                                      |"); // 6
+                Console.WriteLine("|                                                                                 " + enemyIcon1.PadRight(30) + "       |"); // 7
+                Console.WriteLine("|                                                                                 " + enemyIcon2.PadRight(30) + "       |"); // 8
+                Console.WriteLine("|                                                                                 " + enemyIcon3.PadRight(30) + "       |"); // 9
+                Console.WriteLine("|                                                                                 " + enemyIcon4.PadRight(30) + "       |"); // 10
+                Console.WriteLine("|                                                                                 " + enemyIcon5.PadRight(30) + "       |"); // 11
+                Console.WriteLine("|                                                                                 " + enemyIcon6.PadRight(30) + "       |"); // 12
+                Console.WriteLine("|                                                                              " + badGuyName.PadRight(33) + "       |"); // 13
+                Console.WriteLine("|                                                                         enemy Health: " + badGuyHealth.ToString().PadRight(30) + " |"); // 14
+                Console.WriteLine("|                                                                                                                      |"); // 15
+                Console.WriteLine("|                                                                          " + badGuyAttack.PadRight(41) + "   |"); // 16
+                Console.WriteLine("|                                                                                                                      |"); // 17
+                Console.WriteLine("|                                                                                                                      |"); // 18
+                Console.WriteLine("|                                                                                                                      |"); // 19
+                Console.WriteLine("|                                                                                                                      |"); // 20
+                Console.WriteLine("|                                                                                                                      |"); // 21
+                Console.WriteLine("|                                                                                                                      |"); // 22
+                Console.WriteLine("|        Health: " + health.ToString().PadRight(34) + "                                                                    |"); // 23
+                Console.WriteLine("|         A.attacks                                                                                                    |"); // 24
+                Console.WriteLine("|         B.inventory                                                                                                  |"); // 25
+                Console.WriteLine("|                                                                                                                      |"); // 26
+                Console.WriteLine("|                                                                                                                      |"); // 27
+                Console.WriteLine("|                                                                                                                      |"); // 28
+                Console.WriteLine("0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0"); // 29
+
+
+
+                c = Console.ReadKey(true);
+                //Console.WriteLine("You pressed the '{0}' key.", c.Key);
+                if (c.Key == ConsoleKey.A)
+                {
+                    Console.WriteLine("  === attacks ===");
+                    Console.WriteLine("######################");
+
+                    for (int i = 0; i < attacks.Length; i++)
+                    {
+                        Console.Write("## ".PadRight(3) + attacks[i].PadRight(5) + " ##");
+                        // && i !> 0
+                        if (((i + 1) % 2) == 0)
+                        {
+                            Console.Write("\n");
+                            Console.WriteLine("######################");
+                        }
+                    }
+                    //Thread.Sleep(5000);
+                    Console.Write("what attack do you want to do: ");
+                    string attack = Console.ReadLine();
+                    //Console.WriteLine(attack);
+
+                    switch (attack)
+                    {
+                        case "slash":
+                            Console.Write("you do the slash");
+                            badGuyHealth -= 31;
+                            enemyAttack();
+                            break;
+                        case "jab":
+                            Console.Write("you do the jab");
+                            badGuyHealth -= 20;
+                            enemyAttack();
+                            break;
+                        case "bow":
+                            Console.Write("you shoot the bow");
+                            badGuyHealth -= 15;
+                            enemyAttack();
+                            break;
+                        case "other":
+                            Console.Write("you do the other");
+                            badGuyHealth -= 3;
+                            enemyAttack();
+                            break;
+                        case "exit":
+                            Console.WriteLine("exit");
+                            break;
+                        default:
+                            Console.WriteLine("incorrect input");
+                            break;
+                    }
+                    Console.ReadLine();
+                }
+                else if (c.Key == ConsoleKey.B)
+                {
+                    Console.Write("\n");
+                    Console.WriteLine("       ==== inventory ====");
+                    Console.WriteLine("##########################");
+
+                    //Console.WriteLine("###        ######                 ###");
+                    for (int i = 0; i < inventory.Length; i++)
+                    {
+                        bool result = int.TryParse(inventory[i], out int P);
+                        if (result == false) // string
+                        {
+                            Console.Write(" # ".PadRight(3) + inventory[i].PadRight(13) + " ###");
+                            Console.Write("\n");
+                            Console.WriteLine("##########################");
+
+                        }
+                        else  //number
+                        {
+                            Console.Write("### ".PadRight(4) + inventory[i].PadRight(2));
+                        }
+                    }
+                    Console.Write("what item do you want to use: ");
+                    string inv = Console.ReadLine();
+                    Console.WriteLine(inv);
+
+
+                    switch (inv)
+                    {
+                        case "fish":
+                            Console.WriteLine("you eat the fish");
+                            invtoryNum("fish", -1);
+                            break;
+                        case "health potion":
+                            Console.WriteLine("you drink potion");
+                            invtoryNum("health potion", -1);
+                            break;
+                        case "rock":
+                            Console.WriteLine("you rock");
+                            invtoryNum("rock", -1);
+                            break;
+                        case "exit":
+                            Console.WriteLine("exit");
+                            break;
+                        default:
+                            Console.WriteLine("incorrect input");
+                            break;
+                    }
+
+                    // item stuff
+                    Console.ReadLine();
+
+                }
+
+
+
+                if (c.Key == ConsoleKey.P)
+                {
+                    Console.WriteLine("you have a reaction time of " + x + " seconds");
+                    Console.WriteLine("yuh");
+                    Console.ReadLine();
+
+                    Console.Clear();
+                }
+
+
+                if (badGuyHealth <= 0)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("the bad guy is dead you win");
+                    Console.WriteLine("");
+                    gameRunning = false;
+                }
+                else if (health <= 0)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("you are dead you lose");
+                    Console.WriteLine("");
+                    gameRunning = false;
+                }
+
+
+            } while (gameRunning == true);
+            Console.ReadLine();
+            Console.ReadLine();
+            Console.ReadLine();
+            Console.ReadLine();
+
+
+
+
+
+
+
+
+
+
+            //while (c.Key != ConsoleKey.Z);
+
+
+            Console.WriteLine("Hello, World!");
+            ConsoleKeyInfo input = Console.ReadKey(true);
+            //ConsoleKeyInfo c = new ConsoleKeyInfo();
+            while (true)
+            {
+
+                if (Console.KeyAvailable == false)
+                {
+                    Console.WriteLine("yuh");
+                    //Console.KeyAvailable = false;
+                    Console.WriteLine("yuh yuh");
+
+                }
+                //input = Console.ReadKey(true);
+                //if (input.Key == ConsoleKey.A)
+                //{
+                //    Console.WriteLine("print ay ay");
+                //    //input.Key = ConsoleKey.Q;
+                //}
+                //else if (input.Key == ConsoleKey.B)
+                //{
+                //    Console.WriteLine("print B yuh");
+                //}
+                //else
+                //{
+                //    Console.WriteLine("else");
+                //}
+                //Console.WriteLine("run");
+                //input = Console.ReadKey(false);
+            }
+
+
             //Dodging();
         }
         //Put the code for dodging in here.
