@@ -649,6 +649,8 @@ namespace Team_Fisherman
             Console.WriteLine();
             Console.ReadLine();
             Console.WriteLine("You - A simple fisherman, out alone on a late-night fishing trip. What began as a calm evening quickly turns into chaos as dark clouds cover the sky and enormous waves crash against your boat.");
+            Console.WriteLine();
+            Console.ReadLine();
             Console.WriteLine("Just as you try to turn back, a massive wave smashes into the ship.");
             Console.WriteLine();
             Console.WriteLine();
@@ -668,7 +670,19 @@ namespace Team_Fisherman
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine("                                                Everything goes black                                               ");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
@@ -684,6 +698,8 @@ namespace Team_Fisherman
         static void GameIntro()
         {
             Console.WriteLine();
+            Console.WriteLine("When you finally wake up, the sound of the ocean is the only thing you hear.");
+            Console.WriteLine("You find yourself lying on a strange shore surrounded by broken wood and wreckage. A thick fog covers the sea, and in the distance sits a small unfamiliar village.");
             Console.WriteLine("Are you okay?");
             Console.WriteLine();
             Console.WriteLine("You've finally returned.");
