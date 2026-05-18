@@ -6,7 +6,7 @@ namespace Team_Fisherman
 {
     internal class Program
     {
-        //These are ANSI escape sequences, they are the same thing as \n and \t but use a slightly different format. these color the text placed after them until the RESET is added, there are other sequences like underlining and italics as well. Theses are needed beacuse i am using string builders and Console.Color doesnt work with them. you can also combine them.
+        //These are ANSI escape sequences, they are the same thing as \n and \t but use a slightly different format. these color the text placed after them until the RESET is added, there are other sequences like underlining and italics as well. Theses are needed because i am using string builders and Console.Color doesn't work with them. you can also combine them.
         //format for custom color is \x1b[38;5;{ID}m for foreground \x1b[48;5;{ID}m for background where {ID} is from the image in the discord
         const string BLUE = "\x1b[38;5;73m";
         const string RED = "\x1b[91m";
@@ -19,14 +19,14 @@ namespace Team_Fisherman
         {
             //this is a stringbuilder that makes it easy to edit the console output. it works like an a array 
             StringBuilder buffer = new StringBuilder();
-            //Colored buffer just for display, dont use for any checks as To_Index wont work on it, holds the color codes as well so is longer than buffer 
+            //Colored buffer just for display, don't use for any checks as To_Index wont work on it, holds the color codes as well so is longer than buffer 
             StringBuilder color_buffer = new StringBuilder();
             
 
             Console.CursorVisible = false;
             Console.Title = "Fishing";
 
-            //the coordenets are stroed in a vector2, this has an X and Y value that represent the position on the screen, X is the number of charcters from the left and Y is the number of lines from the top, the top left corner is (0,0) and the bottom right corner is (119,27) since the screen size is 120x28. please use integers for the coordenets to avoid issues with indexing.
+            //the coordenets are stored in a vector2, this has an X and Y value that represent the position on the screen, X is the number of characters from the left and Y is the number of lines from the top, the top left corner is (0,0) and the bottom right corner is (119,27) since the screen size is 120x28. please use integers for the coordenets to avoid issues with indexing.
 
             Vector2 screen_size = new Vector2(120, 28);
             Vector2 half_screen = new Vector2(screen_size.X / 2, screen_size.Y / 2);
@@ -39,7 +39,7 @@ namespace Team_Fisherman
 
                 buffer.Clear();
                 color_buffer.Clear();
-                //sets the buffer to be a grid of ' ' characters with the size of the screen, this is the background of the game and will be overwritten with the player and any other objects in the game, you can change the character to whatever you want to make it look different. not needed but will leave commented for refrence.
+                //sets the buffer to be a grid of ' ' characters with the size of the screen, this is the background of the game and will be overwritten with the player and any other objects in the game, you can change the character to whatever you want to make it look different. not needed but will leave commented for reference.
 
                 //for (int y = 0; y < screen_size.Y; y++)
                 //{
@@ -151,7 +151,7 @@ namespace Team_Fisherman
             offset = Vector2.Clamp(offset, Vector2.Zero, new Vector2(119, 27));
             return offset;
         }
-        //Checks if the new position is valid by checking if there is a '#' in the buffer at the new position, if there is it returns false and the player will not move, if there isn't it returns true and the player will move to the new position, add another if statment 
+        //Checks if the new position is valid by checking if there is a '#' in the buffer at the new position, if there is it returns false and the player will not move, if there isn't it returns true and the player will move to the new position, add another if statement 
         static bool Is_Valid(Vector2 coords, Vector2 size, StringBuilder buffer)
         {
             coords = Vector2.Clamp(coords, Vector2.Zero, new Vector2(119, 27));
@@ -182,13 +182,13 @@ namespace Team_Fisherman
 
             return true;
         }
-        //this helper function converts a Vector2 into an index for the buffer, this means you can access the buffer my chosing the pixel in the console. it takes a Vector2 (coords) and a Vector2 (size) and returns an int (index) for accessing the buffer.
+        //this helper function converts a Vector2 into an index for the buffer, this means you can access the buffer my choosing the pixel in the console. it takes a Vector2 (coords) and a Vector2 (size) and returns an int (index) for accessing the buffer.
         static int To_Index(Vector2 coords, Vector2 size)
         {
             int index = (int)(coords.X + (coords.Y * (size.X + 1)));
             return index;
         }
-        //This returns the escape code for the specifed color based on the image in the discord, seting the is_foreground changes if the text color cahnges or the highlight color
+        //This returns the escape code for the specified color based on the image in the discord, setting the is_foreground changes if the text color changes or the highlight color
         static string Color_Helper(int id,bool is_foreground)
         {
             string color = "";
@@ -281,7 +281,7 @@ namespace Team_Fisherman
                     default:
                         if (current == play_pos)
                         {
-                            //breakes the while statement and starts the game.
+                            //breaks the while statement and starts the game.
                             in_menu = false;
                         }
                         else if (current == exit_pos)
@@ -299,7 +299,7 @@ namespace Team_Fisherman
         {
 
 
-
+            
             Thread.Sleep(2000);
             Console.Clear();
 
