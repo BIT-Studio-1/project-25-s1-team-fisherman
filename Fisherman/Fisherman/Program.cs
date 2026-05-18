@@ -12,7 +12,7 @@ namespace Team_Fisherman
         const string RED = "\x1b[91m";
         const string GREEN = "\x1b[32m";
         const string YELLOW = "\x1b[33m";
-        const string MAGENTA = "\x1b[35m";
+        const string MAGENTA = "\x1b[95m";
         const string WHITE = "\x1b[97m";
         const string RESET = "\x1b[0m";
         static void Main(string[] args)
@@ -178,7 +178,7 @@ namespace Team_Fisherman
                 //return true means the player can stand on that tile but it will trigger the door logic, you can change this to false if you want the player to not be able to stand on the tile and just trigger the door logic when they are next to it.
                 return true;
             }
-
+            
 
             return true;
         }
@@ -187,6 +187,23 @@ namespace Team_Fisherman
         {
             int index = (int)(coords.X + (coords.Y * (size.X + 1)));
             return index;
+        }
+        //This returns the escape code for the specifed color based on the image in the discord, seting the is_foreground changes if the text color cahnges or the highlight color
+        static string Color_Helper(int id,bool is_foreground)
+        {
+            string color = "";
+            if (is_foreground)
+            {
+                color = $"\x1b[38;5;{id}";
+            }
+
+            else
+            {
+                color = $"\x1b[48;5;{id}";
+            }
+
+
+            return color;
         }
 
         //displays the menu and allows the player to choose between starting the game or exiting.
