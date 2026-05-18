@@ -1,15 +1,28 @@
-﻿using System.Numerics;
+﻿using System.ComponentModel;
+using System.Numerics;
 using System.Text;
 
 namespace Team_Fisherman
 {
     internal class Program
     {
-        
+        //These are ANSI escape sequences, they are the same thing as \n and \t but use a slightly different format. these color the text placed after them until the RESET is added, there are other sequences like underlining and italics as well. Theses are needed beacuse i am using string builders and Console.Color doesnt work with them. you can also combine them.
+        //format for custom color is \x1b[38;5;{ID}m for foreground \x1b[48;5;{ID}m for background where {ID} is from the image in the discord
+        const string BLUE = "\x1b[38;5;73m";
+        const string RED = "\x1b[91m";
+        const string GREEN = "\x1b[32m";
+        const string YELLOW = "\x1b[33m";
+        const string MAGENTA = "\x1b[35m";
+        const string WHITE = "\x1b[97m";
+        const string RESET = "\x1b[0m";
         static void Main(string[] args)
         {
             //this is a stringbuilder that makes it easy to edit the console output. it works like an a array 
             StringBuilder buffer = new StringBuilder();
+            //Colored buffer just for display, dont use for any checks as To_Index wont work on it, holds the color codes as well so is longer than buffer 
+            StringBuilder color_buffer = new StringBuilder();
+            
+
             Console.CursorVisible = false;
             Console.Title = "Fishing";
 
@@ -19,15 +32,15 @@ namespace Team_Fisherman
             Vector2 half_screen = new Vector2(screen_size.X / 2, screen_size.Y / 2);
             // set this to the starting position of the player, currently it is set to the middle of the screen but you can change it to whatever you want, just make sure it is within the bounds of the screen and not on a wall or other object in the map.
             Vector2 player_pos = half_screen;
-            
+
             Menu();
             while (true)
             {
 
                 buffer.Clear();
+                color_buffer.Clear();
                 //sets the buffer to be a grid of ' ' characters with the size of the screen, this is the background of the game and will be overwritten with the player and any other objects in the game, you can change the character to whatever you want to make it look different. not needed but will leave commented for refrence.
 
-                
                 //for (int y = 0; y < screen_size.Y; y++)
                 //{
                 //    for (int x = 0; x < screen_size.X; x++)
@@ -44,12 +57,45 @@ namespace Team_Fisherman
                 {
                     foreach (char c in line)
                     {
-                        
 
+                        string color = "";
+                        switch (c)
+                        {
+                            case '~':
+                                color = BLUE;
+                                break;
+                            case 'm':
+                                color = RED;
+                                break;
+                            case 's':
+                                color = GREEN;
+                                break;
+                            case 'd':
+                                color = MAGENTA;
+                                break;
+                            case '#':
+                                color = WHITE;
+                                break;
+                            default:
+                                color = RESET;
+                                break;
+                        }
+                        if (char_pos == player_pos)
+                        {
+                            color_buffer.Append($"{RESET}P");
+                            buffer.Append(c);
+                        }
+                        else
+                        {
+                            color_buffer.Append($"{color}{c}");
+                            buffer.Append(c);
+                        }
 
-                        buffer.Append(c);
+                            
+                        //buffer.Append(c);
                         char_pos.X += 1;
                     }
+                    color_buffer.Append('\n');
                     buffer.Append('\n');
                     char_pos.Y += 1;
                     char_pos.X = 0;
@@ -65,7 +111,7 @@ namespace Team_Fisherman
 
                 //this removes the flickering that happens when you clear the console and redraw everything, instead of clearing the console we just move the cursor back to the top left and overwrite the existing output with the new output, this makes it look like the player is moving smoothly without any flickering
                 Console.SetCursorPosition(0, 0);
-                Console.Write(buffer.ToString());
+                Console.Write(color_buffer.ToString());
 
                 player_pos = Move(player_pos, buffer, screen_size);
 
@@ -121,7 +167,8 @@ namespace Team_Fisherman
                 Shopping();
                 return false;
             }
-            else if (buffer[To_Index(coords, size)] == 'm'){
+            else if (buffer[To_Index(coords, size)] == 'm')
+            {
                 Fighting();
                 return false;
             }
@@ -135,7 +182,7 @@ namespace Team_Fisherman
 
             return true;
         }
-        //this function converts a Vector2 into an index for the buffer, this means you can access the buffer my chosing the pixel in the console. it takes a Vector2 (coords) and a Vector2 (size) and returns an int (index) for accessing the buffer.
+        //this helper function converts a Vector2 into an index for the buffer, this means you can access the buffer my chosing the pixel in the console. it takes a Vector2 (coords) and a Vector2 (size) and returns an int (index) for accessing the buffer.
         static int To_Index(Vector2 coords, Vector2 size)
         {
             int index = (int)(coords.X + (coords.Y * (size.X + 1)));
@@ -152,6 +199,10 @@ namespace Team_Fisherman
             Vector2 play_pos = new Vector2(34, 24);
             Vector2 exit_pos = new Vector2(62, 24);
             Vector2 current = play_pos;
+
+            
+
+
             //this is the menu loop, it will keep running until the player chooses to start the game or exit, it works by drawing the menu and then checking for input, if the player presses A or D it will move the current selection left or right, if they press any other key it will check which option is currently selected and either start the game or exit based on that
             while (in_menu)
             {
@@ -171,7 +222,12 @@ namespace Team_Fisherman
                 {
                     foreach (char c in line)
                     {
-                        buffer.Append(c);
+                        
+
+
+
+
+                        buffer.Append( c);
                         char_pos.X += 1;
                     }
                     buffer.Append("\n");
@@ -184,13 +240,13 @@ namespace Team_Fisherman
                 current = Vector2.Clamp(current, play_pos, exit_pos);
 
                 //adds an underline to the current selection by stepping through the array and changing the characters to '#' for the length of the text.
-                
+
                 for (int x = (int)current.X; x < current.X + 23; x++)
                 {
                     buffer[To_Index(new Vector2(x, 24), screen_size)] = '#';
                 }
 
-                
+
                 //this removes the flickering that happens when you clear the console and redraw everything, instead of clearing the console we just move the cursor back to the top left and overwrite the existing output with the new output, this makes it look like the menu is moving smoothly without any flickering
                 Console.SetCursorPosition(0, 0);
                 Console.Write(buffer.ToString());
@@ -213,7 +269,7 @@ namespace Team_Fisherman
                         }
                         else if (current == exit_pos)
                         {
-                            //closes the game.
+                            //closes the game window.
                             Environment.Exit(0);
                         }
                         break;
@@ -226,7 +282,7 @@ namespace Team_Fisherman
         {
 
 
-            
+
             Thread.Sleep(2000);
             Console.Clear();
 
@@ -246,13 +302,13 @@ namespace Team_Fisherman
         {
             Console.WriteLine("Fighting");
 
-            Thread.Sleep(2000); 
+            Thread.Sleep(2000);
             //Dodging();
         }
         //Put the code for dodging in here.
         static void Dodging()
         {
-            
+
             Console.WriteLine("Dodging");
             Thread.Sleep(2000);
         }
