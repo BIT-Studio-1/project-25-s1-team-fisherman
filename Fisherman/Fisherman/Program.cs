@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Numerics;
 using System.Text;
 
@@ -16,9 +17,11 @@ namespace Team_Fisherman
         const string MAGENTA = "\x1b[95m";
         const string WHITE = "\x1b[97m";
         const string RESET = "\x1b[0m";
+        
         static void Main(string[] args)
         {
-
+            
+            Random rand = new Random();
             //this is a stringbuilder that makes it easy to edit the console output. it works like an a array 
             StringBuilder buffer = new StringBuilder();
             //Colored buffer just for display, don't use for any checks as To_Index wont work on it, holds the color codes as well so is longer than buffer 
@@ -27,6 +30,7 @@ namespace Team_Fisherman
 
             Console.CursorVisible = false;
             Console.Title = "Fishing";
+            Console.OutputEncoding = Encoding.UTF8;
 
             //the coordinates are stored in a vector2, this has an X and Y value that represent the position on the screen, X is the number of characters from the left and Y is the number of lines from the top, the top left corner is (0,0) and the bottom right corner is (119,27) since the screen size is 120x28. please use integers for the coordinates to avoid issues with indexing.
 
@@ -34,14 +38,15 @@ namespace Team_Fisherman
             Vector2 half_screen = new Vector2(screen_size.X / 2, screen_size.Y / 2);
             // set this to the starting position of the player, currently it is set to the middle of the screen but you can change it to whatever you want, just make sure it is within the bounds of the screen and not on a wall or other object in the map.
             Vector2 player_pos = half_screen;
-
+            Vector2 map_tile = new Vector2(0, 0);
+            Vector2 map_offset = new Vector2(0, 0);
             string path = "Map/map_start.txt";
 
             Menu();
-            Wait();
+            //Wait();
             while (true)
             {
-
+                path = Get_path(map_tile,path);
                 buffer.Clear();
                 color_buffer.Clear();
                 //sets the buffer to be a grid of ' ' characters with the size of the screen, this is the background of the game and will be overwritten with the player and any other objects in the game, you can change the character to whatever you want to make it look different. not needed but will leave commented for reference.
@@ -60,9 +65,21 @@ namespace Team_Fisherman
                 Vector2 char_pos = new Vector2(0, 0);
                 foreach (string line in File.ReadLines(path))
                 {
-                    foreach (char c in line)
+                    foreach (char ch in line)
                     {
-
+                        char c = ch;
+                        if (c == '?')
+                        {
+                            if (rand.Next(41) == 1)
+                            {
+                                c = 'm';
+                            }
+                            else
+                            {
+                                c = ' ';
+                            }
+                            
+                        }
                         string color = "";
                         switch (c)
                         {
@@ -70,7 +87,7 @@ namespace Team_Fisherman
                                 color = BLUE;
                                 break;
                             case 'm':
-                                color = RED;
+                                color = Color_Helper(0,true);
                                 break;
                             case 's':
                                 color = GREEN;
@@ -80,6 +97,21 @@ namespace Team_Fisherman
                                 break;
                             case '#':
                                 color = WHITE;
+                                break;
+                            case '+':
+                            case '"':
+                                color = GREEN;
+                                break;
+                            case '>':
+                            case '=':
+                            case '<':
+                                color = BLUE;
+                                break;
+                            case '▒':
+                                color = Color_Helper(241,true);
+                                break;
+                            case '░':
+                                color = Color_Helper(130, true);
                                 break;
                             default:
                                 color = RESET;
@@ -115,18 +147,19 @@ namespace Team_Fisherman
                 //buffer[To_Index(half_screen, screen_size)] = '#';
 
                 //this removes the flickering that happens when you clear the console and redraw everything, instead of clearing the console we just move the cursor back to the top left and overwrite the existing output with the new output, this makes it look like the player is moving smoothly without any flickering
+
                 Console.SetCursorPosition(0, 0);
                 Console.Write(color_buffer.ToString());
 
-                player_pos = Move(player_pos, buffer, screen_size);
-
+                player_pos = Move(player_pos, buffer, screen_size, out map_offset);
+                map_tile += map_offset;
 
 
             }
 
         }
         //this function moves the player based on the input and checks if the new position is valid before moving, if you want to add any key bindings just add a new case to the switch statement and call your method
-        static Vector2 Move(Vector2 offset, StringBuilder buffer, Vector2 size)
+        static Vector2 Move(Vector2 offset, StringBuilder buffer, Vector2 size, out Vector2 map_tile)
         {
             var Key = Console.ReadKey(true).Key;
             switch (Key)
@@ -153,26 +186,49 @@ namespace Team_Fisherman
                     break;
             }
 
-            offset = Vector2.Clamp(offset, Vector2.Zero, new Vector2(119, 27));
-            return offset;
+            Vector2 clamped_offset = Vector2.Clamp(offset, Vector2.Zero, new Vector2(119, 27));
+            map_tile = clamped_offset - offset;
+            return clamped_offset;
         }
-        //static string Get_path(Vector2)
-        //{
 
-        //    return "";
-        //}
+        //up 
+        //start right
+        //down
+        static string Get_path(Vector2 map_pos,string current)
+        {
+            string path = "";
+
+            if (map_pos == Vector2.UnitY)
+            {
+                path = "Map/map_up.txt";
+            }
+            else if (map_pos == Vector2.Zero)
+            {
+                path = "Map/map_start.txt";
+            }
+            else if (map_pos == Vector2.UnitX)
+            {
+                path = "Map/map_start.txt";
+            }
+            else
+            {
+                path = current;
+            }
+
+                return path;
+        }
         //Checks if the new position is valid by checking if there is a '#' in the buffer at the new position, if there is it returns false and the player will not move, if there isn't it returns true and the player will move to the new position, add another if statement 
         static bool Is_Valid(Vector2 coords, Vector2 size, StringBuilder buffer)
         {
             coords = Vector2.Clamp(coords, Vector2.Zero, new Vector2(119, 27));
-            if (buffer[To_Index(coords, size)] == '#')
+            if (buffer[To_Index(coords, size)] == '#' || buffer[To_Index(coords, size)] == '+')
                 return false;
             else if (buffer[To_Index(coords, size)] == '~')
             {
                 Fishing();
                 return false;
             }
-            else if (buffer[To_Index(coords, size)] == 's')
+            else if (buffer[To_Index(coords, size)] == 'S')
             {
                 Shopping();
                 return false;
@@ -204,7 +260,7 @@ namespace Team_Fisherman
             string color = "";
             if (is_foreground)
             {
-                color = @"\x1b[38;5;" + id + "m";
+                color = $"\x1b[38;5;" + id + "m";
             }
 
             else
@@ -246,7 +302,7 @@ namespace Team_Fisherman
 
                 //allows you to edit the menu by changing the text in the menu.txt file, it will read the file and draw it to the console, you can change the text and layout of the menu by editing the file, just make sure to keep the play and exit options in the same place or update the play_pos and exit_pos variables to match the new positions. File.ReadLines("Map/menu.txt") returns an array of strings, each string is a line in the file, the foreach loop goes through each line and then through each character in the line and draws it to the buffer at the correct position based on the char_pos variable which is updated as it goes through the characters and lines.
 
-                
+
                 foreach (string line in File.ReadLines("Map/menu.txt"))
                 {
                     foreach (char c in line)
@@ -255,7 +311,7 @@ namespace Team_Fisherman
                         buffer.Append(c);
                     }
                     buffer.Append("\n");
-                    
+
                 }
 
 
@@ -289,6 +345,7 @@ namespace Team_Fisherman
                         {
                             //breaks the while statement and starts the game.
                             in_menu = false;
+                            Console.Clear();
                         }
                         else if (current == exit_pos)
                         {
@@ -306,7 +363,7 @@ namespace Team_Fisherman
 
 
 
-            Thread.Sleep(2000);
+            Thread.Sleep(500);
             Console.Clear();
 
         }
@@ -316,7 +373,8 @@ namespace Team_Fisherman
 
 
             Console.WriteLine("Shopping");
-            Thread.Sleep(2000);
+            Thread.Sleep(500);
+            Console.Clear();
 
 
         }
@@ -374,7 +432,7 @@ namespace Team_Fisherman
                 }
             }
 
-            static void WriteTing(ref StringBuilder buff  ,string guy, Vector2 screen_size , Vector2 pos)
+            static void WriteTing(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
             {
                 int count = 0;
                 foreach (char ch in guy)
@@ -428,9 +486,55 @@ namespace Team_Fisherman
 
                 foreach (string line in File.ReadLines("Map/fighting/FightingMenu.txt")) // loops through txt file
                 {
+<<<<<<< HEAD
                 foreach (char p in line) //each line
                 {
                     buffer.Append(p);
+=======
+                    buffer.Clear();
+                    Console.SetCursorPosition(0, 0);
+
+                    foreach (string line in File.ReadLines("Map/fighting/FightingMenu.txt")) // loops through txt file
+                    {
+
+                        foreach (char p in line) //each line
+                        {
+                            //Console.Write(p);
+                            buffer.Append(p);
+                        }
+                        buffer.Append("\n");
+                    }
+                    int count = 0;
+
+                    WriteTing(ref buffer, enemyIcon1, screen_size, new Vector2(66, 7));
+                    WriteTing(ref buffer, enemyIcon2, screen_size, new Vector2(66, 8));
+                    WriteTing(ref buffer, enemyIcon3, screen_size, new Vector2(66, 9));
+                    WriteTing(ref buffer, enemyIcon4, screen_size, new Vector2(66, 10));
+                    WriteTing(ref buffer, enemyIcon5, screen_size, new Vector2(66, 11));
+                    WriteTing(ref buffer, enemyIcon6, screen_size, new Vector2(66, 12));
+                    //WriteTing(buffer, enemyIcon2, screen_size);
+                    //WriteTing(buffer, enemyIcon3, screen_size);
+                    //WriteTing(buffer, enemyIcon4, screen_size);
+                    //WriteTing(buffer, enemyIcon5, screen_size);
+                    //WriteTing(buffer, enemyIcon6, screen_size);
+                    //foreach (char ch in "-----")
+                    //{
+                    //    buffer[To_Index(new Vector2(count + 66, 8), screen_size)] = ch;
+                    //    count++;
+                    //}
+
+
+                    //for (int q = (int)current.X; q < current.X + 23; q++)
+                    //{
+                    //    //Console.WriteLine("ran");
+                    //    buffer[To_Index(new Vector2(q, 15), screen_size)] = '#';
+                    //}
+
+                    Console.Write(buffer.ToString()); // writes the thing
+                    Console.ReadLine();
+
+
+>>>>>>> 5a34b63fab4015e36aa1382c5bc4448514b6f6dc
                 }
                     buffer.Append("\n");
                 }
@@ -639,16 +743,16 @@ namespace Team_Fisherman
                     Console.WriteLine("");
                     gameRunning = false;
                 }
-                 
+
 
             } while (gameRunning == true);
             Console.ReadLine();
             Console.ReadLine();
             Console.ReadLine();
             Console.ReadLine();
-            }
-            //Dodging();
-        
+        }
+        //Dodging();
+
         //Put the code for dodging in here.
         static void Dodging()
         {
@@ -663,7 +767,7 @@ namespace Team_Fisherman
         {
             //Console.BackgroundColor = ConsoleColor.DarkBlue;
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(Color_Helper(17,false));
+            Console.Write(Color_Helper(17, false));
             //Console.Clear();
 
             // this line is the ANSI Escape sequence for clearing the console, it is needed as the regular console.clear() removes the formatting causing color differences.
@@ -688,11 +792,11 @@ namespace Team_Fisherman
             Console.WriteLine();
             Thread.Sleep(2000);
             Console.ReadLine();
-            
+
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
-            Console.WriteLine(".....");
+            //Console.WriteLine(".....");
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
