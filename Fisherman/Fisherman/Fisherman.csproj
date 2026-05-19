@@ -8,14 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< HEAD
+
     <None Update="Map\fighting\FighitngMenu.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Map\map.txt">
-=======
+		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
     <None Update="Map\map_start.txt">
->>>>>>> d8413249b244953a1ef07b75f6b5d3aff3749a13
+
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Map\menu.txt">

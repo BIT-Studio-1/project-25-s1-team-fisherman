@@ -377,7 +377,7 @@ namespace Team_Fisherman
                 int count = 0;
                 foreach (char ch in guy)
                 {
-                    buff[To_Index(new Vector2(count + 66, 8), scrn_size)] = ch;
+                    buff[To_Index(new Vector2(count + pos.X, pos.Y), scrn_size)] = ch;
                     count++;
                 }
             }
@@ -396,7 +396,7 @@ namespace Team_Fisherman
                 //    x++;
                 //}
 
-               
+
 
                 // bad guy name
 
@@ -432,9 +432,14 @@ namespace Team_Fisherman
                         }
                         buffer.Append("\n");
                     }
-                    int count =0;
+                    int count = 0;
 
-                    WriteTing(ref buffer, enemyIcon3, screen_size ,new Vector2(66,8));
+                    WriteTing(ref buffer, enemyIcon1, screen_size, new Vector2(66, 7));
+                    WriteTing(ref buffer, enemyIcon2, screen_size, new Vector2(66, 8));
+                    WriteTing(ref buffer, enemyIcon3, screen_size, new Vector2(66, 9));
+                    WriteTing(ref buffer, enemyIcon4, screen_size, new Vector2(66, 10));
+                    WriteTing(ref buffer, enemyIcon5, screen_size, new Vector2(66, 11));
+                    WriteTing(ref buffer, enemyIcon6, screen_size, new Vector2(66, 12));
                     //WriteTing(buffer, enemyIcon2, screen_size);
                     //WriteTing(buffer, enemyIcon3, screen_size);
                     //WriteTing(buffer, enemyIcon4, screen_size);
@@ -455,11 +460,12 @@ namespace Team_Fisherman
 
                     Console.Write(buffer.ToString()); // writes the thing
                     Console.ReadLine();
+                    
 
                 }
-                
 
-                
+
+
 
                 //string enemyIcon1 = "   _/\\___/\\_  ";
                 //string enemyIcon2 = "  |  @ __ @ |   ";
@@ -634,7 +640,7 @@ namespace Team_Fisherman
                     Console.WriteLine("");
                     gameRunning = false;
                 }
-
+                 
 
             } while (gameRunning == true);
             Console.ReadLine();
