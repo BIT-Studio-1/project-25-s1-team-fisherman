@@ -35,9 +35,10 @@ namespace Team_Fisherman
             // set this to the starting position of the player, currently it is set to the middle of the screen but you can change it to whatever you want, just make sure it is within the bounds of the screen and not on a wall or other object in the map.
             Vector2 player_pos = half_screen;
 
-            
+            string path = "Map/map_start.txt";
 
             Menu();
+            Wait();
             while (true)
             {
 
@@ -57,7 +58,7 @@ namespace Team_Fisherman
                 //allows you to edit the map by changing the text in the map.txt file, it will read the file and draw it to the console, you can change the layout of the map and the characters used for different objects by editing the file, just make sure to keep the player character in mind when designing your map so you don't accidentally block off areas or make it impossible for the player to move.
                 //if you add a file like this make sure to add it to the project and set it to copy to the output directory so it can be read by the program, you can do this by right clicking on the file in the solution explorer and going to properties, then setting "Copy to Output Directory" to "Copy always".
                 Vector2 char_pos = new Vector2(0, 0);
-                foreach (string line in File.ReadLines("Map/map.txt"))
+                foreach (string line in File.ReadLines(path))
                 {
                     foreach (char c in line)
                     {
@@ -155,6 +156,11 @@ namespace Team_Fisherman
             offset = Vector2.Clamp(offset, Vector2.Zero, new Vector2(119, 27));
             return offset;
         }
+        //static string Get_path(Vector2)
+        //{
+
+        //    return "";
+        //}
         //Checks if the new position is valid by checking if there is a '#' in the buffer at the new position, if there is it returns false and the player will not move, if there isn't it returns true and the player will move to the new position, add another if statement 
         static bool Is_Valid(Vector2 coords, Vector2 size, StringBuilder buffer)
         {
@@ -198,12 +204,12 @@ namespace Team_Fisherman
             string color = "";
             if (is_foreground)
             {
-                color = $"\x1b[38;5;{id}";
+                color = @"\x1b[38;5;" + id + "m";
             }
 
             else
             {
-                color = $"\x1b[48;5;{id}";
+                color = $"\x1b[48;5;" + id + "m";
             }
 
 
@@ -647,6 +653,77 @@ namespace Team_Fisherman
         }
 
 
+        //Game instruction here 
+        static void Wait()
+        {
+            //Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(Color_Helper(18,false));
+            Console.Clear();
 
+            Console.WriteLine("A violent storm swallows the sea.");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.ReadLine();
+            Console.WriteLine("You - A simple fisherman, out alone on a late-night fishing trip. What began as a calm evening quickly turns into chaos as dark clouds cover the sky and enormous waves crash against your boat.");
+            Console.WriteLine();
+            Console.ReadLine();
+            Console.WriteLine("Just as you try to turn back, a massive wave smashes into the ship.");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Thread.Sleep(2000);
+            Console.ReadLine();
+            
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Clear();
+            Console.WriteLine(".....");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("                                                Everything goes black                                               ");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Press Enter to continue");
+            Console.ReadLine();
+
+        }
+
+        static void GameIntro()
+        {
+            Console.WriteLine();
+            Console.WriteLine("When you finally wake up, the sound of the ocean is the only thing you hear.");
+            Console.WriteLine("You find yourself lying on a strange shore surrounded by broken wood and wreckage. A thick fog covers the sea, and in the distance sits a small unfamiliar village.");
+            Console.WriteLine("Are you okay?");
+            Console.WriteLine();
+            Console.WriteLine("You've finally returned.");
+            Console.WriteLine();
+        }
     }
 }
