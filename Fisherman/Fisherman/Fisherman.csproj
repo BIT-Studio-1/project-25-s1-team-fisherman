@@ -9,7 +9,7 @@
 
   <ItemGroup>
 
-    <None Update="Map\fighting\FighitngMenu.txt">
+    <None Update="Map\fighting\FightingMenu.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Map\map.txt">

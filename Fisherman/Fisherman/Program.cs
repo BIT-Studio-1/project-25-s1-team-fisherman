@@ -28,7 +28,7 @@ namespace Team_Fisherman
             Console.CursorVisible = false;
             Console.Title = "Fishing";
 
-            //the coordenets are stored in a vector2, this has an X and Y value that represent the position on the screen, X is the number of characters from the left and Y is the number of lines from the top, the top left corner is (0,0) and the bottom right corner is (119,27) since the screen size is 120x28. please use integers for the coordenets to avoid issues with indexing.
+            //the coordinates are stored in a vector2, this has an X and Y value that represent the position on the screen, X is the number of characters from the left and Y is the number of lines from the top, the top left corner is (0,0) and the bottom right corner is (119,27) since the screen size is 120x28. please use integers for the coordinates to avoid issues with indexing.
 
             Vector2 screen_size = new Vector2(120, 28);
             Vector2 half_screen = new Vector2(screen_size.X / 2, screen_size.Y / 2);
@@ -125,7 +125,7 @@ namespace Team_Fisherman
             }
 
         }
-        //this function moves the player based on the input and checks if the new position is valid before moving, if you want to add any keybindings just add a new case to the switch statement and call your method
+        //this function moves the player based on the input and checks if the new position is valid before moving, if you want to add any key bindings just add a new case to the switch statement and call your method
         static Vector2 Move(Vector2 offset, StringBuilder buffer, Vector2 size)
         {
             var Key = Console.ReadKey(true).Key;
@@ -338,18 +338,18 @@ namespace Team_Fisherman
             bool gameRunning = true;
             string badGuyName = "evil guy of doom";
 
-            // the enemys attack
+            // the enemies attack
             void enemyAttack()
             {
-                //damge
+                //damage
                 int damage = random.Next(20, 40);
                 health -= damage;
                 badGuyAttack = badGuyName + " does " + damage + " damage";
                 return;
             }
 
-            // this function converts the string num relateing to the "item" to a int then adds or subtracts the "opper" amount
-            void invtoryNum(string item, int opper)
+            // this function converts the string num relating to the "item" to a int then adds or subtracts the "opper" amount
+            void InventoryNum(string item, int opper)
             {
                 for (int i = 0; i < inventory.Length; i++)
                 {
@@ -357,27 +357,27 @@ namespace Team_Fisherman
                     {
                         Console.WriteLine(inventory[i - 1]);
 
-                        int intinv = Convert.ToInt32(inventory[i - 1]);
-                        if (intinv > 0)
+                        int int_inv = Convert.ToInt32(inventory[i - 1]);
+                        if (int_inv > 0)
                         {
-                            intinv += opper;
-                            inventory[i - 1] = intinv.ToString();
+                            int_inv += opper;
+                            inventory[i - 1] = int_inv.ToString();
                         }
                         else
                         {
-                            Console.WriteLine("you dont have enough");
+                            Console.WriteLine("you don't have enough");
                         }
                         return;
                     }
                 }
             }
 
-            static void WriteTing(ref StringBuilder buff  ,string guy, Vector2 scrn_size , Vector2 pos)
+            static void WriteTing(ref StringBuilder buff  ,string guy, Vector2 screen_size , Vector2 pos)
             {
                 int count = 0;
                 foreach (char ch in guy)
                 {
-                    buff[To_Index(new Vector2(count + pos.X, pos.Y), scrn_size)] = ch;
+                    buff[To_Index(new Vector2(count + pos.X, pos.Y), screen_size)] = ch;
                     count++;
                 }
             }
@@ -422,7 +422,7 @@ namespace Team_Fisherman
                     buffer.Clear();
                     Console.SetCursorPosition(0, 0);
 
-                    foreach (string line in File.ReadLines("Map/fighting/FighitngMenu.txt")) // loops through txt file
+                    foreach (string line in File.ReadLines("Map/fighting/FightingMenu.txt")) // loops through txt file
                     {
 
                         foreach (char p in line) //each line
@@ -591,15 +591,15 @@ namespace Team_Fisherman
                     {
                         case "fish":
                             Console.WriteLine("you eat the fish");
-                            invtoryNum("fish", -1);
+                            InventoryNum("fish", -1);
                             break;
                         case "health potion":
                             Console.WriteLine("you drink potion");
-                            invtoryNum("health potion", -1);
+                            InventoryNum("health potion", -1);
                             break;
                         case "rock":
                             Console.WriteLine("you rock");
-                            invtoryNum("rock", -1);
+                            InventoryNum("rock", -1);
                             break;
                         case "exit":
                             Console.WriteLine("exit");
@@ -664,8 +664,13 @@ namespace Team_Fisherman
         {
             //Console.BackgroundColor = ConsoleColor.DarkBlue;
             Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(Color_Helper(18,false));
-            Console.Clear();
+            Console.Write(Color_Helper(17,false));
+            //Console.Clear();
+
+            // this line is the ANSI Escape sequence for clearing the console, it is needed as the regular console.clear() removes the formatting causing color differences.
+            Console.Write("\x1b[2J");
+            //this sets the cursor position to 1,1
+            Console.Write("\x1b[H");
 
             Console.WriteLine("A violent storm swallows the sea.");
             Console.WriteLine();
