@@ -19,6 +19,9 @@
 
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Map\map_up.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Map\menu.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
