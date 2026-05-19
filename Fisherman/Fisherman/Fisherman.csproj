@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="Map\fighting\FighitngMenu.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Map\map.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

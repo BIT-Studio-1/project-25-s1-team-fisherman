@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Numerics;
 using System.Text;
 
@@ -17,6 +18,7 @@ namespace Team_Fisherman
         const string RESET = "\x1b[0m";
         static void Main(string[] args)
         {
+
             //this is a stringbuilder that makes it easy to edit the console output. it works like an a array 
             StringBuilder buffer = new StringBuilder();
             //Colored buffer just for display, don't use for any checks as To_Index wont work on it, holds the color codes as well so is longer than buffer 
@@ -32,6 +34,8 @@ namespace Team_Fisherman
             Vector2 half_screen = new Vector2(screen_size.X / 2, screen_size.Y / 2);
             // set this to the starting position of the player, currently it is set to the middle of the screen but you can change it to whatever you want, just make sure it is within the bounds of the screen and not on a wall or other object in the map.
             Vector2 player_pos = half_screen;
+
+            
 
             Menu();
             while (true)
@@ -362,7 +366,15 @@ namespace Team_Fisherman
                 }
             }
 
-
+            static void WriteTing(ref StringBuilder buff  ,string guy, Vector2 scrn_size , Vector2 pos)
+            {
+                int count = 0;
+                foreach (char ch in guy)
+                {
+                    buff[To_Index(new Vector2(count + 66, 8), scrn_size)] = ch;
+                    count++;
+                }
+            }
 
             do
             {
@@ -378,57 +390,108 @@ namespace Team_Fisherman
                 //    x++;
                 //}
 
+               
 
                 // bad guy name
 
 
+                StringBuilder buffer = new StringBuilder();
+                bool in_menu = true;
+                Vector2 screen_size = new Vector2(120, 28);
+                Vector2 play_pos = new Vector2(34, 24);
+                Vector2 exit_pos = new Vector2(62, 24);
+                Vector2 current = play_pos;
+
+                string enemyIcon1 = "               ";
+                string enemyIcon2 = "  _____        ";
+                string enemyIcon3 = " | >:) |    /  ";
+                string enemyIcon4 = "  -----    /   ";
+                string enemyIcon5 = "   |_____ /    ";
+                string enemyIcon6 = "   /|    /|    ";
+
+                // @@@
+
+                while (true)
+                {
+                    buffer.Clear();
+                    Console.SetCursorPosition(0, 0);
+
+                    foreach (string line in File.ReadLines("Map/fighting/FighitngMenu.txt")) // loops through txt file
+                    {
+
+                        foreach (char p in line) //each line
+                        {
+                            //Console.Write(p);
+                            buffer.Append(p);
+                        }
+                        buffer.Append("\n");
+                    }
+                    int count =0;
+
+                    WriteTing(ref buffer, enemyIcon3, screen_size ,new Vector2(66,8));
+                    //WriteTing(buffer, enemyIcon2, screen_size);
+                    //WriteTing(buffer, enemyIcon3, screen_size);
+                    //WriteTing(buffer, enemyIcon4, screen_size);
+                    //WriteTing(buffer, enemyIcon5, screen_size);
+                    //WriteTing(buffer, enemyIcon6, screen_size);
+                    //foreach (char ch in "-----")
+                    //{
+                    //    buffer[To_Index(new Vector2(count + 66, 8), screen_size)] = ch;
+                    //    count++;
+                    //}
 
 
-                //string enemyIcon1 = "               ";
-                //string enemyIcon2 = "  _____        ";
-                //string enemyIcon3 = " | >:) |    /  ";
-                //string enemyIcon4 = "  -----    /   ";
-                //string enemyIcon5 = "   |_____ /    ";
-                //string enemyIcon6 = "   /|    /|    ";
+                    //for (int q = (int)current.X; q < current.X + 23; q++)
+                    //{
+                    //    //Console.WriteLine("ran");
+                    //    buffer[To_Index(new Vector2(q, 15), screen_size)] = '#';
+                    //}
 
+                    Console.Write(buffer.ToString()); // writes the thing
+                    Console.ReadLine();
 
-                string enemyIcon1 = "   _/\\___/\\_  ";
-                string enemyIcon2 = "  |  @ __ @ |   ";
-                string enemyIcon3 = "  |_________|   ";
-                string enemyIcon4 = "   /|.   .|\\   ";
-                string enemyIcon5 = "  / |_____| \\  ";
-                string enemyIcon6 = "    |     |     ";
-                Console.Clear();
+                }
+                
 
-                Console.WriteLine("0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0"); // 1
-                Console.WriteLine("|                                                                                                                      |"); // 2
-                Console.WriteLine("|                                                                                                                      |"); // 3
-                Console.WriteLine("|                                                                                                                      |"); // 4
-                Console.WriteLine("|                                                                                                                      |"); // 5
-                Console.WriteLine("|                                                                                                                      |"); // 6
-                Console.WriteLine("|                                                                                 " + enemyIcon1.PadRight(30) + "       |"); // 7
-                Console.WriteLine("|                                                                                 " + enemyIcon2.PadRight(30) + "       |"); // 8
-                Console.WriteLine("|                                                                                 " + enemyIcon3.PadRight(30) + "       |"); // 9
-                Console.WriteLine("|                                                                                 " + enemyIcon4.PadRight(30) + "       |"); // 10
-                Console.WriteLine("|                                                                                 " + enemyIcon5.PadRight(30) + "       |"); // 11
-                Console.WriteLine("|                                                                                 " + enemyIcon6.PadRight(30) + "       |"); // 12
-                Console.WriteLine("|                                                                              " + badGuyName.PadRight(33) + "       |"); // 13
-                Console.WriteLine("|                                                                         enemy Health: " + badGuyHealth.ToString().PadRight(30) + " |"); // 14
-                Console.WriteLine("|                                                                                                                      |"); // 15
-                Console.WriteLine("|                                                                          " + badGuyAttack.PadRight(41) + "   |"); // 16
-                Console.WriteLine("|                                                                                                                      |"); // 17
-                Console.WriteLine("|                                                                                                                      |"); // 18
-                Console.WriteLine("|                                                                                                                      |"); // 19
-                Console.WriteLine("|                                                                                                                      |"); // 20
-                Console.WriteLine("|                                                                                                                      |"); // 21
-                Console.WriteLine("|                                                                                                                      |"); // 22
-                Console.WriteLine("|        Health: " + health.ToString().PadRight(34) + "                                                                    |"); // 23
-                Console.WriteLine("|         A.attacks                                                                                                    |"); // 24
-                Console.WriteLine("|         B.inventory                                                                                                  |"); // 25
-                Console.WriteLine("|                                                                                                                      |"); // 26
-                Console.WriteLine("|                                                                                                                      |"); // 27
-                Console.WriteLine("|                                                                                                                      |"); // 28
-                Console.WriteLine("0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0"); // 29
+                
+
+                //string enemyIcon1 = "   _/\\___/\\_  ";
+                //string enemyIcon2 = "  |  @ __ @ |   ";
+                //string enemyIcon3 = "  |_________|   ";
+                //string enemyIcon4 = "   /|.   .|\\   ";
+                //string enemyIcon5 = "  / |_____| \\  ";
+                //string enemyIcon6 = "    |     |     ";
+                //Console.Clear();
+
+                //Console.WriteLine("0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0"); // 1
+                //Console.WriteLine("|                                                                                                                      |"); // 2
+                //Console.WriteLine("|                                                                                                                      |"); // 3
+                //Console.WriteLine("|                                                                                                                      |"); // 4
+                //Console.WriteLine("|                                                                                                                      |"); // 5
+                //Console.WriteLine("|                                                                                                                      |"); // 6
+                //Console.WriteLine("|                                                                                 " + enemyIcon1.PadRight(30) + "       |"); // 7
+                //Console.WriteLine("|                                                                                 " + enemyIcon2.PadRight(30) + "       |"); // 8
+                //Console.WriteLine("|                                                                                 " + enemyIcon3.PadRight(30) + "       |"); // 9
+                //Console.WriteLine("|                                                                                 " + enemyIcon4.PadRight(30) + "       |"); // 10
+                //Console.WriteLine("|                                                                                 " + enemyIcon5.PadRight(30) + "       |"); // 11
+                //Console.WriteLine("|                                                                                 " + enemyIcon6.PadRight(30) + "       |"); // 12
+                //Console.WriteLine("|                                                                              " + badGuyName.PadRight(33) + "       |"); // 13
+                //Console.WriteLine("|                                                                         enemy Health: " + badGuyHealth.ToString().PadRight(30) + " |"); // 14
+                //Console.WriteLine("|                                                                                                                      |"); // 15
+                //Console.WriteLine("|                                                                          " + badGuyAttack.PadRight(41) + "   |"); // 16
+                //Console.WriteLine("|                                                                                                                      |"); // 17
+                //Console.WriteLine("|                                                                                                                      |"); // 18
+                //Console.WriteLine("|                                                                                                                      |"); // 19
+                //Console.WriteLine("|                                                                                                                      |"); // 20
+                //Console.WriteLine("|                                                                                                                      |"); // 21
+                //Console.WriteLine("|                                                                                                                      |"); // 22
+                //Console.WriteLine("|        Health: " + health.ToString().PadRight(34) + "                                                                    |"); // 23
+                //Console.WriteLine("|         A.attacks                                                                                                    |"); // 24
+                //Console.WriteLine("|         B.inventory                                                                                                  |"); // 25
+                //Console.WriteLine("|                                                                                                                      |"); // 26
+                //Console.WriteLine("|                                                                                                                      |"); // 27
+                //Console.WriteLine("|                                                                                                                      |"); // 28
+                //Console.WriteLine("0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0"); // 29
 
 
 
@@ -572,53 +635,9 @@ namespace Team_Fisherman
             Console.ReadLine();
             Console.ReadLine();
             Console.ReadLine();
-
-
-
-
-
-
-
-
-
-
-            //while (c.Key != ConsoleKey.Z);
-
-
-            Console.WriteLine("Hello, World!");
-            ConsoleKeyInfo input = Console.ReadKey(true);
-            //ConsoleKeyInfo c = new ConsoleKeyInfo();
-            while (true)
-            {
-
-                if (Console.KeyAvailable == false)
-                {
-                    Console.WriteLine("yuh");
-                    //Console.KeyAvailable = false;
-                    Console.WriteLine("yuh yuh");
-
-                }
-                //input = Console.ReadKey(true);
-                //if (input.Key == ConsoleKey.A)
-                //{
-                //    Console.WriteLine("print ay ay");
-                //    //input.Key = ConsoleKey.Q;
-                //}
-                //else if (input.Key == ConsoleKey.B)
-                //{
-                //    Console.WriteLine("print B yuh");
-                //}
-                //else
-                //{
-                //    Console.WriteLine("else");
-                //}
-                //Console.WriteLine("run");
-                //input = Console.ReadKey(false);
             }
-
-
             //Dodging();
-        }
+        
         //Put the code for dodging in here.
         static void Dodging()
         {
