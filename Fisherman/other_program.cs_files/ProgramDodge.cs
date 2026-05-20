@@ -81,6 +81,8 @@ class Game
             {
                 // Rendering What will be displayed on the screen
                 Console.SetCursorPosition(0, 0);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine($"Score: {score}\tHealth: {health}\n--------------------------------");
 
                 for (int i = 0; i < gridYLimit + 1; i++)
                 {
