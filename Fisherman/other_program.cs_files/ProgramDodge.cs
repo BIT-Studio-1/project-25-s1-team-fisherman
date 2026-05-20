@@ -105,7 +105,12 @@ class Game
                     }
                     Console.WriteLine();
                 }
+                Thread.Sleep(100);
             }
         }
+
+        // Game Over Screen
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.White;
     }
 }
