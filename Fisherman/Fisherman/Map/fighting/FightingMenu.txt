@@ -5,22 +5,22 @@
 |                                                                                                                      |
 |                                                                                                                      |
 |                                                                                                                      |
-|                                                                "                                                     |
-|                                                                "                                                     |
-|                                                                "                                                     |
-|                                                                "                                                     |
-|                                                                "                                                     |
-|                                                                "                                                     |
-|                                                           enemy Health: " + badGuyHealth.ToString().PadRight(30) + " |
-|                                                                                                                      |
-|                                                                                  " + badGuyAttack.PadRight(41) + "   |
 |                                                                                                                      |
 |                                                                                                                      |
 |                                                                                                                      |
 |                                                                                                                      |
 |                                                                                                                      |
 |                                                                                                                      |
-|        Health: " + health.ToString().PadRight(34) + "                                                                |
+|                                                                                                                      |
+|                                                                                                                      |
+|                                                                                                                      |
+|                                                                                                                      |
+|                                                                                                                      |
+|                                                                                                                      |
+|                                                                                                                      |
+|                                                                                                                      |
+|                                                                                                                      |
+|                                                                                                                      |
 |         A.attacks                                                                                                    |
 |         B.inventory                                                                                                  |
 |                                                                                                                      |

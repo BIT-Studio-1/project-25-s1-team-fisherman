@@ -21,7 +21,7 @@ namespace Team_Fisherman
         public static Vector2 screen_size = new Vector2(120, 28);
         static void Main(string[] args)
         {
-            
+
             Random rand = new Random();
             //this is a stringbuilder that makes it easy to edit the console output. it works like an a array 
             StringBuilder buffer = new StringBuilder();
@@ -47,7 +47,7 @@ namespace Team_Fisherman
             //Wait();
             while (true)
             {
-                path = Get_path(map_tile,path);
+                path = Get_path(map_tile, path);
                 buffer.Clear();
                 color_buffer.Clear();
                 //sets the buffer to be a grid of ' ' characters with the size of the screen, this is the background of the game and will be overwritten with the player and any other objects in the game, you can change the character to whatever you want to make it look different. not needed but will leave commented for reference.
@@ -79,7 +79,7 @@ namespace Team_Fisherman
                             {
                                 c = ' ';
                             }
-                            
+
                         }
                         string color = RESET;
                         switch (c)
@@ -88,7 +88,7 @@ namespace Team_Fisherman
                                 color += BLUE;
                                 break;
                             case 'm':
-                                color += Color_Helper(0,true);
+                                color += Color_Helper(0, true);
                                 break;
                             case 's':
                                 color += GREEN;
@@ -155,7 +155,7 @@ namespace Team_Fisherman
                 player_pos = Move(player_pos, buffer, screen_size, out map_offset);
                 map_tile = Vector2.Clamp(map_tile, new Vector2(0, -1), Vector2.One);
                 map_tile += map_offset;
-                
+
 
 
             }
@@ -197,7 +197,7 @@ namespace Team_Fisherman
         //up 
         //start right
         //down
-        static string Get_path(Vector2 map_pos,string current)
+        static string Get_path(Vector2 map_pos, string current)
         {
             string path = "";
 
@@ -218,7 +218,7 @@ namespace Team_Fisherman
                 path = current;
             }
 
-                return path;
+            return path;
         }
         //Checks if the new position is valid by checking if there is a '#' in the buffer at the new position, if there is it returns false and the player will not move, if there isn't it returns true and the player will move to the new position, add another if statement 
         static bool Is_Valid(Vector2 coords, Vector2 size, StringBuilder buffer)
@@ -238,7 +238,7 @@ namespace Team_Fisherman
             }
             else if (buffer[To_Index(coords, size)] == 'm')
             {
-                //Fighting();
+                Fighting();
                 return false;
             }
             else if (buffer[To_Index(coords, size)] == 'd')
@@ -285,6 +285,7 @@ namespace Team_Fisherman
             Vector2 play_pos = new Vector2(34, 24);
             Vector2 exit_pos = new Vector2(62, 24);
             Vector2 current = play_pos;
+
 
 
 
@@ -398,7 +399,7 @@ namespace Team_Fisherman
             string badGuyAttack = "";
             bool gameRunning = true;
             string badGuyName = "evil guy of doom";
-
+            int waity = 0;
             // the enemies attack
             void enemyAttack()
             {
@@ -406,6 +407,7 @@ namespace Team_Fisherman
                 int damage = random.Next(20, 40);
                 health -= damage;
                 badGuyAttack = badGuyName + " does " + damage + " damage";
+                waity = 1000;
                 return;
             }
 
@@ -443,6 +445,20 @@ namespace Team_Fisherman
                 }
             }
 
+            StringBuilder buffer = new StringBuilder();
+            bool in_menu = true;
+            Vector2 screen_size = new Vector2(120, 28);
+            Vector2 play_pos = new Vector2(34, 24);
+            Vector2 exit_pos = new Vector2(62, 24);
+            Vector2 current = play_pos;
+
+            string enemyIcon1 = "               ";
+            string enemyIcon2 = "  _____        ";
+            string enemyIcon3 = " | >:) |    /  ";
+            string enemyIcon4 = "  -----    /   ";
+            string enemyIcon5 = "   |_____ /    ";
+            string enemyIcon6 = "   /\\    /\\    ";
+
             do
             {
                 //Console.WriteLine("\nPress a key to display; " +
@@ -462,71 +478,88 @@ namespace Team_Fisherman
                 // bad guy name
 
 
-                StringBuilder buffer = new StringBuilder();
-                bool in_menu = true;
-                //Vector2 screen_size = new Vector2(120, 28);
-                Vector2 play_pos = new Vector2(34, 24);
-                Vector2 exit_pos = new Vector2(62, 24);
-                Vector2 current = play_pos;
 
-                string enemyIcon1 = "               ";
-                string enemyIcon2 = "  _____        ";
-                string enemyIcon3 = " | >:) |    /  ";
-                string enemyIcon4 = "  -----    /   ";
-                string enemyIcon5 = "   |_____ /    ";
-                string enemyIcon6 = "   /|    /|    ";
 
                 // @@@
 
-                while (true)
+
+
+                //buffer.Clear();
+                //Console.SetCursorPosition(0, 0);
+
+
+                buffer.Clear();
+                Console.SetCursorPosition(0, 0);
+
+                foreach (string line in File.ReadLines("Map/fighting/FightingMenu.txt")) // loops through txt file
                 {
-                    buffer.Clear();
-                    Console.SetCursorPosition(0, 0);
 
-                    foreach (string line in File.ReadLines("Map/fighting/FightingMenu.txt")) // loops through txt file
+                    foreach (char p in line) //each line
                     {
-
-                        foreach (char p in line) //each line
-                        {
-                            //Console.Write(p);
-                            buffer.Append(p);
-                        }
-                        buffer.Append("\n");
+                        //Console.Write(p);
+                        buffer.Append(p);
                     }
-                    int count = 0;
-
-                    WriteTing(ref buffer, enemyIcon1, screen_size, new Vector2(66, 7));
-                    WriteTing(ref buffer, enemyIcon2, screen_size, new Vector2(66, 8));
-                    WriteTing(ref buffer, enemyIcon3, screen_size, new Vector2(66, 9));
-                    WriteTing(ref buffer, enemyIcon4, screen_size, new Vector2(66, 10));
-                    WriteTing(ref buffer, enemyIcon5, screen_size, new Vector2(66, 11));
-                    WriteTing(ref buffer, enemyIcon6, screen_size, new Vector2(66, 12));
-                    //WriteTing(buffer, enemyIcon2, screen_size);
-                    //WriteTing(buffer, enemyIcon3, screen_size);
-                    //WriteTing(buffer, enemyIcon4, screen_size);
-                    //WriteTing(buffer, enemyIcon5, screen_size);
-                    //WriteTing(buffer, enemyIcon6, screen_size);
-                    //foreach (char ch in "-----")
-                    //{
-                    //    buffer[To_Index(new Vector2(count + 66, 8), screen_size)] = ch;
-                    //    count++;
-                    //}
-
-
-                    //for (int q = (int)current.X; q < current.X + 23; q++)
-                    //{
-                    //    //Console.WriteLine("ran");
-                    //    buffer[To_Index(new Vector2(q, 15), screen_size)] = '#';
-                    //}
-
-                    Console.Write(buffer.ToString()); // writes the thing
-                    Console.ReadLine();
-
-
+                    buffer.Append("\n");
                 }
 
 
+                WriteTing(ref buffer, enemyIcon1, screen_size, new Vector2(66, 7));
+                WriteTing(ref buffer, enemyIcon2, screen_size, new Vector2(66, 8));
+                WriteTing(ref buffer, enemyIcon3, screen_size, new Vector2(66, 9));
+                WriteTing(ref buffer, enemyIcon4, screen_size, new Vector2(66, 10));
+                WriteTing(ref buffer, enemyIcon5, screen_size, new Vector2(66, 11));
+                WriteTing(ref buffer, enemyIcon6, screen_size, new Vector2(66, 12));
+                //WriteTing(buffer, enemyIcon2, screen_size);
+                //WriteTing(buffer, enemyIcon3, screen_size);
+                //WriteTing(buffer, enemyIcon4, screen_size);
+                //WriteTing(buffer, enemyIcon5, screen_size);
+                //WriteTing(buffer, enemyIcon6, screen_size);
+                //foreach (char ch in "-----")
+                //{
+                //    buffer[To_Index(new Vector2(count + 66, 8), screen_size)] = ch;
+                //    count++;
+                //}
 
+
+                //for (int q = (int)current.X; q < current.X + 23; q++)
+                //{
+                //    //Console.WriteLine("ran");
+                //    buffer[To_Index(new Vector2(q, 15), screen_size)] = '#';
+                //}
+
+                Console.Write(buffer.ToString()); // writes the thing
+                Console.ReadLine();
+
+
+
+
+                
+
+
+
+                WriteTing(ref buffer, enemyIcon1, screen_size, new Vector2(66, 7));
+                WriteTing(ref buffer, enemyIcon2, screen_size, new Vector2(66, 8));
+                WriteTing(ref buffer, enemyIcon3, screen_size, new Vector2(66, 9));
+                WriteTing(ref buffer, enemyIcon4, screen_size, new Vector2(66, 10));
+                WriteTing(ref buffer, enemyIcon5, screen_size, new Vector2(66, 11));
+                WriteTing(ref buffer, enemyIcon6, screen_size, new Vector2(66, 12));
+                WriteTing(ref buffer, badGuyName, screen_size, new Vector2(66, 13));
+                WriteTing(ref buffer, "enemy health: " + badGuyHealth, screen_size, new Vector2(66, 14));
+                WriteTing(ref buffer, badGuyAttack, screen_size, new Vector2(66, 15));
+                WriteTing(ref buffer, "health: " + health, screen_size, new Vector2(10, 22));
+
+                Console.Write(buffer.ToString()); // writes the thing
+                                                  //Console.ReadLine();
+
+
+                if (waity < 0)
+                {
+                    Console.WriteLine("waiting ran");
+
+                    WriteTing(ref buffer, "                        ", screen_size, new Vector2(66, 15));
+                }
+                waity--;
+                Console.WriteLine("waiting");
 
                 //string enemyIcon1 = "   _/\\___/\\_  ";
                 //string enemyIcon2 = "  |  @ __ @ |   ";
@@ -536,6 +569,7 @@ namespace Team_Fisherman
                 //string enemyIcon6 = "    |     |     ";
                 //Console.Clear();
 
+                /*
                 //Console.WriteLine("0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0"); // 1
                 //Console.WriteLine("|                                                                                                                      |"); // 2
                 //Console.WriteLine("|                                                                                                                      |"); // 3
@@ -565,10 +599,15 @@ namespace Team_Fisherman
                 //Console.WriteLine("|                                                                                                                      |"); // 27
                 //Console.WriteLine("|                                                                                                                      |"); // 28
                 //Console.WriteLine("0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0"); // 29
+                */
 
+                //do
+                //{
 
+                //} while (waity < 0);
 
                 c = Console.ReadKey(true);
+
                 //Console.WriteLine("You pressed the '{0}' key.", c.Key);
                 if (c.Key == ConsoleKey.A)
                 {
@@ -624,7 +663,7 @@ namespace Team_Fisherman
                 else if (c.Key == ConsoleKey.B)
                 {
                     Console.Write("\n");
-                    Console.WriteLine("       ==== inventory ====");
+                    Console.WriteLine("    ==== inventory ====");
                     Console.WriteLine("##########################");
 
                     //Console.WriteLine("###        ######                 ###");
@@ -739,22 +778,21 @@ namespace Team_Fisherman
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
-            Console.ReadLine();
+            Thread.Sleep(2000);
             Console.WriteLine("You - A simple fisherman, out alone on a late-night fishing trip. What began as a calm evening quickly turns into chaos as dark clouds cover the sky and enormous waves crash against your boat.");
             Console.WriteLine();
-            Console.ReadLine();
+            Thread.Sleep(2000);
             Console.WriteLine("Just as you try to turn back, a massive wave smashes into the ship.");
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
-            Thread.Sleep(2000);
-            Console.ReadLine();
+            Thread.Sleep(3000);
 
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
             Console.Clear();
-            //Console.WriteLine(".....");
+            Console.WriteLine(".....");
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
@@ -789,13 +827,79 @@ namespace Team_Fisherman
 
         static void GameIntro()
         {
+            Console.Clear();
             Console.WriteLine();
             Console.WriteLine("When you finally wake up, the sound of the ocean is the only thing you hear.");
             Console.WriteLine("You find yourself lying on a strange shore surrounded by broken wood and wreckage. A thick fog covers the sea, and in the distance sits a small unfamiliar village.");
-            Console.WriteLine("Are you okay?");
+            Thread.Sleep(3500);
             Console.WriteLine();
-            Console.WriteLine("You've finally returned.");
+            Console.WriteLine("\"Are you okay?\"");
+            Thread.Sleep(1000);
             Console.WriteLine();
+            Console.WriteLine("\"You've finally returned.\"");
+            Console.WriteLine();
+            Thread.Sleep(1000);
+            Console.WriteLine("You open your eyes, and the villagers are stare at you as if they already know who you are.");
+            Console.WriteLine("But you have never been here before.");
+            Console.WriteLine();
+
+            Thread.Sleep(4000);
+            Console.WriteLine("As the day pass...");
+            Thread.Sleep(1500);
+            Console.WriteLine("The island begins to feel wrong.");
+            Thread.Sleep(1500);
+            Console.WriteLine();
+            Console.WriteLine("Nobody talks about leaving the island.");
+            Thread.Sleep(1500);
+            Console.WriteLine();
+            Console.WriteLine("Some villagers repeat the exact same phrases every day.");
+            Thread.Sleep(1500);
+            Console.WriteLine();
+            Console.WriteLine("The sea is always hidden behind heavy fog.");
+            Thread.Sleep(1500);
+            Console.WriteLine();
+            Console.WriteLine("Strange whispers can be heard near the shore at night.");
+            Thread.Sleep(1500);
+            Console.WriteLine();
+            Console.WriteLine("In the center of the village stands a gravestone...");
+            Thread.Sleep(2500);
+            Console.WriteLine();
+            Console.WriteLine(".....with YOUR NAME on it.");
+            Thread.Sleep(3000);
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Press Enter to continue");
+            Console.ReadLine();
+
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("                                    Find the truth.                                 ");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("                          Before the island claims you forever.                     ");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+
         }
     }
 }
