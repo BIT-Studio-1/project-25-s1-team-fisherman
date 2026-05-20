@@ -5,7 +5,7 @@
         Console.CursorVisible = false;
 
         int[,] grid = new int[10, 31];
-        int playerPos = 15,
+        int loopCounter = 0, playerPos = 15,
         score = 0, health = 3, gridXLimit = 31, gridYLimit = 9, xNumber = 3;
         bool isRunning = true;
         Random rand = new();
@@ -45,6 +45,14 @@
                         }
                     }
                 }
+            }
+
+            // Spawn Logic (drop an X at row 0, ever 3 rows)
+            loopCounter++;
+            if (loopCounter % xNumber == 0)
+            {
+                int spawnPos = rand.Next(1, gridXLimit);
+                grid[0, spawnPos] = 1;
             }
 
             // Collision Detection (Player is always on row 9) 
