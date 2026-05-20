@@ -3,6 +3,7 @@ class Game
 {
     static void Main()
     {
+
         Console.CursorVisible = false;
 
         // 10 rows by 21 columns grid.
@@ -65,6 +66,7 @@ class Game
             {
                 if (health <= 1)
                 {
+                    Console.Beep();
                     isRunning = false; // Break the loop on next evaluation
                     Thread.Sleep(100);
                 }
