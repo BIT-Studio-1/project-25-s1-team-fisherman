@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Globalization;
-using System.Numerics;
+﻿using System.Numerics;
 using System.Text;
 
 namespace Team_Fisherman
@@ -44,7 +41,7 @@ namespace Team_Fisherman
             string path = "Map/map_start.txt";
 
             Menu();
-            //Wait();
+            Wait();
             while (true)
             {
                 path = Get_path(map_tile, path);
@@ -134,6 +131,7 @@ namespace Team_Fisherman
                         char_pos.X += 1;
                     }
                     color_buffer.Append('\n');
+                    color_buffer.Append(RESET);
                     buffer.Append('\n');
                     char_pos.Y += 1;
                     char_pos.X = 0;
@@ -533,7 +531,7 @@ namespace Team_Fisherman
 
 
 
-                
+
 
 
 
