@@ -72,6 +72,7 @@ class Game
                 }
                 else
                 {
+                    Console.Beep();
                     health--; //minus health
                     Thread.Sleep(100);
                 }
