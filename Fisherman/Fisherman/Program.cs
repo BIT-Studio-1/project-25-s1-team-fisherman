@@ -10,6 +10,7 @@ namespace Team_Fisherman
     {
         //These are ANSI escape sequences, they are the same thing as \n and \t but use a slightly different format. these color the text placed after them until the RESET is added, there are other sequences like underlining and italics as well. Theses are needed because i am using string builders and Console.Color doesn't work with them. you can also combine them.
         //format for custom color is \x1b[38;5;{ID}m for foreground \x1b[48;5;{ID}m for background where {ID} is from the image in the discord
+        //they are found here https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
         const string BLUE = "\x1b[38;5;73m";
         const string RED = "\x1b[91m";
         const string GREEN = "\x1b[32m";
@@ -17,7 +18,7 @@ namespace Team_Fisherman
         const string MAGENTA = "\x1b[95m";
         const string WHITE = "\x1b[97m";
         const string RESET = "\x1b[0m";
-        
+        public static Vector2 screen_size = new Vector2(120, 28);
         static void Main(string[] args)
         {
             
@@ -80,38 +81,38 @@ namespace Team_Fisherman
                             }
                             
                         }
-                        string color = "";
+                        string color = RESET;
                         switch (c)
                         {
                             case '~':
-                                color = BLUE;
+                                color += BLUE;
                                 break;
                             case 'm':
-                                color = Color_Helper(0,true);
+                                color += Color_Helper(0,true);
                                 break;
                             case 's':
-                                color = GREEN;
+                                color += GREEN;
                                 break;
                             case 'd':
-                                color = MAGENTA;
+                                color += MAGENTA;
                                 break;
                             case '#':
-                                color = WHITE;
+                                color += WHITE;
                                 break;
                             case '+':
                             case '"':
-                                color = GREEN;
+                                color += GREEN;
                                 break;
                             case '>':
                             case '=':
                             case '<':
-                                color = BLUE;
+                                color += BLUE;
                                 break;
                             case '▒':
-                                color = Color_Helper(241,true);
+                                color += Color_Helper(130, true) + "\x1b[2m";
                                 break;
                             case '░':
-                                color = Color_Helper(130, true);
+                                color += Color_Helper(94, true) + "\x1b[2m";
                                 break;
                             default:
                                 color = RESET;
@@ -150,9 +151,11 @@ namespace Team_Fisherman
 
                 Console.SetCursorPosition(0, 0);
                 Console.Write(color_buffer.ToString());
-
+                Vector2 t_pos = map_offset;
                 player_pos = Move(player_pos, buffer, screen_size, out map_offset);
+                map_tile = Vector2.Clamp(map_tile, new Vector2(0, -1), Vector2.One);
                 map_tile += map_offset;
+                
 
 
             }
@@ -220,7 +223,7 @@ namespace Team_Fisherman
         //Checks if the new position is valid by checking if there is a '#' in the buffer at the new position, if there is it returns false and the player will not move, if there isn't it returns true and the player will move to the new position, add another if statement 
         static bool Is_Valid(Vector2 coords, Vector2 size, StringBuilder buffer)
         {
-            coords = Vector2.Clamp(coords, Vector2.Zero, new Vector2(119, 27));
+            coords = Vector2.Clamp(coords, Vector2.Zero, new Vector2(119, 28));
             if (buffer[To_Index(coords, size)] == '#' || buffer[To_Index(coords, size)] == '+')
                 return false;
             else if (buffer[To_Index(coords, size)] == '~')
@@ -235,7 +238,7 @@ namespace Team_Fisherman
             }
             else if (buffer[To_Index(coords, size)] == 'm')
             {
-                Fighting();
+                //Fighting();
                 return false;
             }
             else if (buffer[To_Index(coords, size)] == 'd')
@@ -278,7 +281,7 @@ namespace Team_Fisherman
             //this is a stringbuilder that makes it easy to edit the console output. it works like an a array
             StringBuilder buffer = new StringBuilder();
             bool in_menu = true;
-            Vector2 screen_size = new Vector2(120, 28);
+            //Vector2 screen_size = new Vector2(120, 28);
             Vector2 play_pos = new Vector2(34, 24);
             Vector2 exit_pos = new Vector2(62, 24);
             Vector2 current = play_pos;
@@ -461,7 +464,7 @@ namespace Team_Fisherman
 
                 StringBuilder buffer = new StringBuilder();
                 bool in_menu = true;
-                Vector2 screen_size = new Vector2(120, 28);
+                //Vector2 screen_size = new Vector2(120, 28);
                 Vector2 play_pos = new Vector2(34, 24);
                 Vector2 exit_pos = new Vector2(62, 24);
                 Vector2 current = play_pos;
