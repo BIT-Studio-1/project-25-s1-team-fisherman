@@ -112,5 +112,7 @@ class Game
         // Game Over Screen
         Console.Clear();
         Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine($"Game Over! Score: {score}\nPress Enter to exit...");
+        Console.ReadLine();
     }
 }
