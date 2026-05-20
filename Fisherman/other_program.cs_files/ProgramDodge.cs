@@ -1,4 +1,5 @@
-﻿class Game
+﻿
+class Game
 {
     static void Main()
     {
@@ -65,10 +66,12 @@
                 if (health <= 1)
                 {
                     isRunning = false; // Break the loop on next evaluation
+                    Thread.Sleep(100);
                 }
                 else
                 {
                     health--; //minus health
+                    Thread.Sleep(100);
                 }
             }
             else
