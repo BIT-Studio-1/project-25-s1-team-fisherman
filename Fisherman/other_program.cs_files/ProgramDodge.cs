@@ -4,9 +4,13 @@
     {
         Console.CursorVisible = false;
 
+        // 10 rows by 21 columns grid.
+        //0 = empty, 1 = obstacle present. 
         int[,] grid = new int[10, 31];
         int loopCounter = 0, playerPos = 15,
-        score = 0, health = 3, gridXLimit = 31, gridYLimit = 9, xNumber = 3;
+        score = 0, health = 3,
+        gridXLimit = 31, gridYLimit = 9,
+        xNumber = 3;
         bool isRunning = true;
         Random rand = new();
 
