@@ -25,7 +25,7 @@
         }
     }
 
-    class Program
+    class Fishing_Base
     {
         static Random rng = new Random();
 
@@ -67,7 +67,7 @@
             casts++;
             Console.WriteLine("You cast your line out...");
             int waitMs = rng.Next(1000, 5000) - luckLv * 200;
-            System.Threading.Thread.Sleep(Math.Max(500, waitMs));
+            Thread.Sleep(Math.Max(500, waitMs));
             Console.WriteLine("Something is tugging! Type 'reel in'.");
         }
 
@@ -148,8 +148,9 @@
             if (cost > 0) Console.WriteLine($"Next upgrade: {cost} coins");
         }
 
-        static void Main()
+        public static void Fishing()
         {
+        Console.Clear();
             Console.WriteLine("Fishing time !");
             Console.WriteLine("Commands: cast, reel in, inventory, sell [name], sell all, upgrade, stats, quit");
 
@@ -171,4 +172,4 @@
          
         }
     }
-}
+

@@ -1,5 +1,7 @@
 ﻿using System.Numerics;
 using System.Text;
+using static Fish;
+using static Fishing_Base;
 
 namespace Team_Fisherman
 {
@@ -362,7 +364,7 @@ namespace Team_Fisherman
         static void Fishing()
         {
 
-
+            Fishing_Base.Fishing();
 
             Thread.Sleep(500);
             Console.Clear();
