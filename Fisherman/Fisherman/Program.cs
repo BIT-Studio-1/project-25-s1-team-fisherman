@@ -781,16 +781,16 @@ namespace Team_Fisherman
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
-            Console.ReadLine();
+            Thread.Sleep(2000);
             Console.WriteLine("You - A simple fisherman, out alone on a late-night fishing trip. What began as a calm evening quickly turns into chaos as dark clouds cover the sky and enormous waves crash against your boat.");
             Console.WriteLine();
-            Thread.Sleep(1500);
+            Thread.Sleep(2000);
             Console.WriteLine("Just as you try to turn back, a massive wave smashes into the ship.");
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
-            Thread.Sleep(2500);
+            Thread.Sleep(3000);
 
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.White;
@@ -830,10 +830,11 @@ namespace Team_Fisherman
 
         static void GameIntro()
         {
+            Console.Clear();
             Console.WriteLine();
             Console.WriteLine("When you finally wake up, the sound of the ocean is the only thing you hear.");
             Console.WriteLine("You find yourself lying on a strange shore surrounded by broken wood and wreckage. A thick fog covers the sea, and in the distance sits a small unfamiliar village.");
-            Thread.Sleep(1500);
+            Thread.Sleep(3500);
             Console.WriteLine();
             Console.WriteLine("\"Are you okay?\"");
             Thread.Sleep(1000);
@@ -841,43 +842,65 @@ namespace Team_Fisherman
             Console.WriteLine("\"You've finally returned.\"");
             Console.WriteLine();
             Thread.Sleep(1000);
-            Console.WriteLine("You open your eyes, and the villagers are stare at you as if they already know who you are.")
-            Console.WriteLine("But you have never been here before.")
+            Console.WriteLine("You open your eyes, and the villagers are stare at you as if they already know who you are.");
+            Console.WriteLine("But you have never been here before.");
             Console.WriteLine();
 
-            Thread.Sleep(3000);
+            Thread.Sleep(4000);
             Console.WriteLine("As the day pass...");
-            Thread.Sleep(1000);
+            Thread.Sleep(1500);
             Console.WriteLine("The island begins to feel wrong.");
-            Thread.Sleep(500);
+            Thread.Sleep(1500);
             Console.WriteLine();
             Console.WriteLine("Nobody talks about leaving the island.");
-            Thread.Sleep(500);
+            Thread.Sleep(1500);
             Console.WriteLine();
             Console.WriteLine("Some villagers repeat the exact same phrases every day.");
-            Thread.Sleep(500);
+            Thread.Sleep(1500);
             Console.WriteLine();
             Console.WriteLine("The sea is always hidden behind heavy fog.");
-            Thread.Sleep(500);
+            Thread.Sleep(1500);
             Console.WriteLine();
-            Console.WriteLine("Strange whispers can be heard near the shore at night.").
-            Thread.Sleep(500);
+            Console.WriteLine("Strange whispers can be heard near the shore at night.");
+            Thread.Sleep(1500);
             Console.WriteLine();
             Console.WriteLine("In the center of the village stands a gravestone...");
             Thread.Sleep(2500);
             Console.WriteLine();
             Console.WriteLine(".....with YOUR NAME on it.");
-            Thread.Sleep(1500);
+            Thread.Sleep(3000);
             Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Press Enter to continue");
+            Console.ReadLine();
 
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
             Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine("                                    Find the truth.                                 ");
             Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine("                          Before the island claims you forever.                     ");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
             Console.WriteLine();
 
         }
