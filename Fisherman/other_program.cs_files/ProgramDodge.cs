@@ -79,6 +79,7 @@ class Game
                 else
                 {
                     grid[9, playerPos] = 0; // Clear the obstacle so it doesn't instantly hit again
+                    score += 1;
                 }
             }
             else
@@ -86,7 +87,7 @@ class Game
                 // Rendering What will be displayed on the screen
                 Console.SetCursorPosition(0, 0);
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine($"Score: {score}\t\tHealth: {health}\n--------------------------------");
+                Console.WriteLine($"X's missed: {score}\t\tHealth: {health}\n----------------------------------");
 
                 for (int i = 0; i < gridYLimit + 1; i++)
                 {
@@ -119,15 +120,15 @@ class Game
 
         if (health == 0)
         {
-            Console.WriteLine($"You Died!\nPress Enter to exit...");
+            Console.WriteLine($"You Died!\n\nPress Enter to exit...");
         }
         else if ((health > 0) && (health < 3))
         {
-            Console.WriteLine($"You Survived! Score: {score}\nPress Enter to exit...");
+            Console.WriteLine($"You Survived! Score: {score}\n\nPress Enter to exit...");
         }
         else if (health == 3)
         {
-            Console.WriteLine($"Perfect Dodge! Score: {score} Health: {health}\nPress Enter to exit...");
+            Console.WriteLine($"Perfect Dodge! Score: {score} Health: {health}\n\nPress Enter to exit...");
         }
         Console.ReadLine();
     }
