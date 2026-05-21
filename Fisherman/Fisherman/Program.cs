@@ -1,7 +1,7 @@
 ﻿using System.Numerics;
 using System.Text;
-using static Fish;
-using static Fishing_Base;
+//using static Fish;
+//using static Fishing_Base;
 
 namespace Team_Fisherman
 {
@@ -365,7 +365,7 @@ namespace Team_Fisherman
         static void Fishing()
         {
 
-            Fishing_Base.Fishing();
+            //Fishing_Base.Fishing();
 
             Thread.Sleep(500);
             Console.Clear();
@@ -559,7 +559,8 @@ namespace Team_Fisherman
 
                     WriteTing(ref buffer, "                        ", screen_size, new Vector2(66, 15));
                 }
-                waity--;
+                
+                    waity--;
                 Console.WriteLine("waiting");
 
                 //string enemyIcon1 = "   _/\\___/\\_  ";
@@ -602,10 +603,10 @@ namespace Team_Fisherman
                 //Console.WriteLine("0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0"); // 29
                 */
 
-                do
-                {
-                    Console.WriteLine("waiting");
-                } while (waity < 0);
+                //do
+                //{
+                //    Console.WriteLine("waiting");
+                //} while (waity < 0);
 
                 c = Console.ReadKey(true);
 
