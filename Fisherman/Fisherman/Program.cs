@@ -42,13 +42,23 @@ namespace Team_Fisherman
             Vector2 map_tile = new Vector2(0, 0);
             Vector2 map_offset = new Vector2(0, 0);
             string path = "Map/map_start.txt";
-
+            bool map_changed;
             Menu();
-            Wait();
-            GameIntro();
+            //Wait();
+            //GameIntro();
             while (true)
             {
-                path = Get_path(map_tile, path);
+                path = Get_path(map_tile, path,out map_changed);
+                if (map_changed)
+                {
+                    if (player_pos.Y == 0) player_pos.Y = 27;
+                    else if (player_pos.Y == 28) player_pos.Y = 1;
+                    else if (player_pos.X == 0) player_pos.X = 120;
+                    else if (player_pos.X == 121) player_pos.X = 1;
+                    //Console.WriteLine(player_pos);
+                    //Console.ReadLine();
+                    map_changed = false;
+                }
                 buffer.Clear();
                 color_buffer.Clear();
                 //sets the buffer to be a grid of ' ' characters with the size of the screen, this is the background of the game and will be overwritten with the player and any other objects in the game, you can change the character to whatever you want to make it look different. not needed but will leave commented for reference.
@@ -157,7 +167,7 @@ namespace Team_Fisherman
                 player_pos = Move(player_pos, buffer, screen_size, out map_offset);
                 map_tile = Vector2.Clamp(map_tile, new Vector2(0, -1), Vector2.One);
                 map_tile += map_offset;
-
+                
 
 
             }
@@ -191,7 +201,7 @@ namespace Team_Fisherman
                     break;
             }
 
-            Vector2 clamped_offset = Vector2.Clamp(offset, Vector2.Zero, new Vector2(119, 27));
+            Vector2 clamped_offset = Vector2.Clamp(offset, Vector2.Zero, new Vector2(119, 28));
             map_tile = clamped_offset - offset;
             return clamped_offset;
         }
@@ -199,25 +209,39 @@ namespace Team_Fisherman
         //up 
         //start right
         //down
-        static string Get_path(Vector2 map_pos, string current)
+        static string Get_path(Vector2 map_pos, string current,out bool changed)
         {
-            string path = "";
-
+            string path = current;
+            changed = false;
             if (map_pos == Vector2.UnitY)
             {
                 path = "Map/map_up.txt";
+                if (path != current)
+                {
+                    changed = true;
+                }
+
             }
             else if (map_pos == Vector2.Zero)
             {
                 path = "Map/map_start.txt";
+                if (path != current)
+                {
+                    changed = true;
+                }
             }
-            else if (map_pos == Vector2.UnitX)
+            else if (map_pos == new Vector2(-1,0))
             {
-                path = "Map/map_start.txt";
+                path = "Map/map_right.txt";
+                if (path != current)
+                {
+                    changed = true;
+                }
             }
             else
             {
                 path = current;
+                changed = false;
             }
 
             return path;

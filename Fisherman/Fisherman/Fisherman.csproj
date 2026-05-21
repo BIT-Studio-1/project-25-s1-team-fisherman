@@ -15,6 +15,9 @@
     <None Update="Map\map.txt">
 		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</None>
+    <None Update="Map\map_right.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Map\map_start.txt">
 
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
