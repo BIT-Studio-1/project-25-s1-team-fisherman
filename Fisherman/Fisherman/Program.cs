@@ -505,13 +505,13 @@ namespace Team_Fisherman
                 }
 
 
-                WriteTing(ref buffer, enemyIcon1, screen_size, new Vector2(66, 7));
-                WriteTing(ref buffer, enemyIcon2, screen_size, new Vector2(66, 8));
-                WriteTing(ref buffer, enemyIcon3, screen_size, new Vector2(66, 9));
-                WriteTing(ref buffer, enemyIcon4, screen_size, new Vector2(66, 10));
-                WriteTing(ref buffer, enemyIcon5, screen_size, new Vector2(66, 11));
-                WriteTing(ref buffer, enemyIcon6, screen_size, new Vector2(66, 12));
-                //WriteTing(buffer, enemyIcon2, screen_size);
+                //WriteTing(ref buffer, enemyIcon1, screen_size, new Vector2(66, 7));
+                //WriteTing(ref buffer, enemyIcon2, screen_size, new Vector2(66, 8));
+                //WriteTing(ref buffer, enemyIcon3, screen_size, new Vector2(66, 9));
+                //WriteTing(ref buffer, enemyIcon4, screen_size, new Vector2(66, 10));
+                //WriteTing(ref buffer, enemyIcon5, screen_size, new Vector2(66, 11));
+                //WriteTing(ref buffer, enemyIcon6, screen_size, new Vector2(66, 12));
+                ////WriteTing(buffer, enemyIcon2, screen_size);
                 //WriteTing(buffer, enemyIcon3, screen_size);
                 //WriteTing(buffer, enemyIcon4, screen_size);
                 //WriteTing(buffer, enemyIcon5, screen_size);
@@ -529,8 +529,8 @@ namespace Team_Fisherman
                 //    buffer[To_Index(new Vector2(q, 15), screen_size)] = '#';
                 //}
 
-                Console.Write(buffer.ToString()); // writes the thing
-                Console.ReadLine();
+                //Console.Write(buffer.ToString()); // writes the thing
+                //Console.ReadLine();
 
 
 
@@ -603,10 +603,10 @@ namespace Team_Fisherman
                 //Console.WriteLine("0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0"); // 29
                 */
 
-                //do
-                //{
-
-                //} while (waity < 0);
+                do
+                {
+                    Console.WriteLine("waiting");
+                } while (waity < 0);
 
                 c = Console.ReadKey(true);
 
