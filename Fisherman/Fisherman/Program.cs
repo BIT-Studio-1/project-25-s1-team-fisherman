@@ -515,6 +515,26 @@ namespace Team_Fisherman
                             Console.WriteLine("\"It's weird right.\"");
                             Console.WriteLine("\"If you really want to know more.....\"");
                             Console.WriteLine();
+                            Thread.Sleep(1500);
+                            Console.WriteLine("\"You might want to check the forest near the shore....\"");
+                            Console.WriteLine();
+                            Thread.Sleep(1000);
+                            Console.WriteLine("\"Strange things wash up there when the fog gets thick.\"");
+                            Thread.Sleep(1000);
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine("Press Enter to exit");
+                            Console.ReadLine();
                         }
                     }
                     else
@@ -524,13 +544,53 @@ namespace Team_Fisherman
                          if (talk2 == "memory fish")
                          {
                         Console.WriteLine("\"I don't know what's you are talking about.\"");
+                        Console.WriteLine();
+                        Console.WriteLine();
                         Console.WriteLine("\"Maybe you should take a rest.\"");
+                        Thread.Sleep(1000);
+                        Console.WriteLine();
+                        Console.WriteLine();
                         Console.WriteLine("\"The fog does strange things to people's minds.\"");
+                        Thread.Sleep(1000);
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine("Press Enter to exit");
+                        Console.ReadLine();
                     }
                     break;
 
                 case "leave":
-                    Console.WriteLine("\"\"");
+                    Console.WriteLine("\"......Leave??\"");
+                    Thread.Sleep(2000);
+                    Console.WriteLine("\"There is no such thing here.\"");
+                    Thread.Sleep(1000);
+                    Console.WriteLine("\"Anyway come back if you need supplies.\"");
+                    Thread.Sleep(1000);
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine("Press Enter to exit");
+                    Console.ReadLine();
                     break;
             }
             
