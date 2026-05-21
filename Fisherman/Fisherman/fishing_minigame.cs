@@ -1,3 +1,5 @@
+namespace test_fish
+{
     using System;
     using System.Collections.Generic;
 
@@ -8,12 +10,16 @@
         public float MinWeight, MaxWeight;
         public int Value;
         public float Chance;
+        public ConsoleColor Color;
 
-        public Fish(string name, string rarity, float minW, float maxW, int value, float chance)
+
+
+        public Fish(string name, string rarity, float minW, float maxW, int value, float chance, ConsoleColor color)
         {
             Name = name; Rarity = rarity;
             MinWeight = minW; MaxWeight = maxW;
             Value = value; Chance = chance;
+            Color = color;
         }
 
         public bool Roll(float luck) => new Random().NextDouble() < Chance * (1 + luck);
@@ -30,16 +36,17 @@
         static Random rng = new Random();
 
         static Fish[] table = {
-        new Fish("Boot",      "common",   0.1f,  1f,    1,    0.30f),
-        new Fish("Sardine",   "common",   0.1f,  0.5f,  3,    0.28f),
-        new Fish("Carp",      "common",   1f,    3.5f,  8,    0.20f),
-        new Fish("Catfish",   "common",   2f,    6f,    15,   0.13f),
-        new Fish("Bass",      "uncommon", 1.5f,  5f,    30,   0.05f),
-        new Fish("Trout",     "uncommon", 1f,    4f,    25,   0.05f),
-        new Fish("Pike",      "rare",     3f,    9f,    80,   0.015f),
-        new Fish("Salmon",    "rare",     4f,    12f,   120,  0.010f),
-        new Fish("Swordfish", "epic",     8f,    25f,   500,  0.003f),
-        new Fish("Leviathan", "epic",     30f,   99f,   2500, 0.001f),
+        new Fish ("Boot",      "common",   0.1f,  1f,    1,    0.30f, ConsoleColor.White),
+        new Fish("Sardine",   "common",   0.1f,  0.5f,  3,    0.28f, ConsoleColor.White),
+        new Fish("Carp",      "common",   1f,    3.5f,  8,    0.20f, ConsoleColor.Yellow),
+        new Fish("Catfish",   "common",   2f,    6f,    15,   0.13f, ConsoleColor.Gray),
+        new Fish("Bass",      "uncommon", 1.5f,  5f,    30,   0.05f, ConsoleColor.Green),
+        new Fish("Trout",     "uncommon", 1f,    4f,    25,   0.05f, ConsoleColor.DarkGreen),
+        new Fish("Sturgeon",      "rare",     3f,    9f,    80,   0.015f, ConsoleColor.DarkGray),
+        new Fish("Salmon",    "rare",     4f,    12f,   120,  0.010f, ConsoleColor.Red),
+        new Fish("Great White Shark",    "rare",     6f,    15f,   3000,  0.07f, ConsoleColor.Red),
+        new Fish("Swordfish", "epic",     8f,    25f,   500,  0.003f, ConsoleColor.Blue),
+        new Fish("Leviathan", "epic",     30f,   99f,   2500, 0.001f, ConsoleColor.Cyan),
     };
 
         static int coins = 0, caught = 0, casts = 0, rodLv = 0, luckLv = 0;
@@ -81,7 +88,11 @@
             coins += earn;
             caught++;
             inventory.Add((f.Name, f.Rarity, w, earn));
-            Console.WriteLine($"Caught a {f.Name} ({f.Rarity}) — {w} kg — +{earn} coins");
+            Console.ForegroundColor = f.Color;
+
+            Console.WriteLine($"Caught a {f.Name} ({f.Rarity}) - {w} kg - +{earn} coins");
+
+            Console.ResetColor();
         }
 
         static void ShowInventory()
@@ -150,8 +161,10 @@
 
         public static void Fishing()
         {
-        Console.Clear();
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Fishing time !");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Commands: cast, reel in, inventory, sell [name], sell all, upgrade, stats, quit");
 
             while (true)
@@ -169,7 +182,7 @@
                 else if (input == "quit") break;
                 else Console.WriteLine("Unknown command. Try: cast, reel in, inventory, sell, upgrade, stats");
             }
-         
+
         }
     }
-
+}

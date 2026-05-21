@@ -44,6 +44,7 @@ namespace Team_Fisherman
 
             Menu();
             Wait();
+            GameIntro();
             while (true)
             {
                 path = Get_path(map_tile, path);
