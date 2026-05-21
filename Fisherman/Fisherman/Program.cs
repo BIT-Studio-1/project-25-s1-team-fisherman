@@ -1,8 +1,13 @@
 
+
 ﻿using System.Drawing;
-using System.Numerics;
+
 
 ﻿
+
+﻿using System;
+using System.Numerics;
+
 using System.Security;
 
 using System.Text;
@@ -53,24 +58,18 @@ namespace Team_Fisherman
 
 
 
+
             bool map_changed;
+
+
+
             Menu();
 
             Wait();
             GameIntro();
             while (true)
             {
-                path = Get_path(map_tile, path,out map_changed);
-                if (map_changed)
-                {
-                    if (player_pos.Y == 0) player_pos.Y = 27;
-                    else if (player_pos.Y == 28) player_pos.Y = 1;
-                    else if (player_pos.X == 0) player_pos.X = 120;
-                    else if (player_pos.X == 121) player_pos.X = 1;
-                    //Console.WriteLine(player_pos);
-                    //Console.ReadLine();
-                    map_changed = false;
-                }
+                path = Get_path(map_tile, path);
                 buffer.Clear();
                 color_buffer.Clear();
                 //sets the buffer to be a grid of ' ' characters with the size of the screen, this is the background of the game and will be overwritten with the player and any other objects in the game, you can change the character to whatever you want to make it look different. not needed but will leave commented for reference.
@@ -179,7 +178,7 @@ namespace Team_Fisherman
                 player_pos = Move(player_pos, buffer, screen_size, out map_offset);
                 map_tile = Vector2.Clamp(map_tile, new Vector2(0, -1), Vector2.One);
                 map_tile += map_offset;
-                
+
 
 
             }
@@ -213,7 +212,7 @@ namespace Team_Fisherman
                     break;
             }
 
-            Vector2 clamped_offset = Vector2.Clamp(offset, Vector2.Zero, new Vector2(119, 28));
+            Vector2 clamped_offset = Vector2.Clamp(offset, Vector2.Zero, new Vector2(119, 27));
             map_tile = clamped_offset - offset;
             return clamped_offset;
         }
@@ -221,39 +220,25 @@ namespace Team_Fisherman
         //up 
         //start right
         //down
-        static string Get_path(Vector2 map_pos, string current,out bool changed)
+        static string Get_path(Vector2 map_pos, string current)
         {
-            string path = current;
-            changed = false;
+            string path = "";
+
             if (map_pos == Vector2.UnitY)
             {
                 path = "Map/map_up.txt";
-                if (path != current)
-                {
-                    changed = true;
-                }
-
             }
             else if (map_pos == Vector2.Zero)
             {
                 path = "Map/map_start.txt";
-                if (path != current)
-                {
-                    changed = true;
-                }
             }
-            else if (map_pos == new Vector2(-1,0))
+            else if (map_pos == Vector2.UnitX)
             {
-                path = "Map/map_right.txt";
-                if (path != current)
-                {
-                    changed = true;
-                }
+                path = "Map/map_start.txt";
             }
             else
             {
                 path = current;
-                changed = false;
             }
 
             return path;
@@ -412,8 +397,8 @@ namespace Team_Fisherman
         static void Shopping()
         {
 
-            string temp,shop;
-            char buy;
+            string temp,shop,buy,talk1,talk2,check,truth1;
+            
             string [] c = { "Buy", "Sell", "Talk", "Leave"};
             Console.WriteLine("Shopping");
             Console.WriteLine("\"Hi, nice to meet you. My name is Jane.\"");
@@ -433,19 +418,51 @@ namespace Team_Fisherman
             {
                 case "buy":
                     string[] m = { "Potion", "Fish Bait", "Torch", "Lantern", "Boots", "Jar of Dirt", "Protective Charm"};
+                    int[] p = {15, 5, 20, 40, 50,1,100};
                     Console.WriteLine("\"Looking for any supplies?\"");
-                    Console.WriteLine("=========BUY SYSTEM========");
-                    for (int i = 0; i < c.Length; i++)
+                    Console.WriteLine("=================BUY SYSTEM=================");
+                    for (int i = 0; i < m.Length; i++)
                     {
                         Console.Write(i.ToString().PadRight(10));
-                        Console.WriteLine(c[i].PadLeft(10));
+                        Console.WriteLine(m[i].PadLeft(15));
+                        Console.WriteLine(p[i].ToString().PadLeft(25));
                     }
                     Console.WriteLine();
-                    shop = Console.ReadLine();
+                    Console.WriteLine();
                     Console.WriteLine("\"The sea is dangerous after dark.\"");
                     Console.WriteLine("\"Buy what you need before heading out.\"");
-                    temp = Console.ReadLine();
+                    buy = Console.ReadLine();
+                    
+                    switch(buy)
+                    {
+                        case "Potion":
+                            Console.WriteLine("\"\"");
+                            break;
 
+                        case "Fish Bait":
+                            Console.WriteLine("\"\"");
+                            break;
+
+                        case "Torch":
+                            Console.WriteLine("\"\"");
+                            break;
+
+                        case "Lantern":
+                            Console.WriteLine("\"\"");
+                            break;
+
+                        case "Boots":
+                            Console.WriteLine("\"\"");
+                            break;
+
+                        case "Jar of Dirt":
+                            Console.WriteLine("\"\"");
+                            break;
+
+                        case "Protective Charm":
+                            Console.WriteLine("\"\"");
+                            break;
+                    }
                     Console.WriteLine("\"\"");
                     break;
 
@@ -460,10 +477,60 @@ namespace Team_Fisherman
 
                 case "talk":
                     Console.WriteLine();
+                    Console.WriteLine("\"Is this the first time we met?\"");
+                    check= Console.ReadLine();
+
+                    if (check == "yes")
+                    {
+                        Console.WriteLine("\"So, what's you want to talk to me?\"");
+                        talk1 = Console.ReadLine();
+
+                        if (talk1 == "memory fish")
+                        {
+                            Console.WriteLine("\"...So you've started seeing them too.\"");
+                            Console.WriteLine();
+                            Console.WriteLine("\"Those fish only appear near the fog.\"");
+                            Console.WriteLine("\"Some say they carry pieces of lost memories.\"");
+                            Console.WriteLine("\"Others say they show people things they were never meant to remember.\"");
+                            Console.WriteLine("\"Here.Take this.\"");
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine("*You received a TRUTH FRAGMENT*");
+                            Console.WriteLine("\"Don't let others see this\"");
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine("*WOULD YOU WANT TO OPEN IT KNOW (YES/NO)*");
+                            truth1= Console.ReadLine();
+                            if (truth1=="yes")
+                            {
+                                Console.WriteLine("*YOU ARE NOT IN THE REAL WORLD*");
+                            }
+                            else
+                            {
+                                Console.WriteLine();
+                            }
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine("\"It's weird right.\"");
+                            Console.WriteLine("\"If you really want to know more.....\"");
+                            Console.WriteLine();
+                        }
+                    }
+                    else
+                        Console.WriteLine("\"So, what's you want to talk to me?\"");
+                        talk2 = Console.ReadLine();
+
+                         if (talk2 == "memory fish")
+                         {
+                        Console.WriteLine("\"I don't know what's you are talking about.\"");
+                        Console.WriteLine("\"Maybe you should take a rest.\"");
+                        Console.WriteLine("\"The fog does strange things to people's minds.\"");
+                    }
                     break;
 
                 case "leave":
-                    Console.WriteLine();
+                    Console.WriteLine("\"\"");
                     break;
             }
             
