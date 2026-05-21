@@ -397,9 +397,9 @@ namespace Team_Fisherman
         static void Shopping()
         {
 
-            string temp,shop,buy,talk1,talk2,check,truth1;
-            
-            string [] c = { "Buy", "Sell", "Talk", "Exit", "Leave"};
+            string temp, shop, buy, talk1, talk2, check, check1, truth1;
+
+            string[] c = { "Buy", "Sell", "Talk", "Exit", "Leave" };
             Console.WriteLine("Shopping");
             Console.WriteLine("\"Hi, nice to meet you. My name is Jane.\"");
             Console.WriteLine("\"Is there anything I can help you?\"");
@@ -412,13 +412,13 @@ namespace Team_Fisherman
             }
             Console.WriteLine();
             shop = Console.ReadLine();
-            
 
-            switch(shop)
+
+            switch (shop)
             {
                 case "buy":
-                    string[] m = { "Potion", "Fish Bait", "Torch", "Lantern", "Boots", "Jar of Dirt", "Protective Charm"};
-                    int[] p = {15, 5, 20, 40, 50,1,100};
+                    string[] m = { "Potion", "Fish Bait", "Torch", "Lantern", "Boots", "Jar of Dirt", "Protective Charm" };
+                    int[] p = { 15, 5, 20, 40, 50, 1, 100 };
                     Console.WriteLine("\"Looking for any supplies?\"");
                     Console.WriteLine("========================BUY SYSTEM=========================");
                     for (int i = 0; i < m.Length; i++)
@@ -433,8 +433,8 @@ namespace Team_Fisherman
                     Console.WriteLine("\"The sea is dangerous after dark.\"");
                     Console.WriteLine("\"Buy what you need before heading out.\"");
                     buy = Console.ReadLine();
-                    
-                    switch(buy)
+
+                    switch (buy)
                     {
                         case "Potion":
                             Console.WriteLine("\"\"");
@@ -478,15 +478,17 @@ namespace Team_Fisherman
 
                 case "talk":
                     Console.WriteLine();
-                    Console.WriteLine("\"Is this the first time we met?*(YES/NO)*\"");
-                    check= Console.ReadLine();
+                    Console.WriteLine("\"So, what's you want to talk to me?\"");
+                    check1 = Console.ReadLine();
+                    Console.WriteLine("\"Is this the first time we talk about this?*(YES/NO)*\"");
+                    check = Console.ReadLine();
 
                     if (check == "yes")
                     {
-                        Console.WriteLine("\"So, what's you want to talk to me?\"");
+                        Console.WriteLine("\"So, you want to know about what?\"");
                         talk1 = Console.ReadLine();
 
-                        if (talk1 == "memory fish")
+                        if (talk1 == "memory fish" || talk1 == "truth" || talk1 == "truth fragment")
                         {
                             Console.WriteLine("\"...So you've started seeing them too.\"");
                             Console.WriteLine();
@@ -507,11 +509,22 @@ namespace Team_Fisherman
                             Console.WriteLine();
                             Thread.Sleep(1000);
                             Console.WriteLine("*WOULD YOU WANT TO OPEN IT KNOW (YES/NO)*");
-                            truth1= Console.ReadLine();
-                            if (truth1=="yes")
+                            truth1 = Console.ReadLine();
+                            if (truth1 == "yes")
                             {
                                 Thread.Sleep(1000);
-                                Console.WriteLine("*YOU ARE NOT IN THE REAL WORLD*");
+                                Console.WriteLine("*THE SEA DOES NOT RELEASE WHAT IT TAKES. IT KEEPS THEM. IT RESHAPES THEM INTO PART OF THE VILLAGE.*");
+                                Console.WriteLine();
+                                Console.WriteLine();
+                                Console.WriteLine();
+                                Console.WriteLine();
+                                Console.WriteLine();
+                                Console.WriteLine();
+                                Console.WriteLine();
+                                Console.WriteLine();
+                                Console.WriteLine("Press Enter to close it");
+                                Console.ReadLine();
+
                             }
                             else
                             {
@@ -547,10 +560,10 @@ namespace Team_Fisherman
                     }
                     else
                         Console.WriteLine("\"So, what's you want to talk to me?\"");
-                        talk2 = Console.ReadLine();
+                    talk2 = Console.ReadLine();
 
-                         if (talk2 == "memory fish")
-                         {
+                    if (talk2 == "memory fish")
+                    {
                         Console.WriteLine("\"I don't know what's you are talking about.\"");
                         Console.WriteLine();
                         Console.WriteLine();
@@ -617,8 +630,8 @@ namespace Team_Fisherman
                     Console.ReadLine();
                     break;
             }
-            
-            
+
+
 
 
 
@@ -650,7 +663,7 @@ namespace Team_Fisherman
                 int damage = random.Next(20, 40);
                 health -= damage;
                 //evil guy of doom does 33 damage |
-                badGuyAttack = badGuyName + " does " +  damage + " damage";
+                badGuyAttack = badGuyName + " does " + damage + " damage";
                 waity = 100;
                 return;
             }
@@ -679,7 +692,7 @@ namespace Team_Fisherman
                 }
             }
 
-            static void WriteTing(ref StringBuilder buff,  string guy, Vector2 screen_size, Vector2 pos)
+            static void WriteTing(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
             {
                 int count = 0;
                 foreach (char h in guy)
@@ -785,22 +798,22 @@ namespace Team_Fisherman
 
 
 
-                WriteTing(ref buffer,  enemyIcon1, screen_size, new Vector2(66, 7));
-                WriteTing(ref buffer,  enemyIcon2, screen_size, new Vector2(66, 8));
-                WriteTing(ref buffer,  enemyIcon3, screen_size, new Vector2(66, 9));
-                WriteTing(ref buffer,  enemyIcon4, screen_size, new Vector2(66, 10));
-                WriteTing(ref buffer,  enemyIcon5, screen_size, new Vector2(66, 11));
-                WriteTing(ref buffer,  enemyIcon6, screen_size, new Vector2(66, 12));
-                WriteTing(ref buffer,  badGuyName, screen_size, new Vector2(66, 13));
-                WriteTing(ref buffer,  "enemy health: " + badGuyHealth, screen_size, new Vector2(66, 14));
+                WriteTing(ref buffer, enemyIcon1, screen_size, new Vector2(66, 7));
+                WriteTing(ref buffer, enemyIcon2, screen_size, new Vector2(66, 8));
+                WriteTing(ref buffer, enemyIcon3, screen_size, new Vector2(66, 9));
+                WriteTing(ref buffer, enemyIcon4, screen_size, new Vector2(66, 10));
+                WriteTing(ref buffer, enemyIcon5, screen_size, new Vector2(66, 11));
+                WriteTing(ref buffer, enemyIcon6, screen_size, new Vector2(66, 12));
+                WriteTing(ref buffer, badGuyName, screen_size, new Vector2(66, 13));
+                WriteTing(ref buffer, "enemy health: " + badGuyHealth, screen_size, new Vector2(66, 14));
 
                 WriteTing(ref buffer, badGuyAttack, screen_size, new Vector2(64, 16));
-                WriteTing(ref buffer, Color_Helper(88,true), screen_size, new Vector2(65, 16)); //86
+                WriteTing(ref buffer, Color_Helper(88, true), screen_size, new Vector2(65, 16)); //86
                 WriteTing(ref buffer, RESET, screen_size, new Vector2(89, 17));
 
                 //evil guy of doom does 33 damage
                 //Console.WriteLine(badGuyAttack);
-                WriteTing(ref buffer,  "health: " + health, screen_size, new Vector2(10, 22));
+                WriteTing(ref buffer, "health: " + health, screen_size, new Vector2(10, 22));
 
                 Console.Write(buffer.ToString()); // writes the thing
                                                   //Console.ReadLine();
@@ -861,7 +874,7 @@ namespace Team_Fisherman
                         //color_buffer.Clear();
                         //buffer.Clear();
 
-                        WriteTing(ref buffer,  "                                               ", screen_size, new Vector2(64, 16));
+                        WriteTing(ref buffer, "                                               ", screen_size, new Vector2(64, 16));
                         //Console.Write(color_buffer.ToString());
                         Console.SetCursorPosition(0, 0);
                         Console.Write(buffer.ToString());
@@ -1174,5 +1187,105 @@ namespace Team_Fisherman
             Console.WriteLine();
 
         }
-    }
+        // Player gets the Truth Fragment 1 When fishing
+        static void Truth()
+        {
+            string truth2;
+            Console.WriteLine("\".....Where did you catch that?\"");
+            Console.WriteLine();
+            Console.WriteLine();
+            Thread.Sleep(1000);
+            Console.WriteLine("\"....That's impossible...\"");
+            Console.WriteLine();
+            Thread.Sleep(1000);
+            Console.WriteLine("\"These fish only appear to people who still remember.\"");
+            Console.WriteLine();
+            Console.WriteLine("\"The truth the island wants us to forget.\"");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Thread.Sleep(1000);
+            Console.WriteLine("\"There was never any storm.\"");
+            Thread.Sleep(1000);
+            Console.WriteLine("\"You weren't the first person to arrive here.\"");
+            Console.WriteLine();
+            Console.WriteLine();
+            Thread.Sleep(1000);
+            Console.WriteLine("\"Take this. If you want to know something...\"");
+            Thread.Sleep(1500);
+            Console.WriteLine("*You received a TRUTH FRAGMENT*");
+            Console.WriteLine();
+            Console.WriteLine();
+            Thread.Sleep(1000);
+            Console.WriteLine("*WOULD YOU WANT TO OPEN IT KNOW (YES/NO)*");
+            truth2 = Console.ReadLine();
+            if (truth2 == "yes")
+            {
+                Thread.Sleep(1000);
+                Console.WriteLine("*YOU ARE NOT IN THE REAL WORLD*");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("Press Enter to close it");
+                Console.ReadLine();
+
+            }
+
+            Console.WriteLine("\"...I can only tell this much.\"");
+            Thread.Sleep(1000);
+            Console.WriteLine("You ask for more details");
+            Console.WriteLine();
+            Console.WriteLine();
+            Thread.Sleep(1000);
+            Console.WriteLine("\"...Go to the village shop.\"");
+            Thread.Sleep(500);
+            Console.WriteLine("\"She pretend not to know everything\"");
+            Console.WriteLine();
+            Console.WriteLine();
+            Thread.Sleep(1000);
+            Console.WriteLine("\"But she keeps things people were never supposed to see.\"");
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Press Enter to Exit");
+            Console.ReadLine();
+        }
+
+        // Player gets the Truth Fragment 3 in the forest or something
+        static void fragment()
+        {
+            string truth3;
+            Console.WriteLine("*You received a TRUTH FRAGMENT*");
+            Console.WriteLine();
+            Console.WriteLine();
+            Thread.Sleep(1000);
+            Console.WriteLine("*WOULD YOU WANT TO OPEN IT KNOW (YES/NO)*");
+            truth3 = Console.ReadLine();
+            if (truth3 == "yes")
+            {
+                Thread.Sleep(1000);
+                Console.WriteLine("*YOU ALREADY DIED*");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("Press Enter to close it");
+                Console.ReadLine();
+            }
+
+            }
+
+        }
 }
