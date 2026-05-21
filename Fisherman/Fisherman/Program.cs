@@ -1,8 +1,9 @@
 ﻿using System.Numerics;
+using System.Security;
 using System.Text;
+
 using test_fish;
-//using static test_fish.Fish;
-//using static test_fish.Fishing_Base;
+
 
 namespace Team_Fisherman
 {
@@ -400,10 +401,63 @@ namespace Team_Fisherman
         static void Shopping()
         {
 
-
+            string temp,shop;
+            char buy;
+            string [] c = { "Buy", "Sell", "Talk", "Leave"};
             Console.WriteLine("Shopping");
-            Thread.Sleep(500);
-            Console.Clear();
+            Console.WriteLine("\"Hi, nice to meet you. My name is Jane.\"");
+            Console.WriteLine("\"Is there anything I can help you?\"");
+            Console.WriteLine();
+            Console.WriteLine("======JANE'S SHOP========");
+            for (int i = 0; i < c.Length; i++)
+            {
+                Console.Write(i.ToString().PadRight(10));
+                Console.WriteLine(c[i].PadLeft(10));
+            }
+            Console.WriteLine();
+            shop = Console.ReadLine();
+            
+
+            switch(shop)
+            {
+                case "buy":
+                    string[] m = { "Potion", "Fish Bait", "Torch", "Lantern", "Boots", "Jar of Dirt", "Protective Charm"};
+                    Console.WriteLine("\"Looking for any supplies?\"");
+                    Console.WriteLine("=========BUY SYSTEM========");
+                    for (int i = 0; i < c.Length; i++)
+                    {
+                        Console.Write(i.ToString().PadRight(10));
+                        Console.WriteLine(c[i].PadLeft(10));
+                    }
+                    Console.WriteLine();
+                    shop = Console.ReadLine();
+                    Console.WriteLine("\"The sea is dangerous after dark.\"");
+                    Console.WriteLine("\"Buy what you need before heading out.\"");
+                    temp = Console.ReadLine();
+
+                    Console.WriteLine("\"\"");
+                    break;
+
+                case "sell":
+                    Console.WriteLine("\"What you want to sell?\"");
+                    temp = Console.ReadLine();
+                    Console.WriteLine("\"Wow, fresh catches\"");
+                    Console.WriteLine("\"The villagers rely on fish more than you think.\"");
+                    Console.WriteLine("\"I'll give you a fair prices\"");
+
+                    break;
+
+                case "talk":
+                    Console.WriteLine();
+                    break;
+
+                case "leave":
+                    Console.WriteLine();
+                    break;
+            }
+            
+            
+
 
 
         }
@@ -584,7 +638,8 @@ namespace Team_Fisherman
 
                     WriteTing(ref buffer, "                        ", screen_size, new Vector2(66, 15));
                 }
-                waity--;
+                
+                    waity--;
                 Console.WriteLine("waiting");
 
                 //string enemyIcon1 = "   _/\\___/\\_  ";
@@ -627,10 +682,10 @@ namespace Team_Fisherman
                 //Console.WriteLine("0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0"); // 29
                 */
 
-                do
-                {
-                    Console.WriteLine("waiting");
-                } while (waity < 0);
+                //do
+                //{
+                //    Console.WriteLine("waiting");
+                //} while (waity < 0);
 
                 c = Console.ReadKey(true);
 
@@ -854,6 +909,15 @@ namespace Team_Fisherman
         static void GameIntro()
         {
             Console.Clear();
+            Console.Write(Color_Helper(231, false));
+            Console.Write(Color_Helper(16, true));
+            //Console.Clear();
+
+            // this line is the ANSI Escape sequence for clearing the console, it is needed as the regular console.clear() removes the formatting causing color differences.
+            Console.Write("\x1b[2J");
+            //this sets the cursor position to 1,1
+            Console.Write("\x1b[H");
+
             Console.WriteLine();
             Console.WriteLine("When you finally wake up, the sound of the ocean is the only thing you hear.");
             Console.WriteLine("You find yourself lying on a strange shore surrounded by broken wood and wreckage. A thick fog covers the sea, and in the distance sits a small unfamiliar village.");
