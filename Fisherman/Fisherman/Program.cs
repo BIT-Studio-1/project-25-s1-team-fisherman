@@ -1,7 +1,19 @@
-﻿using System.Numerics;
+
+
+﻿using System.Drawing;
+
+
+﻿
+
+﻿using System;
+using System.Numerics;
+
+using System.Security;
+
 using System.Text;
 
 using test_fish;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace Team_Fisherman
@@ -43,7 +55,16 @@ namespace Team_Fisherman
             Vector2 map_offset = new Vector2(0, 0);
             string path = "Map/map_start.txt";
 
+
+
+
+
+            bool map_changed;
+
+
+
             Menu();
+
             Wait();
             GameIntro();
             while (true)
@@ -376,10 +397,205 @@ namespace Team_Fisherman
         static void Shopping()
         {
 
-
+            string temp,shop,buy,talk1,talk2,check,truth1;
+            
+            string [] c = { "Buy", "Sell", "Talk", "Leave"};
             Console.WriteLine("Shopping");
-            Thread.Sleep(500);
-            Console.Clear();
+            Console.WriteLine("\"Hi, nice to meet you. My name is Jane.\"");
+            Console.WriteLine("\"Is there anything I can help you?\"");
+            Console.WriteLine();
+            Console.WriteLine("======JANE'S SHOP========");
+            for (int i = 0; i < c.Length; i++)
+            {
+                Console.Write(i.ToString().PadRight(10));
+                Console.WriteLine(c[i].PadLeft(10));
+            }
+            Console.WriteLine();
+            shop = Console.ReadLine();
+            
+
+            switch(shop)
+            {
+                case "buy":
+                    string[] m = { "Potion", "Fish Bait", "Torch", "Lantern", "Boots", "Jar of Dirt", "Protective Charm"};
+                    int[] p = {15, 5, 20, 40, 50,1,100};
+                    Console.WriteLine("\"Looking for any supplies?\"");
+                    Console.WriteLine("=================BUY SYSTEM=================");
+                    for (int i = 0; i < m.Length; i++)
+                    {
+                        Console.Write(i.ToString().PadRight(10));
+                        Console.WriteLine(m[i].PadLeft(15));
+                        Console.WriteLine(p[i].ToString().PadLeft(25));
+                    }
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine("\"The sea is dangerous after dark.\"");
+                    Console.WriteLine("\"Buy what you need before heading out.\"");
+                    buy = Console.ReadLine();
+                    
+                    switch(buy)
+                    {
+                        case "Potion":
+                            Console.WriteLine("\"\"");
+                            break;
+
+                        case "Fish Bait":
+                            Console.WriteLine("\"\"");
+                            break;
+
+                        case "Torch":
+                            Console.WriteLine("\"\"");
+                            break;
+
+                        case "Lantern":
+                            Console.WriteLine("\"\"");
+                            break;
+
+                        case "Boots":
+                            Console.WriteLine("\"\"");
+                            break;
+
+                        case "Jar of Dirt":
+                            Console.WriteLine("\"\"");
+                            break;
+
+                        case "Protective Charm":
+                            Console.WriteLine("\"\"");
+                            break;
+                    }
+                    Console.WriteLine("\"\"");
+                    break;
+
+                case "sell":
+                    Console.WriteLine("\"What you want to sell?\"");
+                    temp = Console.ReadLine();
+                    Console.WriteLine("\"Wow, fresh catches\"");
+                    Console.WriteLine("\"The villagers rely on fish more than you think.\"");
+                    Console.WriteLine("\"I'll give you a fair prices\"");
+
+                    break;
+
+                case "talk":
+                    Console.WriteLine();
+                    Console.WriteLine("\"Is this the first time we met?\"");
+                    check= Console.ReadLine();
+
+                    if (check == "yes")
+                    {
+                        Console.WriteLine("\"So, what's you want to talk to me?\"");
+                        talk1 = Console.ReadLine();
+
+                        if (talk1 == "memory fish")
+                        {
+                            Console.WriteLine("\"...So you've started seeing them too.\"");
+                            Console.WriteLine();
+                            Console.WriteLine("\"Those fish only appear near the fog.\"");
+                            Console.WriteLine("\"Some say they carry pieces of lost memories.\"");
+                            Console.WriteLine("\"Others say they show people things they were never meant to remember.\"");
+                            Console.WriteLine("\"Here.Take this.\"");
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine("*You received a TRUTH FRAGMENT*");
+                            Console.WriteLine("\"Don't let others see this\"");
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine("*WOULD YOU WANT TO OPEN IT KNOW (YES/NO)*");
+                            truth1= Console.ReadLine();
+                            if (truth1=="yes")
+                            {
+                                Console.WriteLine("*YOU ARE NOT IN THE REAL WORLD*");
+                            }
+                            else
+                            {
+                                Console.WriteLine();
+                            }
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine("\"It's weird right.\"");
+                            Console.WriteLine("\"If you really want to know more.....\"");
+                            Console.WriteLine();
+                            Thread.Sleep(1500);
+                            Console.WriteLine("\"You might want to check the forest near the shore....\"");
+                            Console.WriteLine();
+                            Thread.Sleep(1000);
+                            Console.WriteLine("\"Strange things wash up there when the fog gets thick.\"");
+                            Thread.Sleep(1000);
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine("Press Enter to exit");
+                            Console.ReadLine();
+                        }
+                    }
+                    else
+                        Console.WriteLine("\"So, what's you want to talk to me?\"");
+                        talk2 = Console.ReadLine();
+
+                         if (talk2 == "memory fish")
+                         {
+                        Console.WriteLine("\"I don't know what's you are talking about.\"");
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine("\"Maybe you should take a rest.\"");
+                        Thread.Sleep(1000);
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine("\"The fog does strange things to people's minds.\"");
+                        Thread.Sleep(1000);
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine("Press Enter to exit");
+                        Console.ReadLine();
+                    }
+                    break;
+
+                case "leave":
+                    Console.WriteLine("\"......Leave??\"");
+                    Thread.Sleep(2000);
+                    Console.WriteLine("\"There is no such thing here.\"");
+                    Thread.Sleep(1000);
+                    Console.WriteLine("\"Anyway come back if you need supplies.\"");
+                    Thread.Sleep(1000);
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine("Press Enter to exit");
+                    Console.ReadLine();
+                    break;
+            }
+            
+            
+
 
 
         }
@@ -401,15 +617,17 @@ namespace Team_Fisherman
             string badGuyAttack = "";
             bool gameRunning = true;
             string badGuyName = "evil guy of doom";
-            int waity = 0;
+            int waity = -1;
+
             // the enemies attack
             void enemyAttack()
             {
-                //damage
+                //damage !!!
                 int damage = random.Next(20, 40);
                 health -= damage;
-                badGuyAttack = badGuyName + " does " + damage + " damage";
-                waity = 1000;
+                //evil guy of doom does 33 damage |
+                badGuyAttack = badGuyName + " does " +  damage + " damage";
+                waity = 100;
                 return;
             }
 
@@ -437,17 +655,20 @@ namespace Team_Fisherman
                 }
             }
 
-            static void WriteTing(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
+            static void WriteTing(ref StringBuilder buff,  string guy, Vector2 screen_size, Vector2 pos)
             {
                 int count = 0;
-                foreach (char ch in guy)
+                foreach (char h in guy)
                 {
-                    buff[To_Index(new Vector2(count + pos.X, pos.Y), screen_size)] = ch;
+                    //colBuff.Append($"{color}{ch}");
+                    //color += RED;
+                    buff[To_Index(new Vector2(count + pos.X, pos.Y), screen_size)] = h;
                     count++;
                 }
             }
 
             StringBuilder buffer = new StringBuilder();
+            //StringBuilder color_buffer = new StringBuilder();
             bool in_menu = true;
             Vector2 screen_size = new Vector2(120, 28);
             Vector2 play_pos = new Vector2(34, 24);
@@ -491,6 +712,7 @@ namespace Team_Fisherman
 
 
                 buffer.Clear();
+                //color_buffer.Clear();
                 Console.SetCursorPosition(0, 0);
 
                 foreach (string line in File.ReadLines("Map/fighting/FightingMenu.txt")) // loops through txt file
@@ -539,30 +761,28 @@ namespace Team_Fisherman
 
 
 
-                WriteTing(ref buffer, enemyIcon1, screen_size, new Vector2(66, 7));
-                WriteTing(ref buffer, enemyIcon2, screen_size, new Vector2(66, 8));
-                WriteTing(ref buffer, enemyIcon3, screen_size, new Vector2(66, 9));
-                WriteTing(ref buffer, enemyIcon4, screen_size, new Vector2(66, 10));
-                WriteTing(ref buffer, enemyIcon5, screen_size, new Vector2(66, 11));
-                WriteTing(ref buffer, enemyIcon6, screen_size, new Vector2(66, 12));
-                WriteTing(ref buffer, badGuyName, screen_size, new Vector2(66, 13));
-                WriteTing(ref buffer, "enemy health: " + badGuyHealth, screen_size, new Vector2(66, 14));
-                WriteTing(ref buffer, badGuyAttack, screen_size, new Vector2(66, 15));
-                WriteTing(ref buffer, "health: " + health, screen_size, new Vector2(10, 22));
+                WriteTing(ref buffer,  enemyIcon1, screen_size, new Vector2(66, 7));
+                WriteTing(ref buffer,  enemyIcon2, screen_size, new Vector2(66, 8));
+                WriteTing(ref buffer,  enemyIcon3, screen_size, new Vector2(66, 9));
+                WriteTing(ref buffer,  enemyIcon4, screen_size, new Vector2(66, 10));
+                WriteTing(ref buffer,  enemyIcon5, screen_size, new Vector2(66, 11));
+                WriteTing(ref buffer,  enemyIcon6, screen_size, new Vector2(66, 12));
+                WriteTing(ref buffer,  badGuyName, screen_size, new Vector2(66, 13));
+                WriteTing(ref buffer,  "enemy health: " + badGuyHealth, screen_size, new Vector2(66, 14));
+
+                WriteTing(ref buffer, badGuyAttack, screen_size, new Vector2(64, 16));
+                WriteTing(ref buffer, Color_Helper(88,true), screen_size, new Vector2(65, 16)); //86
+                WriteTing(ref buffer, RESET, screen_size, new Vector2(89, 17));
+
+                //evil guy of doom does 33 damage
+                //Console.WriteLine(badGuyAttack);
+                WriteTing(ref buffer,  "health: " + health, screen_size, new Vector2(10, 22));
 
                 Console.Write(buffer.ToString()); // writes the thing
                                                   //Console.ReadLine();
 
 
-                if (waity < 0)
-                {
-                    Console.WriteLine("waiting ran");
-
-                    WriteTing(ref buffer, "                        ", screen_size, new Vector2(66, 15));
-                }
-                
-                    waity--;
-                Console.WriteLine("waiting");
+                //Console.WriteLine("waiting");
 
                 //string enemyIcon1 = "   _/\\___/\\_  ";
                 //string enemyIcon2 = "  |  @ __ @ |   ";
@@ -608,7 +828,24 @@ namespace Team_Fisherman
                 //{
                 //    Console.WriteLine("waiting");
                 //} while (waity < 0);
+                while (Console.KeyAvailable == false)
+                {
+                    // running code
+                    if (waity == 0)
+                    {
+                        Console.Clear();
+                        //color_buffer.Clear();
+                        //buffer.Clear();
 
+                        WriteTing(ref buffer,  "                                               ", screen_size, new Vector2(64, 16));
+                        //Console.Write(color_buffer.ToString());
+                        Console.SetCursorPosition(0, 0);
+                        Console.Write(buffer.ToString());
+                    }
+                    waity--;
+                    Thread.Sleep(50);
+                    x++;
+                }
                 c = Console.ReadKey(true);
 
                 //Console.WriteLine("You pressed the '{0}' key.", c.Key);
@@ -831,6 +1068,15 @@ namespace Team_Fisherman
         static void GameIntro()
         {
             Console.Clear();
+            Console.Write(Color_Helper(231, false));
+            Console.Write(Color_Helper(16, true));
+            //Console.Clear();
+
+            // this line is the ANSI Escape sequence for clearing the console, it is needed as the regular console.clear() removes the formatting causing color differences.
+            Console.Write("\x1b[2J");
+            //this sets the cursor position to 1,1
+            Console.Write("\x1b[H");
+
             Console.WriteLine();
             Console.WriteLine("When you finally wake up, the sound of the ocean is the only thing you hear.");
             Console.WriteLine("You find yourself lying on a strange shore surrounded by broken wood and wreckage. A thick fog covers the sea, and in the distance sits a small unfamiliar village.");
