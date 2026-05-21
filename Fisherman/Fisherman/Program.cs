@@ -1,5 +1,10 @@
+
 ﻿using System.Drawing;
 using System.Numerics;
+
+﻿
+using System.Security;
+
 using System.Text;
 
 using test_fish;
@@ -45,12 +50,27 @@ namespace Team_Fisherman
             Vector2 map_offset = new Vector2(0, 0);
             string path = "Map/map_start.txt";
 
-            //Menu();
-            //Wait();
-            //GameIntro();
+
+
+
+            bool map_changed;
+            Menu();
+
+            Wait();
+            GameIntro();
             while (true)
             {
-                path = Get_path(map_tile, path);
+                path = Get_path(map_tile, path,out map_changed);
+                if (map_changed)
+                {
+                    if (player_pos.Y == 0) player_pos.Y = 27;
+                    else if (player_pos.Y == 28) player_pos.Y = 1;
+                    else if (player_pos.X == 0) player_pos.X = 120;
+                    else if (player_pos.X == 121) player_pos.X = 1;
+                    //Console.WriteLine(player_pos);
+                    //Console.ReadLine();
+                    map_changed = false;
+                }
                 buffer.Clear();
                 color_buffer.Clear();
                 //sets the buffer to be a grid of ' ' characters with the size of the screen, this is the background of the game and will be overwritten with the player and any other objects in the game, you can change the character to whatever you want to make it look different. not needed but will leave commented for reference.
@@ -159,7 +179,7 @@ namespace Team_Fisherman
                 player_pos = Move(player_pos, buffer, screen_size, out map_offset);
                 map_tile = Vector2.Clamp(map_tile, new Vector2(0, -1), Vector2.One);
                 map_tile += map_offset;
-
+                
 
 
             }
@@ -193,7 +213,7 @@ namespace Team_Fisherman
                     break;
             }
 
-            Vector2 clamped_offset = Vector2.Clamp(offset, Vector2.Zero, new Vector2(119, 27));
+            Vector2 clamped_offset = Vector2.Clamp(offset, Vector2.Zero, new Vector2(119, 28));
             map_tile = clamped_offset - offset;
             return clamped_offset;
         }
@@ -201,25 +221,39 @@ namespace Team_Fisherman
         //up 
         //start right
         //down
-        static string Get_path(Vector2 map_pos, string current)
+        static string Get_path(Vector2 map_pos, string current,out bool changed)
         {
-            string path = "";
-
+            string path = current;
+            changed = false;
             if (map_pos == Vector2.UnitY)
             {
                 path = "Map/map_up.txt";
+                if (path != current)
+                {
+                    changed = true;
+                }
+
             }
             else if (map_pos == Vector2.Zero)
             {
                 path = "Map/map_start.txt";
+                if (path != current)
+                {
+                    changed = true;
+                }
             }
-            else if (map_pos == Vector2.UnitX)
+            else if (map_pos == new Vector2(-1,0))
             {
-                path = "Map/map_start.txt";
+                path = "Map/map_right.txt";
+                if (path != current)
+                {
+                    changed = true;
+                }
             }
             else
             {
                 path = current;
+                changed = false;
             }
 
             return path;
@@ -378,10 +412,63 @@ namespace Team_Fisherman
         static void Shopping()
         {
 
-
+            string temp,shop;
+            char buy;
+            string [] c = { "Buy", "Sell", "Talk", "Leave"};
             Console.WriteLine("Shopping");
-            Thread.Sleep(500);
-            Console.Clear();
+            Console.WriteLine("\"Hi, nice to meet you. My name is Jane.\"");
+            Console.WriteLine("\"Is there anything I can help you?\"");
+            Console.WriteLine();
+            Console.WriteLine("======JANE'S SHOP========");
+            for (int i = 0; i < c.Length; i++)
+            {
+                Console.Write(i.ToString().PadRight(10));
+                Console.WriteLine(c[i].PadLeft(10));
+            }
+            Console.WriteLine();
+            shop = Console.ReadLine();
+            
+
+            switch(shop)
+            {
+                case "buy":
+                    string[] m = { "Potion", "Fish Bait", "Torch", "Lantern", "Boots", "Jar of Dirt", "Protective Charm"};
+                    Console.WriteLine("\"Looking for any supplies?\"");
+                    Console.WriteLine("=========BUY SYSTEM========");
+                    for (int i = 0; i < c.Length; i++)
+                    {
+                        Console.Write(i.ToString().PadRight(10));
+                        Console.WriteLine(c[i].PadLeft(10));
+                    }
+                    Console.WriteLine();
+                    shop = Console.ReadLine();
+                    Console.WriteLine("\"The sea is dangerous after dark.\"");
+                    Console.WriteLine("\"Buy what you need before heading out.\"");
+                    temp = Console.ReadLine();
+
+                    Console.WriteLine("\"\"");
+                    break;
+
+                case "sell":
+                    Console.WriteLine("\"What you want to sell?\"");
+                    temp = Console.ReadLine();
+                    Console.WriteLine("\"Wow, fresh catches\"");
+                    Console.WriteLine("\"The villagers rely on fish more than you think.\"");
+                    Console.WriteLine("\"I'll give you a fair prices\"");
+
+                    break;
+
+                case "talk":
+                    Console.WriteLine();
+                    break;
+
+                case "leave":
+                    Console.WriteLine();
+                    break;
+            }
+            
+            
+
 
 
         }
@@ -854,6 +941,15 @@ namespace Team_Fisherman
         static void GameIntro()
         {
             Console.Clear();
+            Console.Write(Color_Helper(231, false));
+            Console.Write(Color_Helper(16, true));
+            //Console.Clear();
+
+            // this line is the ANSI Escape sequence for clearing the console, it is needed as the regular console.clear() removes the formatting causing color differences.
+            Console.Write("\x1b[2J");
+            //this sets the cursor position to 1,1
+            Console.Write("\x1b[H");
+
             Console.WriteLine();
             Console.WriteLine("When you finally wake up, the sound of the ocean is the only thing you hear.");
             Console.WriteLine("You find yourself lying on a strange shore surrounded by broken wood and wreckage. A thick fog covers the sea, and in the distance sits a small unfamiliar village.");
