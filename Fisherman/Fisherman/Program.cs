@@ -397,15 +397,29 @@ namespace Team_Fisherman
             switch(shop)
             {
                 case "buy":
+                    string[] m = { "Potion", "Fish Bait", "Torch", "Lantern", "Boots", "Jar of Dirt", "Protective Charm"};
+                    Console.WriteLine("\"Looking for any supplies?\"");
+                    Console.WriteLine("=========BUY SYSTEM========");
+                    for (int i = 0; i < c.Length; i++)
+                    {
+                        Console.Write(i.ToString().PadRight(10));
+                        Console.WriteLine(c[i].PadLeft(10));
+                    }
                     Console.WriteLine();
+                    shop = Console.ReadLine();
+                    Console.WriteLine("\"The sea is dangerous after dark.\"");
+                    Console.WriteLine("\"Buy what you need before heading out.\"");
+                    temp = Console.ReadLine();
+
+                    Console.WriteLine("\"\"");
                     break;
 
                 case "sell":
-                    Console.WriteLine("What you want to sell?");
+                    Console.WriteLine("\"What you want to sell?\"");
                     temp = Console.ReadLine();
-                    Console.WriteLine("Wow, fresh catches");
-                    Console.WriteLine("The villagers rely on fish more than you think.");
-                    Console.WriteLine("I'll give you a fair prices");
+                    Console.WriteLine("\"Wow, fresh catches\"");
+                    Console.WriteLine("\"The villagers rely on fish more than you think.\"");
+                    Console.WriteLine("\"I'll give you a fair prices\"");
 
                     break;
 
