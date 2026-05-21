@@ -1,7 +1,9 @@
-﻿using System.Numerics;
+﻿using System.Drawing;
+using System.Numerics;
 using System.Text;
 
 using test_fish;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace Team_Fisherman
@@ -43,9 +45,9 @@ namespace Team_Fisherman
             Vector2 map_offset = new Vector2(0, 0);
             string path = "Map/map_start.txt";
 
-            Menu();
-            Wait();
-            GameIntro();
+            //Menu();
+            //Wait();
+            //GameIntro();
             while (true)
             {
                 path = Get_path(map_tile, path);
@@ -401,15 +403,17 @@ namespace Team_Fisherman
             string badGuyAttack = "";
             bool gameRunning = true;
             string badGuyName = "evil guy of doom";
-            int waity = 0;
+            int waity = -1;
+
             // the enemies attack
             void enemyAttack()
             {
-                //damage
+                //damage !!!
                 int damage = random.Next(20, 40);
                 health -= damage;
-                badGuyAttack = badGuyName + " does " + damage + " damage";
-                waity = 1000;
+                //evil guy of doom does 33 damage |
+                badGuyAttack = badGuyName + " does " +  damage + " damage";
+                waity = 100;
                 return;
             }
 
@@ -437,17 +441,20 @@ namespace Team_Fisherman
                 }
             }
 
-            static void WriteTing(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
+            static void WriteTing(ref StringBuilder buff,  string guy, Vector2 screen_size, Vector2 pos)
             {
                 int count = 0;
-                foreach (char ch in guy)
+                foreach (char h in guy)
                 {
-                    buff[To_Index(new Vector2(count + pos.X, pos.Y), screen_size)] = ch;
+                    //colBuff.Append($"{color}{ch}");
+                    //color += RED;
+                    buff[To_Index(new Vector2(count + pos.X, pos.Y), screen_size)] = h;
                     count++;
                 }
             }
 
             StringBuilder buffer = new StringBuilder();
+            //StringBuilder color_buffer = new StringBuilder();
             bool in_menu = true;
             Vector2 screen_size = new Vector2(120, 28);
             Vector2 play_pos = new Vector2(34, 24);
@@ -491,6 +498,7 @@ namespace Team_Fisherman
 
 
                 buffer.Clear();
+                //color_buffer.Clear();
                 Console.SetCursorPosition(0, 0);
 
                 foreach (string line in File.ReadLines("Map/fighting/FightingMenu.txt")) // loops through txt file
@@ -539,30 +547,28 @@ namespace Team_Fisherman
 
 
 
-                WriteTing(ref buffer, enemyIcon1, screen_size, new Vector2(66, 7));
-                WriteTing(ref buffer, enemyIcon2, screen_size, new Vector2(66, 8));
-                WriteTing(ref buffer, enemyIcon3, screen_size, new Vector2(66, 9));
-                WriteTing(ref buffer, enemyIcon4, screen_size, new Vector2(66, 10));
-                WriteTing(ref buffer, enemyIcon5, screen_size, new Vector2(66, 11));
-                WriteTing(ref buffer, enemyIcon6, screen_size, new Vector2(66, 12));
-                WriteTing(ref buffer, badGuyName, screen_size, new Vector2(66, 13));
-                WriteTing(ref buffer, "enemy health: " + badGuyHealth, screen_size, new Vector2(66, 14));
-                WriteTing(ref buffer, badGuyAttack, screen_size, new Vector2(66, 15));
-                WriteTing(ref buffer, "health: " + health, screen_size, new Vector2(10, 22));
+                WriteTing(ref buffer,  enemyIcon1, screen_size, new Vector2(66, 7));
+                WriteTing(ref buffer,  enemyIcon2, screen_size, new Vector2(66, 8));
+                WriteTing(ref buffer,  enemyIcon3, screen_size, new Vector2(66, 9));
+                WriteTing(ref buffer,  enemyIcon4, screen_size, new Vector2(66, 10));
+                WriteTing(ref buffer,  enemyIcon5, screen_size, new Vector2(66, 11));
+                WriteTing(ref buffer,  enemyIcon6, screen_size, new Vector2(66, 12));
+                WriteTing(ref buffer,  badGuyName, screen_size, new Vector2(66, 13));
+                WriteTing(ref buffer,  "enemy health: " + badGuyHealth, screen_size, new Vector2(66, 14));
+
+                WriteTing(ref buffer, badGuyAttack, screen_size, new Vector2(64, 16));
+                WriteTing(ref buffer, Color_Helper(88,true), screen_size, new Vector2(65, 16)); //86
+                WriteTing(ref buffer, RESET, screen_size, new Vector2(89, 17));
+
+                //evil guy of doom does 33 damage
+                //Console.WriteLine(badGuyAttack);
+                WriteTing(ref buffer,  "health: " + health, screen_size, new Vector2(10, 22));
 
                 Console.Write(buffer.ToString()); // writes the thing
                                                   //Console.ReadLine();
 
 
-                if (waity < 0)
-                {
-                    Console.WriteLine("waiting ran");
-
-                    WriteTing(ref buffer, "                        ", screen_size, new Vector2(66, 15));
-                }
-                
-                    waity--;
-                Console.WriteLine("waiting");
+                //Console.WriteLine("waiting");
 
                 //string enemyIcon1 = "   _/\\___/\\_  ";
                 //string enemyIcon2 = "  |  @ __ @ |   ";
@@ -608,7 +614,24 @@ namespace Team_Fisherman
                 //{
                 //    Console.WriteLine("waiting");
                 //} while (waity < 0);
+                while (Console.KeyAvailable == false)
+                {
+                    // running code
+                    if (waity == 0)
+                    {
+                        Console.Clear();
+                        //color_buffer.Clear();
+                        //buffer.Clear();
 
+                        WriteTing(ref buffer,  "                                               ", screen_size, new Vector2(64, 16));
+                        //Console.Write(color_buffer.ToString());
+                        Console.SetCursorPosition(0, 0);
+                        Console.Write(buffer.ToString());
+                    }
+                    waity--;
+                    Thread.Sleep(50);
+                    x++;
+                }
                 c = Console.ReadKey(true);
 
                 //Console.WriteLine("You pressed the '{0}' key.", c.Key);
