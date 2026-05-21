@@ -399,7 +399,7 @@ namespace Team_Fisherman
 
             string temp,shop,buy,talk1,talk2,check,truth1;
             
-            string [] c = { "Buy", "Sell", "Talk", "Leave"};
+            string [] c = { "Buy", "Sell", "Talk", "Exit", "Leave"};
             Console.WriteLine("Shopping");
             Console.WriteLine("\"Hi, nice to meet you. My name is Jane.\"");
             Console.WriteLine("\"Is there anything I can help you?\"");
@@ -420,15 +420,16 @@ namespace Team_Fisherman
                     string[] m = { "Potion", "Fish Bait", "Torch", "Lantern", "Boots", "Jar of Dirt", "Protective Charm"};
                     int[] p = {15, 5, 20, 40, 50,1,100};
                     Console.WriteLine("\"Looking for any supplies?\"");
-                    Console.WriteLine("=================BUY SYSTEM=================");
+                    Console.WriteLine("========================BUY SYSTEM=========================");
                     for (int i = 0; i < m.Length; i++)
                     {
                         Console.Write(i.ToString().PadRight(10));
-                        Console.WriteLine(m[i].PadLeft(15));
+                        Console.Write(m[i].PadLeft(15));
                         Console.WriteLine(p[i].ToString().PadLeft(25));
                     }
                     Console.WriteLine();
                     Console.WriteLine();
+                    Thread.Sleep(1000);
                     Console.WriteLine("\"The sea is dangerous after dark.\"");
                     Console.WriteLine("\"Buy what you need before heading out.\"");
                     buy = Console.ReadLine();
@@ -477,7 +478,7 @@ namespace Team_Fisherman
 
                 case "talk":
                     Console.WriteLine();
-                    Console.WriteLine("\"Is this the first time we met?\"");
+                    Console.WriteLine("\"Is this the first time we met?*(YES/NO)*\"");
                     check= Console.ReadLine();
 
                     if (check == "yes")
@@ -489,21 +490,27 @@ namespace Team_Fisherman
                         {
                             Console.WriteLine("\"...So you've started seeing them too.\"");
                             Console.WriteLine();
+                            Thread.Sleep(1000);
                             Console.WriteLine("\"Those fish only appear near the fog.\"");
                             Console.WriteLine("\"Some say they carry pieces of lost memories.\"");
+                            Thread.Sleep(1000);
                             Console.WriteLine("\"Others say they show people things they were never meant to remember.\"");
+                            Thread.Sleep(1500);
                             Console.WriteLine("\"Here.Take this.\"");
                             Console.WriteLine();
                             Console.WriteLine();
                             Console.WriteLine();
+                            Thread.Sleep(1000);
                             Console.WriteLine("*You received a TRUTH FRAGMENT*");
                             Console.WriteLine("\"Don't let others see this\"");
                             Console.WriteLine();
                             Console.WriteLine();
+                            Thread.Sleep(1000);
                             Console.WriteLine("*WOULD YOU WANT TO OPEN IT KNOW (YES/NO)*");
                             truth1= Console.ReadLine();
                             if (truth1=="yes")
                             {
+                                Thread.Sleep(1000);
                                 Console.WriteLine("*YOU ARE NOT IN THE REAL WORLD*");
                             }
                             else
@@ -512,6 +519,7 @@ namespace Team_Fisherman
                             }
                             Console.WriteLine();
                             Console.WriteLine();
+                            Thread.Sleep(1500);
                             Console.WriteLine("\"It's weird right.\"");
                             Console.WriteLine("\"If you really want to know more.....\"");
                             Console.WriteLine();
@@ -567,11 +575,27 @@ namespace Team_Fisherman
                     }
                     break;
 
+                case "Exit":
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine("Press Enter to exit");
+                    Console.ReadLine();
+                    break;
+
                 case "leave":
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.WriteLine();
                     Console.WriteLine("\"......Leave??\"");
                     Thread.Sleep(2000);
+                    Console.WriteLine();
+                    Console.WriteLine();
                     Console.WriteLine("\"There is no such thing here.\"");
                     Thread.Sleep(1000);
+                    Console.WriteLine();
                     Console.WriteLine("\"Anyway come back if you need supplies.\"");
                     Thread.Sleep(1000);
                     Console.WriteLine();
