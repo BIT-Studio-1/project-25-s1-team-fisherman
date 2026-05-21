@@ -1,7 +1,8 @@
 ﻿using System.Numerics;
 using System.Text;
-using static Fish;
-using static Fishing_Base;
+using test_fish;
+//using static test_fish.Fish;
+//using static test_fish.Fishing_Base;
 
 namespace Team_Fisherman
 {
@@ -22,7 +23,7 @@ namespace Team_Fisherman
         {
 
             Random rand = new Random();
-            //this is a stringbuilder that makes it easy to edit the console output. it works like an a array 
+            //this is a string builder that makes it easy to edit the console output. it works like an a array 
             StringBuilder buffer = new StringBuilder();
             //Colored buffer just for display, don't use for any checks as To_Index wont work on it, holds the color codes as well so is longer than buffer 
             StringBuilder color_buffer = new StringBuilder();
@@ -279,7 +280,7 @@ namespace Team_Fisherman
         //displays the menu and allows the player to choose between starting the game or exiting.
         static void Menu()
         {
-            //this is a stringbuilder that makes it easy to edit the console output. it works like an a array
+            //this is a string builder that makes it easy to edit the console output. it works like an a array
             StringBuilder buffer = new StringBuilder();
             bool in_menu = true;
             //Vector2 screen_size = new Vector2(120, 28);
