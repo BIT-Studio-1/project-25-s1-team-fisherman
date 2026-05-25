@@ -110,8 +110,8 @@ namespace test_fish
         {
             if (inventory.Count == 0) { Console.WriteLine("Inventory is empty."); return; }
 
-            // This code organizes inventory items by fish sрecies, combining their counts, weights, and vаlues
-            // so each fish type shows up once with tоtals rather than appearing multiple times for еach catch
+            // This code organizes inventory items by fish species, combining their counts, weights, and values
+            // so each fish type shows up once with totals rather than appearing multiple times for еach catch
             var grouped = new Dictionary<string, (string Rarity, int Count, float TotalW, int TotalV)>();
             foreach (var i in inventory)
             {

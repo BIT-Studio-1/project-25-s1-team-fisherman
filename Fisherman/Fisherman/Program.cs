@@ -73,10 +73,10 @@ namespace Team_Fisherman
 
 
 
-            Menu();
+            //Menu();
             
-            Wait();
-            GameIntro();
+            //Wait();
+            //GameIntro();
 
             while (true)
             {
@@ -655,6 +655,7 @@ namespace Team_Fisherman
         {
             string[] inventory = { "23", "fish", "2", "health potion", "56", "rock" };
             string[] attacks = { "slash", "jab", "bow", "other" };
+            string[] defence = { "block", "dodge", "parry", "other" };
 
             //object[] mixedArray = new object[] { 10, "Hello World", 25, "C# Rocks" };
 
@@ -664,22 +665,89 @@ namespace Team_Fisherman
             Random random = new Random();
             int x = 0;
             int health = 100;
+            int playerSpeed = 24;
+
             int badGuyHealth = 100;
+            int badGuySpeed = 12; 
             string badGuyAttack = "";
-            bool gameRunning = true;
             string badGuyName = "evil guy of doom";
+            
+            bool gameRunning = true;
             int waity = -1;
 
-            // the enemies attack
-            void enemyAttack()
+            void alive() 
+            {
+                if (badGuyHealth <= 0)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("the bad guy is dead you win");
+                    Console.WriteLine("");
+                    gameRunning = false;
+                }
+                else if (health <= 0)
+                {
+                    Console.WriteLine("");
+                    Console.WriteLine("you are dead you lose");
+                    Console.WriteLine("");
+                    gameRunning = false;
+                }
+            }
+            // the enemies attack  //code for dodging - returns an int depending on how much damage taken 0 dead 1 survived 2 perfect -1 something went wrong
+            int Attack() 
+            {
+                int damage = 0; //random.Next(20, 40);
+                if (playerSpeed >= badGuySpeed)
+                {
+                    badGuyHealth -= playerAttack();
+                    alive();
+                    health -= enemyAttack(4);
+                    alive();
+                }
+                else
+                {
+                    health -= enemyAttack(4);
+                    alive();
+                    badGuyHealth -= playerAttack();
+                    alive();
+                }
+                return 3;
+            }
+
+            static int playerAttack() 
+            {
+
+                return 3;
+            }
+
+            int enemyAttack(int playerAttack)
             {
                 //damage !!!
-                int damage = random.Next(20, 40);
+                Random random = new Random();
+                int damage = 0; //random.Next(20, 40);
+         
+                switch (Dodging())
+                {
+                    case 0: //death
+                        return 2344;
+
+                    case 1: // failed
+                        return random.Next(20, 40);
+
+                    case 2: // perfect
+                        return 0;
+
+                    case -1: //error
+                        Console.WriteLine("error in the dodging");
+                        break;
+                }
+            
+                    
                 health -= damage;
                 //evil guy of doom does 33 damage |
+                
                 badGuyAttack = badGuyName + " does " + damage + " damage";
                 waity = 100;
-                return;
+                return 3;
             }
 
             // this function converts the string num relating to the "item" to a int then adds or subtracts the "opper" amount
@@ -727,7 +795,7 @@ namespace Team_Fisherman
             Vector2 current = play_pos;
 
             string enemyIcon1 = "               ";
-            string enemyIcon2 = "  _____        ";
+            string enemyIcon2 = " (\\___/)      ";
             string enemyIcon3 = " | >:) |    /  ";
             string enemyIcon4 = "  -----    /   ";
             string enemyIcon5 = "   |_____ /    ";
@@ -747,16 +815,9 @@ namespace Team_Fisherman
                 //    x++;
                 //}
 
-
-
                 // bad guy name
 
-
-
-
                 // @@@
-
-
 
                 //buffer.Clear();
                 //Console.SetCursorPosition(0, 0);
@@ -768,10 +829,8 @@ namespace Team_Fisherman
 
                 foreach (string line in File.ReadLines("Map/fighting/FightingMenu.txt")) // loops through txt file
                 {
-
                     foreach (char p in line) //each line
                     {
-                        //Console.Write(p);
                         buffer.Append(p);
                     }
                     buffer.Append("\n");
@@ -822,8 +881,8 @@ namespace Team_Fisherman
                 WriteTing(ref buffer, "enemy health: " + badGuyHealth, screen_size, new Vector2(66, 14));
 
                 WriteTing(ref buffer, badGuyAttack, screen_size, new Vector2(64, 16));
-                WriteTing(ref buffer, Color_Helper(88, true), screen_size, new Vector2(65, 16)); //86
-                WriteTing(ref buffer, RESET, screen_size, new Vector2(89, 17));
+                //WriteTing(ref buffer, Color_Helper(88, true), screen_size, new Vector2(65, 16)); //86
+                //WriteTing(ref buffer, RESET, screen_size, new Vector2(89, 17));
 
                 //evil guy of doom does 33 damage
                 //Console.WriteLine(badGuyAttack);
@@ -885,11 +944,8 @@ namespace Team_Fisherman
                     if (waity == 0)
                     {
                         Console.Clear();
-                        //color_buffer.Clear();
-                        //buffer.Clear();
-
+                        badGuyAttack = "" ;
                         WriteTing(ref buffer, "                                               ", screen_size, new Vector2(64, 16));
-                        //Console.Write(color_buffer.ToString());
                         Console.SetCursorPosition(0, 0);
                         Console.Write(buffer.ToString());
                     }
@@ -924,23 +980,23 @@ namespace Team_Fisherman
                     {
                         case "slash":
                             Console.Write("you do the slash");
-                            badGuyHealth -= 31;
-                            enemyAttack();
+                            //badGuyHealth -= 31;
+                            Attack();
                             break;
                         case "jab":
                             Console.Write("you do the jab");
-                            badGuyHealth -= 20;
-                            enemyAttack();
+                            //badGuyHealth -= 20;
+                            Attack();
                             break;
                         case "bow":
                             Console.Write("you shoot the bow");
-                            badGuyHealth -= 15;
-                            enemyAttack();
+                            //badGuyHealth -= 15;
+                            Attack();
                             break;
                         case "other":
                             Console.Write("you do the other");
                             badGuyHealth -= 3;
-                            enemyAttack();
+                            Attack();
                             break;
                         case "exit":
                             Console.WriteLine("exit");
@@ -951,7 +1007,53 @@ namespace Team_Fisherman
                     }
                     Console.ReadLine();
                 }
-                else if (c.Key == ConsoleKey.B)
+                else if (c.Key == ConsoleKey.D)
+                {
+                    Console.WriteLine("    ==== defence ====     ");
+                    Console.WriteLine("##########################");
+                    for (int i = 0; i < defence.Length; i++)
+                    {
+                        Console.Write("## ".PadRight(3) + defence[i].PadRight(5) + " ##");
+                        // && i !> 0
+                        if (((i + 1) % 2) == 0)
+                        {
+                            Console.Write("\n");
+                            Console.WriteLine("######################");
+                        }
+                    }
+                    Console.Write("how do you want to defend: ");
+                    string defen = Console.ReadLine();
+                    //Console.WriteLine(attack);
+
+                    switch (defen)
+                    {
+                        case "dodge":
+                            Console.Write("you do the dodge yuh");
+                            //enemyAttack();
+                            break;
+                        case "block":
+                            Console.Write("you do the block");
+                            //enemyAttack();
+                            break;
+                        case "parry":
+                            Console.Write("you parry");
+                            //enemyAttack();
+                            break;
+                        case "other":
+                            Console.Write("you do the other");
+                            //enemyAttack();
+                            break;
+                        case "exit":
+                            Console.WriteLine("exit");
+                            break;
+                        default:
+                            Console.WriteLine("incorrect input");
+                            break;
+                    }
+                    Console.ReadLine();
+                }
+
+                else if (c.Key == ConsoleKey.S)
                 {
                     Console.Write("\n");
                     Console.WriteLine("    ==== inventory ====");
@@ -966,7 +1068,6 @@ namespace Team_Fisherman
                             Console.Write(" # ".PadRight(3) + inventory[i].PadRight(13) + " ###");
                             Console.Write("\n");
                             Console.WriteLine("##########################");
-
                         }
                         else  //number
                         {
@@ -976,7 +1077,6 @@ namespace Team_Fisherman
                     Console.Write("what item do you want to use: ");
                     string inv = Console.ReadLine();
                     Console.WriteLine(inv);
-
 
                     switch (inv)
                     {
@@ -1017,20 +1117,7 @@ namespace Team_Fisherman
                 }
 
 
-                if (badGuyHealth <= 0)
-                {
-                    Console.WriteLine("");
-                    Console.WriteLine("the bad guy is dead you win");
-                    Console.WriteLine("");
-                    gameRunning = false;
-                }
-                else if (health <= 0)
-                {
-                    Console.WriteLine("");
-                    Console.WriteLine("you are dead you lose");
-                    Console.WriteLine("");
-                    gameRunning = false;
-                }
+               
 
 
             } while (gameRunning == true);
