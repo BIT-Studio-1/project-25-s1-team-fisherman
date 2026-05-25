@@ -69,18 +69,44 @@ namespace Team_Fisherman
 
 
 
-            bool map_changed;
+            bool map_changed = false;
 
 
 
             Menu();
-            
-            Wait();
-            GameIntro();
+
+            //Wait();
+            //GameIntro();
+            Console.Write(RESET);
+            Console.Clear();
+            Console.Write("\x1b[3j");
+            Console.Clear();
+            //Console.ReadLine();
 
             while (true)
             {
-                path = Get_path(map_tile, path);
+                path = Get_path(map_tile, path, out map_changed);
+                if (map_changed)
+                {
+                    if (player_pos.X == 118)
+                    {
+                        player_pos.X = 1;
+                    }
+                    else if (player_pos.X == 0)
+                    {
+                        player_pos.X = 118;
+                    }
+                    else if (player_pos.Y == 0)
+                    {
+                        player_pos.Y = 27;
+                    }
+                    else if (player_pos.Y == 27)
+                    {
+                        player_pos.Y = 0;
+                    }
+
+
+                }
                 buffer.Clear();
                 color_buffer.Clear();
                 //sets the buffer to be a grid of ' ' characters with the size of the screen, this is the background of the game and will be overwritten with the player and any other objects in the game, you can change the character to whatever you want to make it look different. not needed but will leave commented for reference.
@@ -223,7 +249,7 @@ namespace Team_Fisherman
                     break;
             }
 
-            Vector2 clamped_offset = Vector2.Clamp(offset, Vector2.Zero, new Vector2(119, 27));
+            Vector2 clamped_offset = Vector2.Clamp(offset, Vector2.Zero, new Vector2(118, 27));
             map_tile = clamped_offset - offset;
             return clamped_offset;
         }
@@ -231,24 +257,41 @@ namespace Team_Fisherman
         //up 
         //start right
         //down
-        static string Get_path(Vector2 map_pos, string current)
+        static string Get_path(Vector2 map_pos, string current, out bool map_changed)
         {
-            string path = "";
+            string path = current;
+            map_changed = false;
 
             if (map_pos == Vector2.UnitY)
             {
+                //Console.WriteLine("up");
                 path = "Map/map_up.txt";
+                if (current != path)
+                {
+                    map_changed = true;
+                }
             }
             else if (map_pos == Vector2.Zero)
             {
+                //Console.WriteLine("start");
                 path = "Map/map_start.txt";
+                if (current != path)
+                {
+                    map_changed = true;
+                }
             }
-            else if (map_pos == Vector2.UnitX)
+            else if (map_pos == -Vector2.UnitX)
             {
-                path = "Map/map_start.txt";
+
+                path = "Map/map_right.txt";
+                if (current != path)
+                {
+                    map_changed = true;
+                }
             }
             else
             {
+                map_changed = false;
                 path = current;
             }
 
