@@ -213,7 +213,7 @@ namespace Team_Fisherman
                 Console.Write(color_buffer.ToString());
                 Vector2 t_pos = map_offset;
                 player_pos = Move(player_pos, buffer, screen_size, out map_offset);
-                map_tile = Vector2.Clamp(map_tile, new Vector2(0, -1), Vector2.One);
+                //map_tile = Vector2.Clamp(map_tile, new Vector2(0, -1), Vector2.One);
                 map_tile += map_offset;
 
 
