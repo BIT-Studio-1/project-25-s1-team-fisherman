@@ -39,25 +39,26 @@ namespace test_fish
         static Random rng = new Random();
 
         static Fish[] table = {
-        new Fish ("Boot",      "common",   0.1f,  1f,    1,    0.30f, ConsoleColor.White),
-        new Fish("Sardine",   "common",   0.1f,  0.5f,  3,    0.28f, ConsoleColor.White),
-        new Fish("Carp",      "common",   1f,    3.5f,  8,    0.20f, ConsoleColor.Yellow),
-        new Fish("Catfish",   "common",   2f,    6f,    15,   0.13f, ConsoleColor.Gray),
+        new Fish ("Boot",      "common",   0.1f,  1f,    5,    0.30f, ConsoleColor.White),
+        new Fish("Sardine",   "common",   0.1f,  0.5f,  10,    0.28f, ConsoleColor.White),
+        new Fish("Carp",      "common",   1f,    3.5f,  15,    0.20f, ConsoleColor.Yellow),
+        new Fish("Catfish",   "common",   2f,    6f,    20,   0.13f, ConsoleColor.Gray),
         new Fish("Bass",      "uncommon", 1.5f,  5f,    30,   0.05f, ConsoleColor.Green),
-        new Fish("Trout",     "uncommon", 1f,    4f,    25,   0.05f, ConsoleColor.DarkGreen),
+        new Fish("Trout",     "uncommon", 1f,    4f,    40,   0.05f, ConsoleColor.DarkGreen),
         new Fish("Sturgeon",      "rare",     3f,    9f,    80,   0.015f, ConsoleColor.DarkGray),
         new Fish("Salmon",    "rare",     4f,    12f,   120,  0.010f, ConsoleColor.Red),
-        new Fish("Great White Shark",    "rare",     6f,    15f,   3000,  0.07f, ConsoleColor.Red),
+        new Fish("Great White Shark",    "rare",     6f,    15f,   400,  0.07f, ConsoleColor.Red),
         new Fish("Swordfish", "epic",     8f,    25f,   500,  0.003f, ConsoleColor.Blue),
-        new Fish("Leviathan", "epic",     30f,   99f,   2500, 0.001f, ConsoleColor.Cyan),
+        new Fish("Leviathan", "epic",     30f,   99f,   2500, 0.002f, ConsoleColor.Cyan),
+        new Fish("Cthulhu", "mythic",     60f,   120f,   5000, 0.001f, ConsoleColor.Cyan),
     };
 
         static int coins = 0, caught = 0, casts = 0, rodLv = 0, luckLv = 0;
         static List<(string Name, string Rarity, float Weight, int Value)> inventory = new();
-        static int[] upgradeCosts = { 30, 80, 200, 600, 1500, 4000 };
+        static int[] upgradeCosts = { 30, 80, 200, 600, 1500, 3000 };
 
-        static float Luck() => luckLv * 0.15f;
-        static float RodBonus() => rodLv * 0.10f;
+        static float Luck() => luckLv * 0.40f;
+        static float RodBonus() => rodLv * 0.20f;
 
         //This function goes through the fish table from stаrt to finish, with the rarest fish coming last. Ιt‍ checks each fish and returns the first one thаt passes its chance roll. Since common fish arе liste‍d at the top,
         //they get checked first, but rаrer fish down the list can still win if all thе earlier ‍rolls miss.
