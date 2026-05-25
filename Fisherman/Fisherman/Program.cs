@@ -693,12 +693,12 @@ namespace Team_Fisherman
                 }
             }
             // the enemies attack  //code for dodging - returns an int depending on how much damage taken 0 dead 1 survived 2 perfect -1 something went wrong
-            int Attack() 
+            void Attack(int playerDamg) 
             {
                 int damage = 0; //random.Next(20, 40);
                 if (playerSpeed >= badGuySpeed)
                 {
-                    badGuyHealth -= playerAttack();
+                    badGuyHealth -= playerAttack(playerDamg);
                     alive();
                     health -= enemyAttack(4);
                     alive();
@@ -707,16 +707,15 @@ namespace Team_Fisherman
                 {
                     health -= enemyAttack(4);
                     alive();
-                    badGuyHealth -= playerAttack();
+                    badGuyHealth -= playerAttack(playerDamg);
                     alive();
                 }
-                return 3;
             }
 
-            static int playerAttack() 
+            static int playerAttack(int playerDamg) 
             {
 
-                return 3;
+                return playerDamg;
             }
 
             int enemyAttack(int playerAttack)
@@ -794,13 +793,19 @@ namespace Team_Fisherman
             Vector2 exit_pos = new Vector2(62, 24);
             Vector2 current = play_pos;
 
-            string enemyIcon1 = "               ";
-            string enemyIcon2 = " (\\___/)      ";
-            string enemyIcon3 = " | >:) |    /  ";
-            string enemyIcon4 = "  -----    /   ";
-            string enemyIcon5 = "   |_____ /    ";
-            string enemyIcon6 = "   /\\    /\\    ";
+            //string enemyIcon1 = "               ";
+            //string enemyIcon2 = " (\\___/)      ";
+            //string enemyIcon3 = " | >:) |    /  ";
+            //string enemyIcon4 = "  -----    /   ";
+            //string enemyIcon5 = "   |_____ /    ";
+            //string enemyIcon6 = "   /\\    /\\    ";
 
+            string enemyIcon1 = @"_                      0 ";
+            string enemyIcon2 = @"\ \ ____|\____       0   ";
+            string enemyIcon3 = @" \ /        o \   0   ";
+            string enemyIcon4 = @"  (   ||       ) ";
+            string enemyIcon5 = @" / \__________/      ";
+            string enemyIcon6 = @"/_/             ";
             do
             {
                 //Console.WriteLine("\nPress a key to display; " +
@@ -822,7 +827,7 @@ namespace Team_Fisherman
                 //buffer.Clear();
                 //Console.SetCursorPosition(0, 0);
 
-
+                
                 buffer.Clear();
                 //color_buffer.Clear();
                 Console.SetCursorPosition(0, 0);
@@ -835,8 +840,7 @@ namespace Team_Fisherman
                     }
                     buffer.Append("\n");
                 }
-
-
+                /*
                 //WriteTing(ref buffer, enemyIcon1, screen_size, new Vector2(66, 7));
                 //WriteTing(ref buffer, enemyIcon2, screen_size, new Vector2(66, 8));
                 //WriteTing(ref buffer, enemyIcon3, screen_size, new Vector2(66, 9));
@@ -861,15 +865,9 @@ namespace Team_Fisherman
                 //    buffer[To_Index(new Vector2(q, 15), screen_size)] = '#';
                 //}
 
+                */
                 //Console.Write(buffer.ToString()); // writes the thing
                 //Console.ReadLine();
-
-
-
-
-
-
-
 
                 WriteTing(ref buffer, enemyIcon1, screen_size, new Vector2(66, 7));
                 WriteTing(ref buffer, enemyIcon2, screen_size, new Vector2(66, 8));
@@ -981,22 +979,22 @@ namespace Team_Fisherman
                         case "slash":
                             Console.Write("you do the slash");
                             //badGuyHealth -= 31;
-                            Attack();
+                            Attack(31);
                             break;
                         case "jab":
                             Console.Write("you do the jab");
                             //badGuyHealth -= 20;
-                            Attack();
+                            Attack(20);
                             break;
                         case "bow":
                             Console.Write("you shoot the bow");
                             //badGuyHealth -= 15;
-                            Attack();
+                            Attack(15);
                             break;
                         case "other":
                             Console.Write("you do the other");
                             badGuyHealth -= 3;
-                            Attack();
+                            Attack(3);
                             break;
                         case "exit":
                             Console.WriteLine("exit");
@@ -1005,6 +1003,7 @@ namespace Team_Fisherman
                             Console.WriteLine("incorrect input");
                             break;
                     }
+
                     Console.ReadLine();
                 }
                 else if (c.Key == ConsoleKey.D)
