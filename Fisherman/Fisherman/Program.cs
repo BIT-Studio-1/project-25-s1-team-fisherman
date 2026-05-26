@@ -41,6 +41,10 @@ namespace Team_Fisherman
         const string WHITE = "\x1b[97m";
         const string RESET = "\x1b[0m";
         public static Vector2 screen_size = new Vector2(120, 28);
+
+
+
+
         static void Main(string[] args)
         {
 
@@ -106,9 +110,8 @@ namespace Team_Fisherman
                     {
                         player_pos.Y = 0;
                     }
-
-
                 }
+
                 buffer.Clear();
                 color_buffer.Clear();
                 //sets the buffer to be a grid of ' ' characters with the size of the screen, this is the background of the game and will be overwritten with the player and any other objects in the game, you can change the character to whatever you want to make it look different. not needed but will leave commented for reference.
@@ -709,14 +712,14 @@ namespace Team_Fisherman
 
             Random random = new Random();
             int x = 0;
-            int health = 100;
+            
             int playerSpeed = 24;
 
             int badGuyHealth = 100;
             int badGuySpeed = 12; 
             string badGuyAttack = "";
             string badGuyName = "evil guy of doom";
-            
+            int health = 100;
             bool gameRunning = true;
             int waity = -1;
 
@@ -745,12 +748,12 @@ namespace Team_Fisherman
                 {
                     badGuyHealth -= playerAttack(playerDamg);
                     alive();
-                    health -= enemyAttack(4);
+                    health -= enemyAttack();
                     alive();
                 }
                 else
                 {
-                    health -= enemyAttack(4);
+                    health -= enemyAttack();
                     alive();
                     badGuyHealth -= playerAttack(playerDamg);
                     alive();
@@ -763,30 +766,30 @@ namespace Team_Fisherman
                 return playerDamg;
             }
 
-            int enemyAttack(int playerAttack)
+            int enemyAttack()
             {
                 //damage !!!
                 Random random = new Random();
                 int damage = 0; //random.Next(20, 40);
-         
-                switch (Dodging())
-                {
-                    case 0: //death
-                        return 2344;
+                health = Dodging(health, 10);
 
-                    case 1: // failed
-                        return random.Next(20, 40);
+                //switch (Dodging(health))
+                //{
+                //    case 0: //death
+                //        return 2344;
 
-                    case 2: // perfect
-                        return 0;
+                //    case 1: // failed
+                //        return random.Next(20, 40);
 
-                    case -1: //error
-                        Console.WriteLine("error in the dodging");
-                        break;
-                }
+                //    case 2: // perfect
+                //        return 0;
+
+                //    case -1: //error
+                //        Console.WriteLine("error in the dodging");
+                //        break;
+                //}
             
-                    
-                health -= damage;
+                //health -= damage;
                 //evil guy of doom does 33 damage |
                 
                 badGuyAttack = badGuyName + " does " + damage + " damage";
@@ -845,7 +848,7 @@ namespace Team_Fisherman
             //string enemyIcon5 = "   |_____ /    ";
             //string enemyIcon6 = "   /\\    /\\    ";
 
-            string enemyIcon1 = @"_                      0 ";
+            string enemyIcon1 = @" _                     0 ";
             string enemyIcon2 = @"\ \ ____|\____       0   ";
             string enemyIcon3 = @" \ /        o \   0   ";
             string enemyIcon4 = @"  (   ||       ) ";
@@ -1173,7 +1176,7 @@ namespace Team_Fisherman
         //Dodging();
 
         //code for dodging - returns an int depending on how much damage taken 0 dead 1 survived 2 perfect -1 something went wrong
-        static int Dodging()
+        static int Dodging(int playerHealth, int damagePerHit)
         {
 
 
@@ -1183,7 +1186,9 @@ namespace Team_Fisherman
             // 0 = empty, 1 = obstacle present. 
             int[,] grid = new int[10, 31];
             int loopCounter = 0, playerPos = 15;
-            int score = 0, health = 3;
+            int score = 0;
+            
+            
             int gridXLimit = 31, gridYLimit = 9;
             int xNumber = 3;
             bool isRunning = true;
@@ -1244,10 +1249,10 @@ namespace Team_Fisherman
                 if (grid[9, playerPos] == 1)
                 {
                     Console.Beep();
-                    health--;
+                    playerHealth -= damagePerHit;
                     Thread.Sleep(100);
 
-                    if (health <= 0)
+                    if (playerHealth <= 0)
                     {
                         isRunning = false;
                     }
@@ -1262,7 +1267,7 @@ namespace Team_Fisherman
                     // Rendering What will be displayed on the screen
                     Console.SetCursorPosition(0, 0);
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine($"X's missed: {score}\t\tHealth: {health}\n----------------------------------");
+                    Console.WriteLine($"X's missed: {score}\t\tHealth: {playerHealth}\n----------------------------------");
 
                     for (int i = 0; i < gridYLimit + 1; i++)
                     {
@@ -1292,20 +1297,20 @@ namespace Team_Fisherman
             // Game Over Screen
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.White;
-
-            if (health == 0)
+            return playerHealth;
+            if (playerHealth >= 3)
             {
-                Console.WriteLine($"You Died!\n\nPress Enter to exit...");
+                Console.WriteLine($"You did very bad!\n\nPress Enter to exit...");
                 return 0;
             }
-            else if ((health > 0) && (health < 3))
+            else if ((playerHealth > 0) && (playerHealth < 3))
             {
                 Console.WriteLine($"You Survived! Score: {score}\n\nPress Enter to exit...");
                 return 1;
             }
-            else if (health == 3)
+            else if (playerHealth == 0)
             {
-                Console.WriteLine($"Perfect Dodge! Score: {score} Health: {health}\n\nPress Enter to exit...");
+                Console.WriteLine($"Perfect Dodge! Score: {score} Health: {playerHealth}\n\nPress Enter to exit...");
                 return 2;
             }
             Console.ReadLine();
