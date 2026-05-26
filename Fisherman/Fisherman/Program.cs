@@ -41,6 +41,7 @@ namespace Team_Fisherman
         const string WHITE = "\x1b[97m";
         const string RESET = "\x1b[0m";
         public static Vector2 screen_size = new Vector2(120, 28);
+        public static Dictionary<string, int> inventory = new Dictionary<string, int>();
 
 
 
@@ -79,13 +80,13 @@ namespace Team_Fisherman
 
 
             Menu();
-
+            //inventory_menu();
             //Wait();
             //GameIntro();
             Console.Write(RESET);
             Console.Clear();
             Console.Write("\x1b[3j");
-            Console.Clear();
+            //Console.Clear();
             //Console.ReadLine();
 
 
@@ -361,6 +362,95 @@ namespace Team_Fisherman
         }
 
         //displays the menu and allows the player to choose between starting the game or exiting.
+
+        static int Get_item_Count(string name)
+        {
+            int count = 0;
+            inventory.TryGetValue(name,out count);
+
+            return count;
+        }
+        static void Add_item(string name, int count)
+        {
+            if (inventory.ContainsKey(name))
+            {
+                inventory[name] += count;
+            }
+            else
+            {
+                inventory.Add(name, count);
+            }
+        }
+        static void Remove_item(string name, int count)
+        {
+            if (inventory.ContainsKey(name))
+            {
+                inventory[name] -= count;
+                if (inventory[name] <= 0)
+                {
+                    inventory.Remove(name);
+                }
+            }
+        }
+        static string[] display_inventory()
+        {
+            string[] buffer = new string[inventory.Count];
+            foreach (var pair in inventory)
+            {
+                string item = pair.Key;
+                string count = pair.Value.ToString();
+                string line = item.PadRight(20) + ": " + count;
+
+                buffer = buffer.Append(line).ToArray();
+            }
+            return buffer;
+        }
+
+        static void inventory_menu()
+        {
+            while (true)
+            {
+
+
+                string[] inv = display_inventory();
+                Console.Clear();
+                Console.WriteLine("Inventory");
+                Console.WriteLine("=========");
+                foreach (string item in inv)
+                {
+                    Console.WriteLine(item);
+                }
+                Console.WriteLine();
+                Console.WriteLine("add");
+                string add = Console.ReadLine();
+                Console.WriteLine("item");
+                string item_name = Console.ReadLine().Trim();
+                Console.WriteLine("count");
+                string count = Console.ReadLine();
+                if (count != null && item_name != null)
+                {
+                    int int_count = Convert.ToInt32(count);
+                    if (add == "add")
+                    {
+                        Add_item(item_name, int_count);
+                    }
+                    else if (add == "remove")
+                    {
+                        Remove_item(item_name, int_count);
+                    }
+                    else 
+                    {
+                        break;
+                    }
+                    //Add_item(item_name, int_count);
+                }
+
+                
+                //Console.ReadLine();
+            }
+        }
+
+
         static void Menu()
         {
             //this is a string builder that makes it easy to edit the console output. it works like an a array
