@@ -107,54 +107,6 @@ namespace test_fish
             Console.ResetColor();
         }
 
-        static void ShowInventory()
-        {
-            if (inventory.Count == 0) { Console.WriteLine("Inventory is empty."); return; }
-
-            // This code organizes inventory items by fish species, combining their counts, weights, and values
-            // so each fish type shows up once with totals rather than appearing multiple times for еach catch
-            var grouped = new Dictionary<string, (string Rarity, int Count, float TotalW, int TotalV)>();
-            foreach (var i in inventory)
-            {
-                if (!grouped.ContainsKey(i.Name))
-                    grouped[i.Name] = (i.Rarity, 0, 0, 0);
-                var g = grouped[i.Name];
-                grouped[i.Name] = (g.Rarity, g.Count + 1, g.TotalW + i.Weight, g.TotalV + i.Value);
-            }
-
-            Console.WriteLine($"── inventory ({inventory.Count} items) ──");
-            foreach (var kv in grouped)
-            {
-                var g = kv.Value;
-                float avg = (float)Math.Round(g.TotalW / g.Count, 1);
-                Console.WriteLine($"  {kv.Key} x{g.Count}  {avg} kg avg  {g.TotalV}c total");
-            }
-            int sellable = 0;
-            foreach (var i in inventory) sellable += i.Value;
-            Console.WriteLine($"Sell value: {sellable}c — type 'sell all' or 'sell [name]'");
-        }
-
-        static void SellAll()
-        {
-            if (inventory.Count == 0) { Console.WriteLine("Inventory is empty."); return; }
-            int total = 0;
-            foreach (var i in inventory) total += i.Value;
-            int n = inventory.Count;
-            inventory.Clear();
-            coins += total;
-            Console.WriteLine($"Sold {n} items for +{total} coins. Total: {coins}");
-        }
-
-        static void Sell(string name)
-        {
-            int idx = inventory.FindIndex(i => i.Name.ToLower() == name);
-            if (idx == -1) { Console.WriteLine($"No '{name}' in inventory."); return; }
-            var item = inventory[idx];
-            inventory.RemoveAt(idx);
-            coins += item.Value;
-            Console.WriteLine($"Sold {item.Name} for +{item.Value} coins. Total: {coins}");
-        }
-
         static void Upgrade()
         {
             int cost = NextUpgradeCost();
@@ -190,14 +142,11 @@ namespace test_fish
 
                 if (input == "cast") Cast();
                 else if (input == "reel in") ReelIn();
-                else if (input == "inventory" || input == "inv") ShowInventory();
-                else if (input == "sell all") SellAll();
                 //The slice operation input[5..] removes the inіtial "sell " text, leaving only the fish name bеhind.
-                else if (input.StartsWith("sell ")) Sell(input[5..]);
                 else if (input == "upgrade") Upgrade();
                 else if (input == "stats") Stats();
                 else if (input == "quit") break;
-                else Console.WriteLine("Unknown command. Try: cast, reel in, inventory, sell, upgrade, stats");
+                else Console.WriteLine("Unknown command. Try: cast, reel in, upgrade, stats");
             }
 
         }
