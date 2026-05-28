@@ -15,6 +15,7 @@ using System.Text;
 using test_fish;
 using static System.Net.Mime.MediaTypeNames;
 using System.Data;
+using System.Reflection.Metadata.Ecma335;
 /*Put suggestions/bugs here 
  ln 1200 put a Console.Readline(); currently skips the text
  ln 1132 put a new line char before "the". The word wraps in the console and becomes Th and e 
@@ -789,51 +790,177 @@ namespace Team_Fisherman
 
 
         }
-        static void WriteTing(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
-        {
-            int count = 0;
-            foreach (char h in guy)
-            {
-                //colBuff.Append($"{color}{ch}");
-                //color += RED;
-                buff[To_Index(new Vector2(count + pos.X, pos.Y), screen_size)] = h;
-                count++;
-            }
-        }
+        
         //Put the code for fighting in here.
-        static void fishGame()
+        static void fishyGame()
         {
-            StringBuilder buffer = new StringBuilder();
-            string fishIcon1 = @" _                     0 ";
-            string fishIcon2 = @"\ \ ____|\____       0   ";
-            string fishIcon3 = @" \ /        o \   0   ";
-            string fishIcon4 = @"  (   ||       ) ";
-            string fishIcon5 = @" / \__________/      ";
+
+            
+            string fishIcon1 = @" _              ";
+            string fishIcon2 = @"\ \ ____|\____  ";
+            string fishIcon3 = @" \ /        o \ ";
+            string fishIcon4 = @"  (   ||       )";
+            string fishIcon5 = @" / \__________/ ";
             string fishIcon6 = @"/_/             ";
 
-            foreach (string line in File.ReadLines("Map/fighting/fishMap.txt")) // loops through txt file
+            int fishX = 30;
+            int barX = 30;
+            bool yak = true;
+            do
             {
-                foreach (char p in line) //each line
+                static void WriteTing(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
                 {
-                    buffer.Append(p);
+                    int count = 0;
+                    foreach (char h in guy)
+                    {
+                        //colBuff.Append($"{color}{ch}");
+                        //color += RED;
+                        buff[To_Index(new Vector2(count + pos.X, pos.Y), screen_size)] = h;
+                        count++;
+                    }
                 }
-                buffer.Append("\n");
-            }
+                //color_buffer.Clear();
+                StringBuilder buffer = new StringBuilder();
+                
+                buffer.Clear();
+                Console.SetCursorPosition(0, 0);
+                string[] fish = { fishIcon1, fishIcon2, fishIcon3, fishIcon4, fishIcon5, fishIcon6 };
 
-            WriteTing(ref buffer, fishIcon1, screen_size, new Vector2(66, 7));
-            WriteTing(ref buffer, fishIcon2, screen_size, new Vector2(66, 8));
-            WriteTing(ref buffer, fishIcon3, screen_size, new Vector2(66, 9));
-            WriteTing(ref buffer, fishIcon4, screen_size, new Vector2(66, 10));
-            WriteTing(ref buffer, fishIcon5, screen_size, new Vector2(66, 11));
-            WriteTing(ref buffer, fishIcon6, screen_size, new Vector2(66, 12));
-            Console.Write(buffer.ToString());
 
+                //string[] ben = { "unite", "talking", "benjamin", "army", "mountain", "glorious", "love", "fork", "creator", "yogurt", "computer" };
+
+                foreach (string line in File.ReadLines("Map/fighting/fishMap.txt")) // loops through txt file
+                {
+                    foreach (char p in line) //each line
+                    {
+                        buffer.Append(p);
+                    }
+                    buffer.Append("\n");
+                }
+
+                WriteTing(ref buffer, fishIcon1, screen_size, new Vector2(fishX, 21));
+                WriteTing(ref buffer, fishIcon2, screen_size, new Vector2(fishX, 22));
+                WriteTing(ref buffer, fishIcon3, screen_size, new Vector2(fishX, 23));
+                WriteTing(ref buffer, fishIcon4, screen_size, new Vector2(fishX, 24));
+                WriteTing(ref buffer, fishIcon5, screen_size, new Vector2(fishX, 25));
+                WriteTing(ref buffer, fishIcon6, screen_size, new Vector2(fishX, 26));
+
+                WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 21));
+                WriteTing(ref buffer ,"#####################", screen_size, new Vector2(barX, 22));
+                WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 23));
+                WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 24));
+                WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 25));
+                WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 26));
+                //WriteTing(ref buffer, barX.ToString(), screen_size, new Vector2(barX, 15));
+                Console.Write(buffer.ToString());
+
+                ConsoleKeyInfo c = new ConsoleKeyInfo();
+                c = Console.ReadKey(true);
+                //WriteTing(ref buffer, barX.ToString(), screen_size, new Vector2(barX, 15));
+                //Console.WriteLine(barX);
+                //int waity = -1; 
+                //int x = 0;
+                //string badGuyAttack = "fuck this game";
+                //while (Console.KeyAvailable == false)
+                //{
+                //    // running code
+                //    if (waity == 0)
+                //    {
+                //        Console.Clear();
+                //        badGuyAttack = "";
+                //        WriteTing(ref buffer, "                                               ", screen_size, new Vector2(64, 16));
+                //        Console.SetCursorPosition(0, 0);
+                //        Console.Write(buffer.ToString());
+                //    }
+                //    waity--;
+                //    Thread.Sleep(50);
+                //    x++;
+                //}
+                //c = Console.ReadKey(true);
+                if (c.Key == ConsoleKey.Spacebar)
+                {
+                    if (barX > 10)
+                    {
+                        barX -= 10;
+                    }
+                }
+
+                while (Console.KeyAvailable == false )
+                {
+                    if (barX < 90)
+                    {
+                        Console.Clear();
+                        barX += 1;
+                        WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 21));
+                        WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 22));
+                        WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 23));
+                        WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 24));
+                        WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 25));
+                        WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 26));
+       
+                        Console.SetCursorPosition(0, 0);
+                        Console.Write(buffer.ToString());
+                    }
+                    yak = false;
+                    
+
+                }
+
+                if (c.Key == ConsoleKey.A) 
+                {
+                    if (fishX > 4) 
+                    {
+                        fishX -= 1;
+                    }
+
+                    fishIcon1 = @"              _ ";
+                    fishIcon2 = @"  ____/|____ / /";
+                    fishIcon3 = @" / o        \ / ";
+                    fishIcon4 = @"(      ||    )  ";
+                    fishIcon5 = @" \__________/ \ ";
+                    fishIcon6 = @"             \_\";
+                }
+                
+                if (c.Key == ConsoleKey.D)
+                {
+                    if (fishX < 100) 
+                    {
+                        fishX += 1;
+                        
+                    }
+                    fishIcon1 = @" _              ";
+                    fishIcon2 = @"\ \ ____|\____  ";
+                    fishIcon3 = @" \ /        o \ ";
+                    fishIcon4 = @"  (   ||       )";
+                    fishIcon5 = @" / \__________/ ";
+                    fishIcon6 = @"/_/              ";
+                }
+                yak = true;
+            } while (true);
+            
         }
+        
+        
+            
+       
+        
         static void Fighting()
         {
-            fishGame();
-
+            fishyGame();
             Thread.Sleep(2134567);
+
+            static void WriteTing(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
+            {
+                int count = 0;
+                foreach (char h in guy)
+                {
+                    //colBuff.Append($"{color}{ch}");
+                    //color += RED;
+                    buff[To_Index(new Vector2(count + pos.X, pos.Y), screen_size)] = h;
+                    count++;
+                }
+            }
+           
             string[] inventory = { "23", "fish", "2", "health potion", "56", "rock" };
             string[] attacks = { "slash", "jab", "bow", "other" };
             string[] defence = { "block", "dodge", "parry", "other" };
