@@ -866,6 +866,8 @@ namespace Team_Fisherman
             int barX = 30;
             bool yak = true;
             int waity = 200;
+            const string fishBarSize = "#########################";
+            int fishDih = 1;
             do
             {
                 static void WriteTing(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
@@ -879,6 +881,38 @@ namespace Team_Fisherman
                         count++;
                     }
                 }
+
+                void fishMove() 
+                {
+                    
+                    Random random = new Random();
+                    if (random.Next(0, 15) == 1)
+                    {
+                        fishDih = fishDih * -1;
+                    }
+
+                    if (fishX > 4 && fishDih == -1)
+                    {
+                        fishX += fishDih;
+                        fishIcon1 = @"              _ ";
+                        fishIcon2 = @"  ____/|____ / /";
+                        fishIcon3 = @" / o        \ / ";
+                        fishIcon4 = @"(      ||    )  ";
+                        fishIcon5 = @" \__________/ \ ";
+                        fishIcon6 = @"             \_\";
+                    }
+                    else if (fishX < 100 && fishDih == 1)
+                    {
+                        fishX += fishDih;
+                        fishIcon1 = @" _              ";
+                        fishIcon2 = @"\ \ ____|\____  ";
+                        fishIcon3 = @" \ /        o \ ";
+                        fishIcon4 = @"  (   ||       )";
+                        fishIcon5 = @" / \__________/ ";
+                        fishIcon6 = @"/_/             ";
+                    }
+                }
+
                 //color_buffer.Clear();
                 StringBuilder buffer = new StringBuilder();
                 
@@ -895,27 +929,72 @@ namespace Team_Fisherman
                     buffer.Append("\n");
                 }
 
+                
+
+                WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 20));
+                WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 21));
+                WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 22));
+                WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 23));
+                WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 24));
+                WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 25));
+                WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 26));
+                WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 27));
+
                 WriteTing(ref buffer, fishIcon1, screen_size, new Vector2(fishX, 21));
                 WriteTing(ref buffer, fishIcon2, screen_size, new Vector2(fishX, 22));
                 WriteTing(ref buffer, fishIcon3, screen_size, new Vector2(fishX, 23));
                 WriteTing(ref buffer, fishIcon4, screen_size, new Vector2(fishX, 24));
                 WriteTing(ref buffer, fishIcon5, screen_size, new Vector2(fishX, 25));
                 WriteTing(ref buffer, fishIcon6, screen_size, new Vector2(fishX, 26));
-
-                WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 21));
-                WriteTing(ref buffer ,"#####################", screen_size, new Vector2(barX, 22));
-                WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 23));
-                WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 24));
-                WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 25));
-                WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 26));
                 Console.Write(buffer.ToString());
 
                 ConsoleKeyInfo c = new ConsoleKeyInfo();
                 c = Console.ReadKey(true);
                 
-                    while (Console.KeyAvailable == false)
+                while (Console.KeyAvailable == false)
+                {
+                    Thread.Sleep(25);
+                    buffer.Clear();
+                    foreach (string line in File.ReadLines("Map/fighting/fishMap.txt")) // loops through txt file
                     {
-                        if (barX < 90 && waity == 0)
+                        foreach (char p in line) //each line
+                        {
+                            buffer.Append(p);
+                        }
+                        buffer.Append("\n");
+                    }
+                    fishMove();
+                    WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 21));
+                    WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 22));
+                    WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 23));
+                    WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 24));
+                    WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 25));
+                    WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 26));
+                    
+                    WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 20));
+                    WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 21));
+                    WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 22));
+                    WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 23));
+                    WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 24));
+                    WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 25));
+                    WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 26));
+                    WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 27));
+
+                    WriteTing(ref buffer, fishIcon1, screen_size, new Vector2(fishX, 21));
+                    WriteTing(ref buffer, fishIcon2, screen_size, new Vector2(fishX, 22));
+                    WriteTing(ref buffer, fishIcon3, screen_size, new Vector2(fishX, 23));
+                    WriteTing(ref buffer, fishIcon4, screen_size, new Vector2(fishX, 24));
+                    WriteTing(ref buffer, fishIcon5, screen_size, new Vector2(fishX, 25));
+                    WriteTing(ref buffer, fishIcon6, screen_size, new Vector2(fishX, 26));
+
+
+                    Console.SetCursorPosition(0, 0);
+                    Console.Write(buffer.ToString());
+                    if (waity == 0) 
+                    { 
+                        
+                    }
+                        if (barX < 90)
                         {
                             //Console.Clear();
                             buffer.Clear();
@@ -934,13 +1013,15 @@ namespace Team_Fisherman
                             WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 24));
                             WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 25));
                             WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 26));
-                            barX += 1;
-                            WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 21));
-                            WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 22));
-                            WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 23));
-                            WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 24));
-                            WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 25));
-                            WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 26));
+                            barX += 2;
+                            WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 20));
+                            WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 21));
+                            WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 22));
+                            WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 23));
+                            WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 24));
+                            WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 25));
+                            WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 26));
+                            WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 27));
 
                             WriteTing(ref buffer, fishIcon1, screen_size, new Vector2(fishX, 21));
                             WriteTing(ref buffer, fishIcon2, screen_size, new Vector2(fishX, 22));
@@ -950,48 +1031,60 @@ namespace Team_Fisherman
                             WriteTing(ref buffer, fishIcon6, screen_size, new Vector2(fishX, 26));
                             Console.SetCursorPosition(0, 0);
                             Console.Write(buffer.ToString());
+                            waity = 1000;
+                        
+
+
                         }
-                        yak = false;
-                        waity--;
-                    }
-
-                if (c.Key == ConsoleKey.Spacebar)
-                {
-                    waity = 200;
-                    if (barX > 10)
-                    {
-                        barX -= 10;
-                    }
+                        else 
+                        {
+                            yak = false;
+                            waity--;
+                        }
                 }
-
-                if (c.Key == ConsoleKey.A) 
+                waity--;
+                fishMove();
+                if (Console.KeyAvailable)
                 {
-                    if (fishX > 4) 
+                    if (c.Key == ConsoleKey.Spacebar)
                     {
-                        fishX -= 1;
+                        waity = 200;
+                        if (barX > 20 )
+                        {
+                            barX -= 20;
+                        }
                     }
-                    fishIcon1 = @"              _ ";
-                    fishIcon2 = @"  ____/|____ / /";
-                    fishIcon3 = @" / o        \ / ";
-                    fishIcon4 = @"(      ||    )  ";
-                    fishIcon5 = @" \__________/ \ ";
-                    fishIcon6 = @"             \_\";
+
+                    if (c.Key == ConsoleKey.A)
+                    {
+                        if (fishX > 4)
+                        {
+                            fishX -= 1;
+                        }
+                        fishIcon1 = @"              _ ";
+                        fishIcon2 = @"  ____/|____ / /";
+                        fishIcon3 = @" / o        \ / ";
+                        fishIcon4 = @"(      ||    )  ";
+                        fishIcon5 = @" \__________/ \ ";
+                        fishIcon6 = @"             \_\";
+                    }
+
+                    if (c.Key == ConsoleKey.D)
+                    {
+                        if (fishX < 100)
+                        {
+                            fishX += 1;
+                        }
+                        fishIcon1 = @" _              ";
+                        fishIcon2 = @"\ \ ____|\____  ";
+                        fishIcon3 = @" \ /        o \ ";
+                        fishIcon4 = @"  (   ||       )";
+                        fishIcon5 = @" / \__________/ ";
+                        fishIcon6 = @"/_/             ";
+                    }
+                    yak = true;
                 }
                 
-                if (c.Key == ConsoleKey.D)
-                {
-                    if (fishX < 100) 
-                    {
-                        fishX += 1;
-                    }
-                    fishIcon1 = @" _              ";
-                    fishIcon2 = @"\ \ ____|\____  ";
-                    fishIcon3 = @" \ /        o \ ";
-                    fishIcon4 = @"  (   ||       )";
-                    fishIcon5 = @" / \__________/ ";
-                    fishIcon6 = @"/_/              ";
-                }
-                yak = true;
             } while (true);
         }
         
@@ -1151,13 +1244,7 @@ namespace Team_Fisherman
             string enemyIcon6 = @"/_/             ";
             do
             {
-              
-
                 // @@@
-
-               
-
-
                 buffer.Clear();
                 //color_buffer.Clear();
                 Console.SetCursorPosition(0, 0);
@@ -1170,8 +1257,6 @@ namespace Team_Fisherman
                     }
                     buffer.Append("\n");
                 }
-                
-                
 
                 WriteTing(ref buffer, enemyIcon1, screen_size, new Vector2(66, 7));
                 WriteTing(ref buffer, enemyIcon2, screen_size, new Vector2(66, 8));
@@ -1181,18 +1266,9 @@ namespace Team_Fisherman
                 WriteTing(ref buffer, enemyIcon6, screen_size, new Vector2(66, 12));
                 WriteTing(ref buffer, badGuyName, screen_size, new Vector2(66, 13));
                 WriteTing(ref buffer, "enemy health: " + badGuyHealth, screen_size, new Vector2(66, 14));
-
                 WriteTing(ref buffer, badGuyAttack, screen_size, new Vector2(64, 16));
-                //WriteTing(ref buffer, Color_Helper(88, true), screen_size, new Vector2(65, 16)); //86
-                //WriteTing(ref buffer, RESET, screen_size, new Vector2(89, 17));
-
-                //evil guy of doom does 33 damage
-                //Console.WriteLine(badGuyAttack);
                 WriteTing(ref buffer, "health: " + health, screen_size, new Vector2(10, 22));
-
                 Console.Write(buffer.ToString()); // writes the thing
-
-
 
                 //string enemyIcon1 = "   _/\\___/\\_  ";
                 //string enemyIcon2 = "  |  @ __ @ |   ";
@@ -1204,7 +1280,6 @@ namespace Team_Fisherman
                 
                 while (Console.KeyAvailable == false)
                 {
-                    // running code
                     if (waity == 0)
                     {
                         Console.Clear();
@@ -1223,7 +1298,6 @@ namespace Team_Fisherman
                 {
                     Console.WriteLine("  === attacks ===");
                     Console.WriteLine("######################");
-
                     for (int i = 0; i < attacks.Length; i++)
                     {
                         Console.Write("## ".PadRight(3) + attacks[i].PadRight(5) + " ##");
