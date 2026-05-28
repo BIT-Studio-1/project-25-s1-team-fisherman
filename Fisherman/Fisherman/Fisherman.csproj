@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="bin\Debug\net8.0\Map\fighting\fishMap.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
 
     <None Update="Map\fighting\FightingMenu.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
