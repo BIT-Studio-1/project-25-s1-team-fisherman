@@ -882,6 +882,7 @@ namespace Team_Fisherman
                         count++;
                     }
                 }
+
                 string printLine() 
                 {
                     string line = "";
@@ -894,9 +895,9 @@ namespace Team_Fisherman
 
                 void fishMove() 
                 {
-                    if (fishX > barX && fishX < barX + 25)
-                    {
-                        fishScore += 5;
+                    if (fishX > barX && fishX < barX + 25 && fishScore < 452)
+                    {   
+                        fishScore += 2;
                     }
                     else 
                     {
@@ -1077,7 +1078,7 @@ namespace Team_Fisherman
                     if (c.Key == ConsoleKey.Spacebar)
                     {
                         waity = 200;
-                        if (barX > 20 )
+                        if (barX > 18 )
                         {
                             barX -= 20;
                         }
