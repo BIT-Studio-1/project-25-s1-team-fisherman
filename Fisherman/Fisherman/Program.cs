@@ -853,6 +853,8 @@ namespace Team_Fisherman
             int fishScore = 0;
             do
             {
+                
+
                 static void WriteTing(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
                 {
                     int count = 0;
@@ -867,6 +869,7 @@ namespace Team_Fisherman
 
                 string printLine() 
                 {
+                    fishScore = Math.Max(0, fishScore);
                     string line = "";
                     for (int i = 0; i <= fishScore/4; i++)
                     {
@@ -883,6 +886,7 @@ namespace Team_Fisherman
                     }
                     else 
                     {
+
                         fishScore--;
                     }
 
@@ -1060,10 +1064,14 @@ namespace Team_Fisherman
                     if (c.Key == ConsoleKey.Spacebar)
                     {
                         waity = 200;
-                        if (barX > 18 )
+                        for (int i = 0; i != 20; i++)
                         {
-                            barX -= 20;
+                            if (barX > 2)
+                            {
+                                barX -= 1;
+                            }
                         }
+                        
                     }
 
                     if (c.Key == ConsoleKey.A)
@@ -1095,7 +1103,12 @@ namespace Team_Fisherman
                     }
                     yak = true;
                 }
-                
+
+                if (fishScore > 452) 
+                {
+                    break;
+                }
+
             } while (true);
         }
         

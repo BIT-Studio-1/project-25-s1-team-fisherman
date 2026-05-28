@@ -95,7 +95,7 @@ namespace test_fish
             if (f == null) { Console.WriteLine("The fish got away!"); return; }
 
             float w = f.GetWeight();
-            // Each rod level boosts the fish's base valuе by adding a percentage increase, with each lеvel prov‍iding a 10% gain
+            // Each rod level boosts the fish's base valuе by adding a percentage increase, with each lеvel prov‍iding a 10% gain ‍‍‍v
             int earn = (int)Math.Round(f.Value * (1 + RodBonus()));
             coins += earn;
             caught++;
