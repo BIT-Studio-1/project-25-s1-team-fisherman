@@ -428,8 +428,10 @@ namespace Team_Fisherman
                 }
                 
                 Console.WriteLine();
+                Console.WriteLine($"Coins: {coins}");
                 Console.WriteLine("add");
                 string add = Console.ReadLine();
+                if (add == "exit") break;
                 Console.WriteLine("item");
                 string item_name = Console.ReadLine().Trim();
                 Console.WriteLine("count");
@@ -445,10 +447,7 @@ namespace Team_Fisherman
                     {
                         Remove_item(item_name, int_count);
                     }
-                    else
-                    {
-                        break;
-                    }
+                    
                     //Add_item(item_name, int_count);
                 }
 
@@ -545,9 +544,9 @@ namespace Team_Fisherman
         //Put the code for fishing in here.
         static void Fishing()
         {
-
+            Fishing_Base.coins = coins;
             Fishing_Base.Fishing();
-
+            coins = Fishing_Base.coins;
             Thread.Sleep(500);
             Console.Clear();
 
@@ -557,28 +556,30 @@ namespace Team_Fisherman
         {
             string buy;
             int count = 0;
-            string[] m = { "Potion", "Fish Bait", "Jar of Dirt", "Protective Charm" };
-            int[] p = { 15, 5, 1, 100 };
-            Console.WriteLine("\"Looking for any supplies?\"");
-            Console.WriteLine("========================BUY SYSTEM=========================");
-            for (int i = 0; i < m.Length; i++)
-            {
-                Console.Write(i.ToString().PadRight(10));
-                Console.Write(m[i].PadLeft(15));
-                Console.WriteLine(p[i].ToString().PadLeft(25));
-            }
-
-            Console.WriteLine();
-            Console.WriteLine();
-            Thread.Sleep(1000);
-            Console.WriteLine("\"The sea is dangerous after dark.\"");
-            Console.WriteLine("\"Buy what you need before heading out.\"");
+            string[] m = { "Potion", "Fish Bait", "Jar of Dirt", "Protective Charm","exit" };
+            int[] p = { 15, 5, 1, 100, 0 };
+            
             while (true)
             {
-                buy = Console.ReadLine();
+                Console.WriteLine("\"Looking for any supplies?\"");
+                Console.WriteLine("========================BUY SYSTEM=========================");
+                for (int i = 0; i < m.Length; i++)
+                {
+                    Console.Write(i.ToString().PadRight(10));
+                    Console.Write(m[i].PadLeft(15));
+                    Console.WriteLine(p[i].ToString().PadLeft(25));
+                }
+
+                Console.WriteLine();
+                Console.WriteLine();
+                Thread.Sleep(1000);
+                Console.WriteLine("\"The sea is dangerous after dark.\"");
+                Console.WriteLine("\"Buy what you need before heading out.\"");
+                buy = Console.ReadLine().ToLower();
                 switch (buy)
                 {
-                    case "Potion":
+                    case "0":
+                    case "potion":
                         Console.WriteLine("\"\"");
                         Console.WriteLine("How many");
                         count = Convert.ToInt32(Console.ReadLine());
@@ -593,8 +594,8 @@ namespace Team_Fisherman
                         }
 
                         break;
-
-                    case "Fish Bait":
+                    case "1":
+                    case "fish bait":
                         Console.WriteLine("\"\"");
                         Console.WriteLine("How many");
                         count = Convert.ToInt32(Console.ReadLine());
@@ -608,7 +609,8 @@ namespace Team_Fisherman
                             coins += p[1] * count;
                         }
                         break;
-                    case "Jar of Dirt":
+                    case "2":
+                    case "jar of dirt":
                         Console.WriteLine("\"\"");
                         Console.WriteLine("How many");
                         count = Convert.ToInt32(Console.ReadLine());
@@ -622,8 +624,8 @@ namespace Team_Fisherman
                             coins += p[2] * count;
                         }
                         break;
-
-                    case "Protective Charm":
+                    case "3":
+                    case "protective charm":
                         Console.WriteLine("\"\"");
                         Console.WriteLine("How many");
                         count = Convert.ToInt32(Console.ReadLine());
@@ -638,8 +640,9 @@ namespace Team_Fisherman
                         }
                         break;
                 }
-                Console.WriteLine(coins);
-                if (Console.ReadLine().ToLower() == "exit") break;
+                
+                
+                if (buy == "exit") break;
             }
             Console.WriteLine("\"\"");
         }
@@ -662,39 +665,18 @@ namespace Team_Fisherman
             }
             Console.WriteLine();
             shop = Console.ReadLine();
-
+            
 
             switch (shop)
             {
+                case "0":
                 case "buy":
-                    string[] m = { "Potion", "Fish Bait", "Torch", "Lantern", "Boots", "Jar of Dirt", "Protective Charm" };
-                    int[] p = { 15, 5, 20, 40, 50, 1, 100 };
-                    Console.WriteLine("\"Looking for any supplies?\"");
-                    Console.WriteLine("========================BUY SYSTEM=========================");
-                    for (int i = 0; i < m.Length; i++)
-                    {
-                        Console.Write(i.ToString().PadRight(10));
-                        Console.Write(m[i].PadLeft(15));
-                        Console.WriteLine(p[i].ToString().PadLeft(25));
-                    }
-                    Console.WriteLine();
-                    Console.WriteLine();
-                    Thread.Sleep(1000);
-                    Console.WriteLine("\"The sea is dangerous after dark.\"");
-                    Console.WriteLine("\"Buy what you need before heading out.\"");
-                    buy = Console.ReadLine();
+                    
 
                     Shop();
                     break;
-                case "sell":
-                    Console.WriteLine("\"What you want to sell?\"");
-                    temp = Console.ReadLine();
-                    Console.WriteLine("\"Wow, fresh catches\"");
-                    Console.WriteLine("\"The villagers rely on fish more than you think.\"");
-                    Console.WriteLine("\"I'll give you a fair prices\"");
-
-                    break;
-
+                
+                case "1":
                 case "talk":
                     Console.WriteLine();
                     Console.WriteLine("\"So, what's you want to talk to me?\"");
@@ -806,7 +788,7 @@ namespace Team_Fisherman
                         Console.ReadLine();
                     }
                     break;
-
+                case "2":
                 case "Exit":
                     Console.WriteLine();
                     Console.WriteLine();
@@ -814,7 +796,7 @@ namespace Team_Fisherman
                     Console.WriteLine("Press Enter to exit");
                     Console.ReadLine();
                     break;
-
+                case "3":
                 case "leave":
                     Console.WriteLine();
                     Console.WriteLine();

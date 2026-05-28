@@ -37,7 +37,7 @@ namespace test_fish
     class Fishing_Base
     {
         static Random rng = new Random();
-
+        public static int coins = 0;
         static Fish[] table = {
         new Fish ("Boot",      "common",   0.1f,  1f,    5,    0.30f, ConsoleColor.White),
         new Fish("Sardine",   "common",   0.1f,  0.5f,  10,    0.28f, ConsoleColor.White),
@@ -53,7 +53,7 @@ namespace test_fish
         new Fish("Cthulhu", "mythic",     60f,   120f,   5000, 0.001f, ConsoleColor.Cyan),
     };
 
-        static int coins = 0, caught = 0, casts = 0, rodLv = 0, luckLv = 0;
+        static int  caught = 0, casts = 0, rodLv = 0, luckLv = 0;
         static List<(string Name, string Rarity, float Weight, int Value)> inventory = new();
         static int[] upgradeCosts = { 30, 80, 200, 600, 1500, 3000 };
 
