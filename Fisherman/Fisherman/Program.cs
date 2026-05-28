@@ -850,18 +850,11 @@ namespace Team_Fisherman
                     Console.ReadLine();
                     break;
             }
-
-
-
-
-
         }
         
         //Put the code for fighting in here.
         static void fishyGame()
         {
-
-            
             string fishIcon1 = @" _              ";
             string fishIcon2 = @"\ \ ____|\____  ";
             string fishIcon3 = @" \ /        o \ ";
@@ -872,6 +865,7 @@ namespace Team_Fisherman
             int fishX = 30;
             int barX = 30;
             bool yak = true;
+            int waity = 200;
             do
             {
                 static void WriteTing(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
@@ -891,9 +885,6 @@ namespace Team_Fisherman
                 buffer.Clear();
                 Console.SetCursorPosition(0, 0);
                 string[] fish = { fishIcon1, fishIcon2, fishIcon3, fishIcon4, fishIcon5, fishIcon6 };
-
-
-                //string[] ben = { "unite", "talking", "benjamin", "army", "mountain", "glorious", "love", "fork", "creator", "yogurt", "computer" };
 
                 foreach (string line in File.ReadLines("Map/fighting/fishMap.txt")) // loops through txt file
                 {
@@ -917,59 +908,60 @@ namespace Team_Fisherman
                 WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 24));
                 WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 25));
                 WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 26));
-                //WriteTing(ref buffer, barX.ToString(), screen_size, new Vector2(barX, 15));
                 Console.Write(buffer.ToString());
 
                 ConsoleKeyInfo c = new ConsoleKeyInfo();
                 c = Console.ReadKey(true);
-                //WriteTing(ref buffer, barX.ToString(), screen_size, new Vector2(barX, 15));
-                //Console.WriteLine(barX);
-                //int waity = -1; 
-                //int x = 0;
-                //string badGuyAttack = "fuck this game";
-                //while (Console.KeyAvailable == false)
-                //{
-                //    // running code
-                //    if (waity == 0)
-                //    {
-                //        Console.Clear();
-                //        badGuyAttack = "";
-                //        WriteTing(ref buffer, "                                               ", screen_size, new Vector2(64, 16));
-                //        Console.SetCursorPosition(0, 0);
-                //        Console.Write(buffer.ToString());
-                //    }
-                //    waity--;
-                //    Thread.Sleep(50);
-                //    x++;
-                //}
-                //c = Console.ReadKey(true);
+                
+                    while (Console.KeyAvailable == false)
+                    {
+                        if (barX < 90 && waity == 0)
+                        {
+                            //Console.Clear();
+                            buffer.Clear();
+                            foreach (string line in File.ReadLines("Map/fighting/fishMap.txt")) // loops through txt file
+                            {
+                                foreach (char p in line) //each line
+                                {
+                                    buffer.Append(p);
+                                }
+                                buffer.Append("\n");
+                            }
+
+                            WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 21));
+                            WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 22));
+                            WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 23));
+                            WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 24));
+                            WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 25));
+                            WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 26));
+                            barX += 1;
+                            WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 21));
+                            WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 22));
+                            WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 23));
+                            WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 24));
+                            WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 25));
+                            WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 26));
+
+                            WriteTing(ref buffer, fishIcon1, screen_size, new Vector2(fishX, 21));
+                            WriteTing(ref buffer, fishIcon2, screen_size, new Vector2(fishX, 22));
+                            WriteTing(ref buffer, fishIcon3, screen_size, new Vector2(fishX, 23));
+                            WriteTing(ref buffer, fishIcon4, screen_size, new Vector2(fishX, 24));
+                            WriteTing(ref buffer, fishIcon5, screen_size, new Vector2(fishX, 25));
+                            WriteTing(ref buffer, fishIcon6, screen_size, new Vector2(fishX, 26));
+                            Console.SetCursorPosition(0, 0);
+                            Console.Write(buffer.ToString());
+                        }
+                        yak = false;
+                        waity--;
+                    }
+
                 if (c.Key == ConsoleKey.Spacebar)
                 {
+                    waity = 200;
                     if (barX > 10)
                     {
                         barX -= 10;
                     }
-                }
-
-                while (Console.KeyAvailable == false )
-                {
-                    if (barX < 90)
-                    {
-                        Console.Clear();
-                        barX += 1;
-                        WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 21));
-                        WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 22));
-                        WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 23));
-                        WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 24));
-                        WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 25));
-                        WriteTing(ref buffer, "#####################", screen_size, new Vector2(barX, 26));
-       
-                        Console.SetCursorPosition(0, 0);
-                        Console.Write(buffer.ToString());
-                    }
-                    yak = false;
-                    
-
                 }
 
                 if (c.Key == ConsoleKey.A) 
@@ -978,7 +970,6 @@ namespace Team_Fisherman
                     {
                         fishX -= 1;
                     }
-
                     fishIcon1 = @"              _ ";
                     fishIcon2 = @"  ____/|____ / /";
                     fishIcon3 = @" / o        \ / ";
@@ -992,7 +983,6 @@ namespace Team_Fisherman
                     if (fishX < 100) 
                     {
                         fishX += 1;
-                        
                     }
                     fishIcon1 = @" _              ";
                     fishIcon2 = @"\ \ ____|\____  ";
@@ -1003,12 +993,7 @@ namespace Team_Fisherman
                 }
                 yak = true;
             } while (true);
-            
         }
-        
-        
-            
-       
         
         static void Fighting()
         {
@@ -1031,16 +1016,11 @@ namespace Team_Fisherman
             string[] attacks = { "slash", "jab", "bow", "other" };
             string[] defence = { "block", "dodge", "parry", "other" };
 
-            //object[] mixedArray = new object[] { 10, "Hello World", 25, "C# Rocks" };
-
-
             ConsoleKeyInfo c = new ConsoleKeyInfo();
 
             Random random = new Random();
             int x = 0;
-
             int playerSpeed = 24;
-
             int badGuyHealth = 100;
             int badGuySpeed = 12;
             string badGuyAttack = "";
@@ -1146,7 +1126,6 @@ namespace Team_Fisherman
                     }
                 }
             }
-
             
 
             StringBuilder buffer = new StringBuilder();
@@ -1172,24 +1151,11 @@ namespace Team_Fisherman
             string enemyIcon6 = @"/_/             ";
             do
             {
-                //Console.WriteLine("\nPress a key to display; " +
-                //                  "press the 'z' key to quit.");
-
-                //while (Console.KeyAvailable == false)
-                //{
-                //    //Console.WriteLine("running");
-                //    //Console.WriteLine("ham");
-                //    // running code
-                //    Thread.Sleep(50);
-                //    x++;
-                //}
-
-                // bad guy name
+              
 
                 // @@@
 
-                //buffer.Clear();
-                //Console.SetCursorPosition(0, 0);
+               
 
 
                 buffer.Clear();
@@ -1204,34 +1170,8 @@ namespace Team_Fisherman
                     }
                     buffer.Append("\n");
                 }
-                /*
-                //WriteTing(ref buffer, enemyIcon1, screen_size, new Vector2(66, 7));
-                //WriteTing(ref buffer, enemyIcon2, screen_size, new Vector2(66, 8));
-                //WriteTing(ref buffer, enemyIcon3, screen_size, new Vector2(66, 9));
-                //WriteTing(ref buffer, enemyIcon4, screen_size, new Vector2(66, 10));
-                //WriteTing(ref buffer, enemyIcon5, screen_size, new Vector2(66, 11));
-                //WriteTing(ref buffer, enemyIcon6, screen_size, new Vector2(66, 12));
-                ////WriteTing(buffer, enemyIcon2, screen_size);
-                //WriteTing(buffer, enemyIcon3, screen_size);
-                //WriteTing(buffer, enemyIcon4, screen_size);
-                //WriteTing(buffer, enemyIcon5, screen_size);
-                //WriteTing(buffer, enemyIcon6, screen_size);
-                //foreach (char ch in "-----")
-                //{
-                //    buffer[To_Index(new Vector2(count + 66, 8), screen_size)] = ch;
-                //    count++;
-                //}
-
-
-                //for (int q = (int)current.X; q < current.X + 23; q++)
-                //{
-                //    //Console.WriteLine("ran");
-                //    buffer[To_Index(new Vector2(q, 15), screen_size)] = '#';
-                //}
-
-                */
-                //Console.Write(buffer.ToString()); // writes the thing
-                //Console.ReadLine();
+                
+                
 
                 WriteTing(ref buffer, enemyIcon1, screen_size, new Vector2(66, 7));
                 WriteTing(ref buffer, enemyIcon2, screen_size, new Vector2(66, 8));
@@ -1251,10 +1191,8 @@ namespace Team_Fisherman
                 WriteTing(ref buffer, "health: " + health, screen_size, new Vector2(10, 22));
 
                 Console.Write(buffer.ToString()); // writes the thing
-                                                  //Console.ReadLine();
 
 
-                //Console.WriteLine("waiting");
 
                 //string enemyIcon1 = "   _/\\___/\\_  ";
                 //string enemyIcon2 = "  |  @ __ @ |   ";
@@ -1262,44 +1200,8 @@ namespace Team_Fisherman
                 //string enemyIcon4 = "   /|.   .|\\   ";
                 //string enemyIcon5 = "  / |_____| \\  ";
                 //string enemyIcon6 = "    |     |     ";
-                //Console.Clear();
 
-                /*
-                //Console.WriteLine("0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0"); // 1
-                //Console.WriteLine("|                                                                                                                      |"); // 2
-                //Console.WriteLine("|                                                                                                                      |"); // 3
-                //Console.WriteLine("|                                                                                                                      |"); // 4
-                //Console.WriteLine("|                                                                                                                      |"); // 5
-                //Console.WriteLine("|                                                                                                                      |"); // 6
-                //Console.WriteLine("|                                                                                 " + enemyIcon1.PadRight(30) + "       |"); // 7
-                //Console.WriteLine("|                                                                                 " + enemyIcon2.PadRight(30) + "       |"); // 8
-                //Console.WriteLine("|                                                                                 " + enemyIcon3.PadRight(30) + "       |"); // 9
-                //Console.WriteLine("|                                                                                 " + enemyIcon4.PadRight(30) + "       |"); // 10
-                //Console.WriteLine("|                                                                                 " + enemyIcon5.PadRight(30) + "       |"); // 11
-                //Console.WriteLine("|                                                                                 " + enemyIcon6.PadRight(30) + "       |"); // 12
-                //Console.WriteLine("|                                                                              " + badGuyName.PadRight(33) + "       |"); // 13
-                //Console.WriteLine("|                                                                         enemy Health: " + badGuyHealth.ToString().PadRight(30) + " |"); // 14
-                //Console.WriteLine("|                                                                                                                      |"); // 15
-                //Console.WriteLine("|                                                                          " + badGuyAttack.PadRight(41) + "   |"); // 16
-                //Console.WriteLine("|                                                                                                                      |"); // 17
-                //Console.WriteLine("|                                                                                                                      |"); // 18
-                //Console.WriteLine("|                                                                                                                      |"); // 19
-                //Console.WriteLine("|                                                                                                                      |"); // 20
-                //Console.WriteLine("|                                                                                                                      |"); // 21
-                //Console.WriteLine("|                                                                                                                      |"); // 22
-                //Console.WriteLine("|        Health: " + health.ToString().PadRight(34) + "                                                                    |"); // 23
-                //Console.WriteLine("|         A.attacks                                                                                                    |"); // 24
-                //Console.WriteLine("|         B.inventory                                                                                                  |"); // 25
-                //Console.WriteLine("|                                                                                                                      |"); // 26
-                //Console.WriteLine("|                                                                                                                      |"); // 27
-                //Console.WriteLine("|                                                                                                                      |"); // 28
-                //Console.WriteLine("0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~0"); // 29
-                */
-
-                //do
-                //{
-                //    Console.WriteLine("waiting");
-                //} while (waity < 0);
+                
                 while (Console.KeyAvailable == false)
                 {
                     // running code
@@ -1317,7 +1219,6 @@ namespace Team_Fisherman
                 }
                 c = Console.ReadKey(true);
 
-                //Console.WriteLine("You pressed the '{0}' key.", c.Key);
                 if (c.Key == ConsoleKey.A)
                 {
                     Console.WriteLine("  === attacks ===");
@@ -1326,33 +1227,27 @@ namespace Team_Fisherman
                     for (int i = 0; i < attacks.Length; i++)
                     {
                         Console.Write("## ".PadRight(3) + attacks[i].PadRight(5) + " ##");
-                        // && i !> 0
                         if (((i + 1) % 2) == 0)
                         {
                             Console.Write("\n");
                             Console.WriteLine("######################");
                         }
                     }
-                    //Thread.Sleep(5000);
                     Console.Write("what attack do you want to do: ");
                     string attack = Console.ReadLine();
-                    //Console.WriteLine(attack);
 
                     switch (attack)
                     {
                         case "slash":
                             Console.Write("you do the slash");
-                            //badGuyHealth -= 31;
                             Attack(31);
                             break;
                         case "jab":
                             Console.Write("you do the jab");
-                            //badGuyHealth -= 20;
                             Attack(20);
                             break;
                         case "bow":
                             Console.Write("you shoot the bow");
-                            //badGuyHealth -= 15;
                             Attack(15);
                             break;
                         case "other":
@@ -1367,7 +1262,6 @@ namespace Team_Fisherman
                             Console.WriteLine("incorrect input");
                             break;
                     }
-
                     Console.ReadLine();
                 }
                 else if (c.Key == ConsoleKey.D)
@@ -1386,25 +1280,19 @@ namespace Team_Fisherman
                     }
                     Console.Write("how do you want to defend: ");
                     string defen = Console.ReadLine();
-                    //Console.WriteLine(attack);
-
                     switch (defen)
                     {
                         case "dodge":
                             Console.Write("you do the dodge yuh");
-                            //enemyAttack();
                             break;
                         case "block":
                             Console.Write("you do the block");
-                            //enemyAttack();
                             break;
                         case "parry":
                             Console.Write("you parry");
-                            //enemyAttack();
                             break;
                         case "other":
                             Console.Write("you do the other");
-                            //enemyAttack();
                             break;
                         case "exit":
                             Console.WriteLine("exit");
@@ -1415,14 +1303,11 @@ namespace Team_Fisherman
                     }
                     Console.ReadLine();
                 }
-
                 else if (c.Key == ConsoleKey.S)
                 {
                     Console.Write("\n");
                     Console.WriteLine("    ==== inventory ====");
                     Console.WriteLine("##########################");
-
-                    //Console.WriteLine("###        ######                 ###");
                     for (int i = 0; i < inventory.Length; i++)
                     {
                         bool result = int.TryParse(inventory[i], out int P);
@@ -1440,7 +1325,6 @@ namespace Team_Fisherman
                     Console.Write("what item do you want to use: ");
                     string inv = Console.ReadLine();
                     Console.WriteLine(inv);
-
                     switch (inv)
                     {
                         case "fish":
@@ -1462,30 +1346,18 @@ namespace Team_Fisherman
                             Console.WriteLine("incorrect input");
                             break;
                     }
-
                     // item stuff
                     Console.ReadLine();
-
                 }
-
-
 
                 if (c.Key == ConsoleKey.P)
                 {
                     Console.WriteLine("you have a reaction time of " + x + " seconds");
                     Console.WriteLine("yuh");
                     Console.ReadLine();
-
                     Console.Clear();
                 }
-
-
-
-
-
             } while (gameRunning == true);
-            Console.ReadLine();
-            Console.ReadLine();
             Console.ReadLine();
             Console.ReadLine();
         }
