@@ -14,6 +14,7 @@ using System.Text;
 
 using test_fish;
 using static System.Net.Mime.MediaTypeNames;
+using System.Data;
 /*Put suggestions/bugs here 
  ln 1200 put a Console.Readline(); currently skips the text
  ln 1132 put a new line char before "the". The word wraps in the console and becomes Th and e 
@@ -788,9 +789,51 @@ namespace Team_Fisherman
 
 
         }
+        static void WriteTing(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
+        {
+            int count = 0;
+            foreach (char h in guy)
+            {
+                //colBuff.Append($"{color}{ch}");
+                //color += RED;
+                buff[To_Index(new Vector2(count + pos.X, pos.Y), screen_size)] = h;
+                count++;
+            }
+        }
         //Put the code for fighting in here.
+        static void fishGame()
+        {
+            StringBuilder buffer = new StringBuilder();
+            string fishIcon1 = @" _                     0 ";
+            string fishIcon2 = @"\ \ ____|\____       0   ";
+            string fishIcon3 = @" \ /        o \   0   ";
+            string fishIcon4 = @"  (   ||       ) ";
+            string fishIcon5 = @" / \__________/      ";
+            string fishIcon6 = @"/_/             ";
+
+            foreach (string line in File.ReadLines("Map/fighting/fishMap.txt")) // loops through txt file
+            {
+                foreach (char p in line) //each line
+                {
+                    buffer.Append(p);
+                }
+                buffer.Append("\n");
+            }
+
+            WriteTing(ref buffer, fishIcon1, screen_size, new Vector2(66, 7));
+            WriteTing(ref buffer, fishIcon2, screen_size, new Vector2(66, 8));
+            WriteTing(ref buffer, fishIcon3, screen_size, new Vector2(66, 9));
+            WriteTing(ref buffer, fishIcon4, screen_size, new Vector2(66, 10));
+            WriteTing(ref buffer, fishIcon5, screen_size, new Vector2(66, 11));
+            WriteTing(ref buffer, fishIcon6, screen_size, new Vector2(66, 12));
+            Console.Write(buffer.ToString());
+
+        }
         static void Fighting()
         {
+            fishGame();
+
+            Thread.Sleep(2134567);
             string[] inventory = { "23", "fish", "2", "health potion", "56", "rock" };
             string[] attacks = { "slash", "jab", "bow", "other" };
             string[] defence = { "block", "dodge", "parry", "other" };
@@ -911,17 +954,7 @@ namespace Team_Fisherman
                 }
             }
 
-            static void WriteTing(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
-            {
-                int count = 0;
-                foreach (char h in guy)
-                {
-                    //colBuff.Append($"{color}{ch}");
-                    //color += RED;
-                    buff[To_Index(new Vector2(count + pos.X, pos.Y), screen_size)] = h;
-                    count++;
-                }
-            }
+            
 
             StringBuilder buffer = new StringBuilder();
             //StringBuilder color_buffer = new StringBuilder();
