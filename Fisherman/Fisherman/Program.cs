@@ -43,8 +43,9 @@ namespace Team_Fisherman
         const string WHITE = "\x1b[97m";
         const string RESET = "\x1b[0m";
         public static Vector2 screen_size = new Vector2(120, 28);
-        public static Dictionary<string, int> inventory = new Dictionary<string, int>();
 
+        public static Dictionary<string, int> inventory = new Dictionary<string, int>();
+        public static int coins = 200;
 
 
 
@@ -255,6 +256,10 @@ namespace Team_Fisherman
 
                     Menu();
                     break;
+                case ConsoleKey.I:
+                    inventory_menu();
+                    break;
+
             }
 
             Vector2 clamped_offset = Vector2.Clamp(offset, Vector2.Zero, new Vector2(118, 27));
@@ -368,7 +373,7 @@ namespace Team_Fisherman
         static int Get_item_Count(string name)
         {
             int count = 0;
-            inventory.TryGetValue(name,out count);
+            inventory.TryGetValue(name, out count);
 
             return count;
         }
@@ -422,6 +427,7 @@ namespace Team_Fisherman
                 {
                     Console.WriteLine(item);
                 }
+                
                 Console.WriteLine();
                 Console.WriteLine("add");
                 string add = Console.ReadLine();
@@ -440,14 +446,14 @@ namespace Team_Fisherman
                     {
                         Remove_item(item_name, int_count);
                     }
-                    else 
+                    else
                     {
                         break;
                     }
                     //Add_item(item_name, int_count);
                 }
 
-                
+
                 //Console.ReadLine();
             }
         }
@@ -546,11 +552,102 @@ namespace Team_Fisherman
             Thread.Sleep(500);
             Console.Clear();
 
+
+        }
+        static void Shop()
+        {
+            string buy;
+            int count = 0;
+            string[] m = { "Potion", "Fish Bait", "Jar of Dirt", "Protective Charm" };
+            int[] p = { 15, 5, 1, 100 };
+            Console.WriteLine("\"Looking for any supplies?\"");
+            Console.WriteLine("========================BUY SYSTEM=========================");
+            for (int i = 0; i < m.Length; i++)
+            {
+                Console.Write(i.ToString().PadRight(10));
+                Console.Write(m[i].PadLeft(15));
+                Console.WriteLine(p[i].ToString().PadLeft(25));
+            }
+
+            Console.WriteLine();
+            Console.WriteLine();
+            Thread.Sleep(1000);
+            Console.WriteLine("\"The sea is dangerous after dark.\"");
+            Console.WriteLine("\"Buy what you need before heading out.\"");
+            while (true)
+            {
+                buy = Console.ReadLine();
+                switch (buy)
+                {
+                    case "Potion":
+                        Console.WriteLine("\"\"");
+                        Console.WriteLine("How many");
+                        count = Convert.ToInt32(Console.ReadLine());
+                        coins -= p[0] * count;
+                        if (coins > 0)
+                        {
+                            Add_item("Potion", count);
+                        }
+                        else
+                        {
+                            coins += p[0] * count;
+                        }
+
+                        break;
+
+                    case "Fish Bait":
+                        Console.WriteLine("\"\"");
+                        Console.WriteLine("How many");
+                        count = Convert.ToInt32(Console.ReadLine());
+                        coins -= p[1] * count;
+                        if (coins > 0)
+                        {
+                            Add_item("Fish Bait", count);
+                        }
+                        else
+                        {
+                            coins += p[1] * count;
+                        }
+                        break;
+                    case "Jar of Dirt":
+                        Console.WriteLine("\"\"");
+                        Console.WriteLine("How many");
+                        count = Convert.ToInt32(Console.ReadLine());
+                        coins -= p[2] * count;
+                        if (coins > 0)
+                        {
+                            Add_item("Jar of Dirt", count);
+                        }
+                        else
+                        {
+                            coins += p[2] * count;
+                        }
+                        break;
+
+                    case "Protective Charm":
+                        Console.WriteLine("\"\"");
+                        Console.WriteLine("How many");
+                        count = Convert.ToInt32(Console.ReadLine());
+                        coins -= p[3] * count;
+                        if (coins > 0)
+                        {
+                            Add_item("Protective Charm", count);
+                        }
+                        else
+                        {
+                            coins += p[3] * count;
+                        }
+                        break;
+                }
+                Console.WriteLine(coins);
+                if (Console.ReadLine().ToLower() == "exit") break;
+            }
+            Console.WriteLine("\"\"");
         }
         //Put the code for shopping in here.
         static void Shopping()
         {
-
+            //Shop();
             string temp, shop, buy, talk1, talk2, check, check1, truth1;
 
             string[] c = { "Buy", "Sell", "Talk", "Exit", "Leave" };
@@ -588,39 +685,8 @@ namespace Team_Fisherman
                     Console.WriteLine("\"Buy what you need before heading out.\"");
                     buy = Console.ReadLine();
 
-                    switch (buy)
-                    {
-                        case "Potion":
-                            Console.WriteLine("\"\"");
-                            break;
-
-                        case "Fish Bait":
-                            Console.WriteLine("\"\"");
-                            break;
-
-                        case "Torch":
-                            Console.WriteLine("\"\"");
-                            break;
-
-                        case "Lantern":
-                            Console.WriteLine("\"\"");
-                            break;
-
-                        case "Boots":
-                            Console.WriteLine("\"\"");
-                            break;
-
-                        case "Jar of Dirt":
-                            Console.WriteLine("\"\"");
-                            break;
-
-                        case "Protective Charm":
-                            Console.WriteLine("\"\"");
-                            break;
-                    }
-                    Console.WriteLine("\"\"");
+                    Shop();
                     break;
-
                 case "sell":
                     Console.WriteLine("\"What you want to sell?\"");
                     temp = Console.ReadLine();
@@ -972,18 +1038,18 @@ namespace Team_Fisherman
 
             Random random = new Random();
             int x = 0;
-            
+
             int playerSpeed = 24;
 
             int badGuyHealth = 100;
-            int badGuySpeed = 12; 
+            int badGuySpeed = 12;
             string badGuyAttack = "";
             string badGuyName = "evil guy of doom";
             int health = 100;
             bool gameRunning = true;
             int waity = -1;
 
-            void alive() 
+            void alive()
             {
                 if (badGuyHealth <= 0)
                 {
@@ -1001,7 +1067,7 @@ namespace Team_Fisherman
                 }
             }
             // the enemies attack  //code for dodging - returns an int depending on how much damage taken 0 dead 1 survived 2 perfect -1 something went wrong
-            void Attack(int playerDamg) 
+            void Attack(int playerDamg)
             {
                 int damage = 0; //random.Next(20, 40);
                 if (playerSpeed >= badGuySpeed)
@@ -1020,7 +1086,7 @@ namespace Team_Fisherman
                 }
             }
 
-            static int playerAttack(int playerDamg) 
+            static int playerAttack(int playerDamg)
             {
 
                 return playerDamg;
@@ -1048,10 +1114,10 @@ namespace Team_Fisherman
                 //        Console.WriteLine("error in the dodging");
                 //        break;
                 //}
-            
+
                 //health -= damage;
                 //evil guy of doom does 33 damage |
-                
+
                 badGuyAttack = badGuyName + " does " + damage + " damage";
                 waity = 100;
                 return 3;
@@ -1125,7 +1191,7 @@ namespace Team_Fisherman
                 //buffer.Clear();
                 //Console.SetCursorPosition(0, 0);
 
-                
+
                 buffer.Clear();
                 //color_buffer.Clear();
                 Console.SetCursorPosition(0, 0);
@@ -1240,7 +1306,7 @@ namespace Team_Fisherman
                     if (waity == 0)
                     {
                         Console.Clear();
-                        badGuyAttack = "" ;
+                        badGuyAttack = "";
                         WriteTing(ref buffer, "                                               ", screen_size, new Vector2(64, 16));
                         Console.SetCursorPosition(0, 0);
                         Console.Write(buffer.ToString());
@@ -1414,7 +1480,7 @@ namespace Team_Fisherman
                 }
 
 
-               
+
 
 
             } while (gameRunning == true);
@@ -1437,8 +1503,8 @@ namespace Team_Fisherman
             int[,] grid = new int[10, 31];
             int loopCounter = 0, playerPos = 15;
             int score = 0;
-            
-            
+
+
             int gridXLimit = 31, gridYLimit = 9;
             int xNumber = 3;
             bool isRunning = true;
