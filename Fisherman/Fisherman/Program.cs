@@ -868,6 +868,7 @@ namespace Team_Fisherman
             int waity = 200;
             const string fishBarSize = "#########################";
             int fishDih = 1;
+            int fishScore = 0;
             do
             {
                 static void WriteTing(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
@@ -881,11 +882,28 @@ namespace Team_Fisherman
                         count++;
                     }
                 }
+                string printLine() 
+                {
+                    string line = "";
+                    for (int i = 0; i <= fishScore/4; i++)
+                    {
+                        line += "+";
+                    }  
+                    return line;
+                }
 
                 void fishMove() 
                 {
-                    
-                    Random random = new Random();
+                    if (fishX > barX && fishX < barX + 25)
+                    {
+                        fishScore += 5;
+                    }
+                    else 
+                    {
+                        fishScore--;
+                    }
+
+                        Random random = new Random();
                     if (random.Next(0, 15) == 1)
                     {
                         fishDih = fishDih * -1;
@@ -928,8 +946,10 @@ namespace Team_Fisherman
                     }
                     buffer.Append("\n");
                 }
+                WriteTing(ref buffer, "completion bar:", screen_size, new Vector2(4, 13));
+                WriteTing(ref buffer, printLine(), screen_size, new Vector2(2, 14));
 
-                
+                WriteTing(ref buffer, fishScore.ToString(), screen_size, new Vector2(20, 15));
 
                 WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 20));
                 WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 21));
@@ -950,7 +970,8 @@ namespace Team_Fisherman
 
                 ConsoleKeyInfo c = new ConsoleKeyInfo();
                 c = Console.ReadKey(true);
-                
+ 
+
                 while (Console.KeyAvailable == false)
                 {
                     Thread.Sleep(25);
@@ -964,6 +985,10 @@ namespace Team_Fisherman
                         buffer.Append("\n");
                     }
                     fishMove();
+                    WriteTing(ref buffer, "completion bar:", screen_size, new Vector2(4, 13));
+                    WriteTing(ref buffer, printLine(), screen_size, new Vector2(2, 14));
+                    WriteTing(ref buffer, fishScore.ToString(), screen_size, new Vector2(20, 15));
+
                     WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 21));
                     WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 22));
                     WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 23));
@@ -1006,6 +1031,9 @@ namespace Team_Fisherman
                                 }
                                 buffer.Append("\n");
                             }
+                            WriteTing(ref buffer, "completion bar:", screen_size, new Vector2(4, 13));
+                            WriteTing(ref buffer, printLine(), screen_size, new Vector2(2, 14));
+                            WriteTing(ref buffer, fishScore.ToString(), screen_size, new Vector2(20, 15));
 
                             WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 21));
                             WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 22));
