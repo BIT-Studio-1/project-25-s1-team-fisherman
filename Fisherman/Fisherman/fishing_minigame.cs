@@ -48,6 +48,7 @@ namespace test_fish
         new Fish("Sturgeon",      "rare",     3f,    9f,    80,   0.015f, ConsoleColor.DarkGray),
         new Fish("Salmon",    "rare",     4f,    12f,   120,  0.010f, ConsoleColor.Red),
         new Fish("Great White Shark",    "rare",     6f,    15f,   400,  0.07f, ConsoleColor.Red),
+        new Fish ("Memory Fish", "epic", 10f, 20f, 1000, 0.0f, ConsoleColor.Magenta),
         new Fish("Swordfish", "epic",     8f,    25f,   500,  0.003f, ConsoleColor.Blue),
         new Fish("Leviathan", "epic",     30f,   99f,   2500, 0.002f, ConsoleColor.Cyan),
         new Fish("Cthulhu", "mythic",     60f,   120f,   5000, 0.001f, ConsoleColor.Cyan),
@@ -56,6 +57,7 @@ namespace test_fish
         static int  caught = 0, casts = 0, rodLv = 0, luckLv = 0;
         static List<(string Name, string Rarity, float Weight, int Value)> inventory = new();
         static int[] upgradeCosts = { 30, 80, 200, 600, 1500, 3000 };
+        static int pityCounter = 0;
 
         static float Luck() => luckLv * 0.40f;
         static float RodBonus() => rodLv * 0.20f;
@@ -91,20 +93,22 @@ namespace test_fish
 
         static void ReelIn()
         {
-            var f = RollFish();
-            if (f == null) { Console.WriteLine("The fish got away!"); return; }
+            Fish f;
 
-            float w = f.GetWeight();
-            // Each rod level boosts the fish's base valuе by adding a percentage increase, with each lеvel prov‍iding a 10% gain ‍‍‍v
-            int earn = (int)Math.Round(f.Value * (1 + RodBonus()));
-            coins += earn;
-            caught++;
-            inventory.Add((f.Name, f.Rarity, w, earn));
-            Console.ForegroundColor = f.Color;
+            //Every 10 catches you will catch a Memory Fish
+            if (pityCounter >= 10)
+            {
+                f = new Fish ("Memory Fish", "epic", 10f, 20f, 1000, 0.0f, ConsoleColor.Magenta);
 
-            Console.WriteLine($"Caught a {f.Name} ({f.Rarity}) - {w} kg - +{earn} coins");
+                pityCounter = 0;
+                Console.WriteLine("Activated Pity")
+            }
+            else
+            {
+                f = Rollfish();
 
-            Console.ResetColor();
+                if (f != null)
+                    pityCounter++;
         }
 
         static void Upgrade()
@@ -125,6 +129,7 @@ namespace test_fish
             Console.WriteLine($"Rod: {rodLv}  Luck: {luckLv}");
             int cost = NextUpgradeCost();
             if (cost > 0) Console.WriteLine($"Next upgrade: {cost} coins");
+            Console.WriteLine($"Memory Fish pity: {pityCounter}/10");
         }
 
         public static void Fishing()
