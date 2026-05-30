@@ -123,7 +123,7 @@ namespace test_fish
 
             Console.ForegroundColor = f.Color;
             Console.WriteLine($"Caught a {f.Name} ({f.Rarity}) - {w} kg - +{earn} coins");
-            Console.ResetColor()
+            Console.ResetColor();
             }
             
         static void Upgrade()
