@@ -105,6 +105,7 @@ namespace test_fish
             }
             else
             {
+                f = RollFish(); 
                 if (f == null)
                 {
                     Console.WriteLine("The fish got away!");
