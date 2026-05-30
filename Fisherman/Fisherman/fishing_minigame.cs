@@ -93,24 +93,39 @@ namespace test_fish
 
         static void ReelIn()
         {
-            Fish f;
+            Fish f = null;
 
-            //Every 10 catches you will catch a Memory Fish
+            //Every 10 fish you caught a Memory Fish is Guranteed
             if (pityCounter >= 10)
             {
                 f = new Fish ("Memory Fish", "epic", 10f, 20f, 1000, 0.0f, ConsoleColor.Magenta);
 
                 pityCounter = 0;
-                Console.WriteLine("Activated Pity")
+                Console.WriteLine("Activated Pity");
             }
             else
             {
-                f = Rollfish();
+                if (f == null)
+                {
+                    Console.WriteLine("The fish got away!");
+                    return;
+                }
 
-                if (f != null)
-                    pityCounter++;
-        }
+                pityCounter++;
+            
+            }
+            float w = f.GetWeight(); 
+            int earn = (int)Math.Round(f.Value * (1 + RodBonus()));
 
+            coins += earn;
+            caught++;
+            inventory.Add((f.Name, f.Rarity, w, earn));
+
+            Console.ForegroundColor = f.Color;
+            Console.WriteLine($"Caught a {f.Name} ({f.Rarity}) - {w} kg - +{earn} coins");
+            Console.ResetColor()
+            }
+            
         static void Upgrade()
         {
             int cost = NextUpgradeCost();
