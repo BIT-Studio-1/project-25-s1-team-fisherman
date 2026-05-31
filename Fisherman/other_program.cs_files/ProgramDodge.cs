@@ -5,6 +5,7 @@ class Game
 {
     static void Main()
     {
+        // Preparing for dodge update 2
         Console.CursorVisible = false;
 
         // 10 rows by 31 columns grid.
@@ -124,11 +125,11 @@ class Game
         }
         else if ((health > 0) && (health < 3))
         {
-            Console.WriteLine($"You Survived! Score: {score}\n\nPress Enter to exit...");
+            Console.WriteLine($"You Survived! Score: {score} / 150\n\nPress Enter to exit...");
         }
         else if (health == 3)
         {
-            Console.WriteLine($"Perfect Dodge! Score: {score} Health: {health}\n\nPress Enter to exit...");
+            Console.WriteLine($"Perfect Dodge! Score: {score} / 150 Health: {health}\n\nPress Enter to exit...");
         }
         Console.ReadLine();
     }
