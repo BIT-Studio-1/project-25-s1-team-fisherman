@@ -5,7 +5,7 @@ class Game
 {
     static void Main()
     {
-        // Preparing for dodge update 8
+        // Preparing for dodge update 9
         Console.CursorVisible = false;
 
         // 10 rows by 31 columns grid.
