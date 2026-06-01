@@ -838,7 +838,7 @@ namespace Team_Fisherman
         }
         
         //Put the code for fighting in here.
-        static void fishyGame()
+        public static void fishyGame()
         {
             string fishIcon1 = @" _              ";
             string fishIcon2 = @"\ \ ____|\____  ";

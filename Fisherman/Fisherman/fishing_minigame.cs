@@ -1,3 +1,7 @@
+using static Team_Fisherman.Program;
+
+
+
 namespace test_fish
 {
     using System;
@@ -11,6 +15,7 @@ namespace test_fish
         public int Value;
         public float Chance;
         public ConsoleColor Color;
+        
 
 
 
@@ -94,6 +99,7 @@ namespace test_fish
         static void ReelIn()
         {
             Fish f = null;
+            Team_Fisherman.Program.fishyGame();
 
             //Every 10 fish you caught a Memory Fish is Guranteed
             if (pityCounter >= 10)
@@ -101,7 +107,7 @@ namespace test_fish
                 f = new Fish ("Memory Fish", "epic", 10f, 20f, 1000, 0.0f, ConsoleColor.Magenta);
 
                 pityCounter = 0;
-                Console.WriteLine("Activated Pity");
+                
             }
             else
             {
