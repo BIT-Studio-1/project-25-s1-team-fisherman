@@ -710,6 +710,7 @@ namespace Team_Fisherman
 
                         if (Get_item_Count("Truth") != 0)
                         {
+                            memory2 = true;
                             Console.WriteLine("\"...So you've started seeing them too.\"");
                             Console.WriteLine();
                             Thread.Sleep(1000);
@@ -1889,6 +1890,40 @@ namespace Team_Fisherman
 
             if ((memory1 == true) && (memory2==true) && (memory3 = true))
             {
+                Console.Clear();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("As the third Truth Fragment falls into your hands, the pieces finally come together.");
+                Console.WriteLine("The fog surrounding the island begins to fade.");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+
+                Thread.Sleep(1000);
+                Console.WriteLine("Memories return.");
+
+                Thread.Sleep(1500);
+                Console.WriteLine();
+                Console.WriteLine("You remember all the things.");
+                Console.WriteLine();
+                Console.WriteLine();
+
+                Thread.Sleep(1500);
+                Console.WriteLine();
+                Console.WriteLine("The storm.");
+                Console.WriteLine();
+                Console.WriteLine();
+
+                Thread.Sleep(1500);
+                Console.WriteLine();
+                Console.WriteLine("The wave.");
+                Console.WriteLine();
+                Console.WriteLine();
+
+                Thread.Sleep(1500);
+                Console.WriteLine();
+                Console.WriteLine("And the shipwreck.");
+                Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();
