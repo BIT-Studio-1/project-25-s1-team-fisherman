@@ -1876,6 +1876,8 @@ namespace Team_Fisherman
             if ((memory1 == true) && (memory2==true) && (memory3 = true))
             {
                 Console.Clear();
+                Console.WriteLine();
+                Console.WriteLine();
                 Console.WriteLine("As the third Truth Fragment falls into your hands, the pieces finally come together.");
                 Console.WriteLine("The fog surrounding the island begins to fade.");
                 Console.WriteLine();
