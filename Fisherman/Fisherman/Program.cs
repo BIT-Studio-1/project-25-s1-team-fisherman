@@ -16,6 +16,7 @@ using test_fish;
 using static System.Net.Mime.MediaTypeNames;
 using System.Data;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography.X509Certificates;
 /*Put suggestions/bugs here 
  ln 1200 put a Console.Readline(); currently skips the text
  ln 1132 put a new line char before "the". The word wraps in the console and becomes Th and e 
@@ -46,7 +47,9 @@ namespace Team_Fisherman
 
         public static Dictionary<string, int> inventory = new Dictionary<string, int>();
         public static int coins = 200;
-
+        public static bool memory1 = false;
+        public static bool memory2 = false;
+        public static bool memory3 = false;
 
 
         static void Main(string[] args)
@@ -710,7 +713,7 @@ namespace Team_Fisherman
                             Console.WriteLine();
                             Console.WriteLine();
                             Thread.Sleep(1000);
-                            Console.WriteLine("*WOULD YOU WANT TO OPEN IT KNOW (YES/NO)*");
+                            Console.WriteLine("*WOULD YOU WANT TO OPEN IT (YES/NO)*");
                             truth1 = Console.ReadLine();
                             if (truth1 == "yes")
                             {
@@ -1786,10 +1789,11 @@ namespace Team_Fisherman
             Console.WriteLine();
             Console.WriteLine();
             Thread.Sleep(1000);
-            Console.WriteLine("*WOULD YOU WANT TO OPEN IT KNOW (YES/NO)*");
+            Console.WriteLine("*WOULD YOU WANT TO OPEN IT (YES/NO)*");
             truth2 = Console.ReadLine();
             if (truth2 == "yes")
             {
+                memory1 = true;
                 Thread.Sleep(1000);
                 Console.WriteLine("*YOU ARE NOT IN THE REAL WORLD*");
                 Console.WriteLine();
@@ -1831,29 +1835,55 @@ namespace Team_Fisherman
         // Player gets the Truth Fragment 3 in the forest or something
         static void fragment()
         {
-            string truth3;
-            Console.WriteLine("*You received a TRUTH FRAGMENT*");
-            Console.WriteLine();
-            Console.WriteLine();
-            Thread.Sleep(1000);
-            Console.WriteLine("*WOULD YOU WANT TO OPEN IT KNOW (YES/NO)*");
-            truth3 = Console.ReadLine();
-            if (truth3 == "yes")
+            string truth3, confirm, Dconfirm;
+            Console.WriteLine("Did you get any memory fish? (yes/no)");
+            confirm = Console.ReadLine();
+            if (confirm == "yes")
             {
                 Thread.Sleep(1000);
-                Console.WriteLine("*YOU ALREADY DIED*");
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("Press Enter to close it");
-                Console.ReadLine();
+                Console.WriteLine("Did you talk with Jane before?");
+                Thread.Sleep(1000);
+                Dconfirm = Console.ReadLine();
+                if (confirm == "yes" && Dconfirm == "yes")
+                {
+                    Console.WriteLine("*Then here your last TRUTH FRAGMENT*");
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Thread.Sleep(1000);
+                    Console.WriteLine("*WOULD YOU WANT TO OPEN IT (YES/NO)*");
+                    truth3 = Console.ReadLine();
+                    if (truth3 == "yes")
+                    {
+                        memory3 = true;
+                        Thread.Sleep(1000);
+                        Console.WriteLine("*YOU ALREADY DIED*");
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine("Press Enter to close it");
+                        Console.ReadLine();
+                        
+                    }
+                }
             }
 
+            if ((memory1 == true) && (memory2==true) && (memory3 = true))
+            {
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+
+            }
         }
 
     }
