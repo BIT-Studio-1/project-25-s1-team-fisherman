@@ -46,6 +46,7 @@ namespace Team_Fisherman
 
         public static Dictionary<string, int> inventory = new Dictionary<string, int>();
         public static int coins = 200;
+        
 
 
 
@@ -60,7 +61,7 @@ namespace Team_Fisherman
 
 
             Console.CursorVisible = false;
-            Console.Title = "Fishing";
+            Console.Title = "Dead Tide";
             Console.OutputEncoding = Encoding.UTF8;
 
             //the coordinates are stored in a vector2, this has an X and Y value that represent the position on the screen, X is the number of characters from the left and Y is the number of lines from the top, the top left corner is (0,0) and the bottom right corner is (119,27) since the screen size is 120x28. please use integers for the coordinates to avoid issues with indexing.
@@ -334,11 +335,12 @@ namespace Team_Fisherman
                 Fighting();
                 return false;
             }
-            else if (buffer[To_Index(coords, size)] == 'd')
+            else if (buffer[To_Index(coords, size)] == 'T')
             {
+
                 //add logic for key to unlock a door.
                 //return true means the player can stand on that tile but it will trigger the door logic, you can change this to false if you want the player to not be able to stand on the tile and just trigger the door logic when they are next to it.
-                return true;
+                return false;
             }
 
 
@@ -430,9 +432,9 @@ namespace Team_Fisherman
                 
                 Console.WriteLine();
                 Console.WriteLine($"Coins: {coins}");
-                Console.WriteLine("add");
+                Console.WriteLine("Press enter to exit");
                 string add = Console.ReadLine();
-                if (add == "exit") break;
+                if (add != "add" && add != "remove") break;
                 Console.WriteLine("item");
                 string item_name = Console.ReadLine().Trim();
                 Console.WriteLine("count");
@@ -464,8 +466,8 @@ namespace Team_Fisherman
             StringBuilder buffer = new StringBuilder();
             bool in_menu = true;
             //Vector2 screen_size = new Vector2(120, 28);
-            Vector2 play_pos = new Vector2(34, 24);
-            Vector2 exit_pos = new Vector2(62, 24);
+            Vector2 play_pos = new Vector2(45, 24);
+            Vector2 exit_pos = new Vector2(73, 24);
             Vector2 current = play_pos;
 
 
@@ -487,7 +489,7 @@ namespace Team_Fisherman
 
                 //allows you to edit the menu by changing the text in the menu.txt file, it will read the file and draw it to the console, you can change the text and layout of the menu by editing the file, just make sure to keep the play and exit options in the same place or update the play_pos and exit_pos variables to match the new positions. File.ReadLines("Map/menu.txt") returns an array of strings, each string is a line in the file, the foreach loop goes through each line and then through each character in the line and draws it to the buffer at the correct position based on the char_pos variable which is updated as it goes through the characters and lines.
 
-
+                buffer.Append(Color_Helper(129,true));
                 foreach (string line in File.ReadLines("Map/menu.txt"))
                 {
                     foreach (char c in line)
@@ -545,6 +547,7 @@ namespace Team_Fisherman
         //Put the code for fishing in here.
         static void Fishing()
         {
+            
             Fishing_Base.coins = coins;
             Fishing_Base.Fishing();
             coins = Fishing_Base.coins;
@@ -557,8 +560,8 @@ namespace Team_Fisherman
         {
             string buy;
             int count = 0;
-            string[] m = { "Potion", "Fish Bait", "Jar of Dirt", "Protective Charm","exit" };
-            int[] p = { 15, 5, 1, 100, 0 };
+            string[] m = { "Potion", "Fish Bait", "Jar of Dirt", "Protective Charm","Truth","exit" };
+            int[] p = { 15, 5, 1, 100, 50, 0 };
             
             while (true)
             {
@@ -640,6 +643,19 @@ namespace Team_Fisherman
                             coins += p[3] * count;
                         }
                         break;
+                    case "4":
+                    case "truth":
+                        Console.WriteLine("\"\"");
+                        coins -= p[4];
+                        if (coins > 0)
+                        {
+                            Add_item("Truth", 1);
+                        }
+                        else
+                        {
+                            coins += p[4] ;
+                        }
+                        break;
                 }
                 
                 
@@ -690,7 +706,7 @@ namespace Team_Fisherman
                         Console.WriteLine("\"So, you want to know about what?\"");
                         talk1 = Console.ReadLine();
 
-                        if (talk1 == "memory fish" || talk1 == "truth" || talk1 == "truth fragment")
+                        if (Get_item_Count("Truth") != 0)
                         {
                             Console.WriteLine("\"...So you've started seeing them too.\"");
                             Console.WriteLine();
@@ -835,7 +851,7 @@ namespace Team_Fisherman
         }
         
         //Put the code for fighting in here.
-        static void fishyGame()
+        public static void fishyGame()
         {
             string fishIcon1 = @" _              ";
             string fishIcon2 = @"\ \ ____|\____  ";
