@@ -16,6 +16,10 @@
     <None Update="Map\fighting\FightingMenu.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+
+    <None Update="Map\fighting\fishMap.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Map\map.txt">
 		<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</None>
