@@ -107,7 +107,7 @@ namespace test_fish
                 f = new Fish ("Memory Fish", "epic", 10f, 20f, 1000, 0.0f, ConsoleColor.Magenta);
 
                 pityCounter = 0;
-                Console.WriteLine("Activated Pity");
+                
             }
             else
             {
