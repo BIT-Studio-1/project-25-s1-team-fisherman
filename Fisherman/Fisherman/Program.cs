@@ -1933,6 +1933,30 @@ namespace Team_Fisherman
                 Console.WriteLine();
                 Console.WriteLine();
 
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Thread.Sleep(4500);
+                Console.WriteLine("Thank you for playing.");
+                Console.WriteLine();
+                Console.WriteLine();
+                Thread.Sleep(1500);
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("=========================THE END==============================");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.ReadLine();
+
+
             }
         }
 
