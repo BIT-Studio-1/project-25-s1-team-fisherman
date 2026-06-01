@@ -107,7 +107,7 @@ namespace test_fish
             if (pityCounter >= 10)
             {
                 f = new Fish ("Memory Fish", "epic", 10f, 20f, 1000, 0.0f, ConsoleColor.Magenta);
-                
+                memory = true;
                 pityCounter = 0;
                 
             }
