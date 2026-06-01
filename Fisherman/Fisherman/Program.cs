@@ -339,7 +339,7 @@ namespace Team_Fisherman
             }
             else if (buffer[To_Index(coords, size)] == 'T')
             {
-
+                fragment();
                 //add logic for key to unlock a door.
                 //return true means the player can stand on that tile but it will trigger the door logic, you can change this to false if you want the player to not be able to stand on the tile and just trigger the door logic when they are next to it.
                 return false;
@@ -553,6 +553,7 @@ namespace Team_Fisherman
             Fishing_Base.coins = coins;
             Fishing_Base.Fishing();
             coins = Fishing_Base.coins;
+            memory1 = Fishing_Base.memory;
             Thread.Sleep(500);
             Console.Clear();
 
@@ -1888,7 +1889,7 @@ namespace Team_Fisherman
                 }
             }
 
-            if ((memory1 == true) && (memory2==true) && (memory3 = true))
+            if ((memory1 == true) && (memory2==true) && (memory3 == true))
             {
                 Console.Clear();
                 Console.WriteLine();
