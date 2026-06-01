@@ -835,7 +835,7 @@ namespace Team_Fisherman
         }
         
         //Put the code for fighting in here.
-        static void fishyGame()
+        static bool fishyGame()
         {
             string fishIcon1 = @" _              ";
             string fishIcon2 = @"\ \ ____|\____  ";
@@ -850,7 +850,8 @@ namespace Team_Fisherman
             int waity = 200;
             const string fishBarSize = "#########################";
             int fishDih = 1;
-            int fishScore = 0;
+            int fishScore = 100;
+            bool fishGameRunning = true;
             do
             {
                 
@@ -920,7 +921,12 @@ namespace Team_Fisherman
 
                 //color_buffer.Clear();
                 StringBuilder buffer = new StringBuilder();
-                
+                if (fishScore <= 1)
+                {
+                    fishGameRunning = false;
+                    return false;
+                }
+
                 buffer.Clear();
                 Console.SetCursorPosition(0, 0);
                 string[] fish = { fishIcon1, fishIcon2, fishIcon3, fishIcon4, fishIcon5, fishIcon6 };
@@ -998,7 +1004,11 @@ namespace Team_Fisherman
                     WriteTing(ref buffer, fishIcon4, screen_size, new Vector2(fishX, 24));
                     WriteTing(ref buffer, fishIcon5, screen_size, new Vector2(fishX, 25));
                     WriteTing(ref buffer, fishIcon6, screen_size, new Vector2(fishX, 26));
-
+                    if (fishScore <= 1)
+                    {
+                        fishGameRunning = false;
+                        return false;
+                    }
 
                     Console.SetCursorPosition(0, 0);
                     Console.Write(buffer.ToString());
@@ -1047,9 +1057,6 @@ namespace Team_Fisherman
                             Console.SetCursorPosition(0, 0);
                             Console.Write(buffer.ToString());
                             waity = 1000;
-                        
-
-
                         }
                         else 
                         {
@@ -1071,7 +1078,6 @@ namespace Team_Fisherman
                                 barX -= 1;
                             }
                         }
-                        
                     }
 
                     if (c.Key == ConsoleKey.A)
@@ -1104,18 +1110,20 @@ namespace Team_Fisherman
                     yak = true;
                 }
 
-                if (fishScore > 452) 
+                if (fishScore > 452) // win condition 
                 {
-                    break;
+                    return true;
+                    fishGameRunning = false;
                 }
 
-            } while (true);
+            } while (fishGameRunning  == true);
+            return true;
         }
         
         static void Fighting()
         {
             fishyGame();
-            Thread.Sleep(2134567);
+            
 
             static void WriteTing(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
             {
