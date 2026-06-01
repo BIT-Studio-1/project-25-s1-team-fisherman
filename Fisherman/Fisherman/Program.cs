@@ -695,6 +695,7 @@ namespace Team_Fisherman
 
                         if (talk1 == "memory fish" || talk1 == "truth" || talk1 == "truth fragment")
                         {
+                            memory2 = true;
                             Console.WriteLine("\"...So you've started seeing them too.\"");
                             Console.WriteLine();
                             Thread.Sleep(1000);
