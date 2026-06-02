@@ -455,12 +455,9 @@ namespace Team_Fisherman
                     
                     //Add_item(item_name, int_count);
                 }
-
-
                 //Console.ReadLine();
             }
         }
-
 
         static void Menu()
         {
@@ -855,8 +852,9 @@ namespace Team_Fisherman
         }
         
         //Put the code for fighting in here.
-        public static bool fishyGame()
+        public static bool fishyGame() //function for the fish minigame
         {
+            // fish sprite
             string fishIcon1 = @" _              ";
             string fishIcon2 = @"\ \ ____|\____  ";
             string fishIcon3 = @" \ /        o \ ";
@@ -864,18 +862,16 @@ namespace Team_Fisherman
             string fishIcon5 = @" / \__________/ ";
             string fishIcon6 = @"/_/             ";
 
-            int fishX = 30;
-            int barX = 30;
+            int fishX = 30; // X position of the fish
+            int barX = 30; // X position of the bar
             bool yak = true;
             int waity = 200;
-            const string fishBarSize = "#########################";
-            int fishDih = 1;
-            int fishScore = 100;
-            bool fishGameRunning = true;
+            const string fishBarSize = "#########################"; // the size of the bar
+            int fishDih = 1; // fish direction 
+            int fishScore = 100; // how close the fish is to being caught
+            bool fishGameRunning = true; // if the game is running or not
             do
             {
-                
-
                 static void WriteTing(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
                 {
                     int count = 0;
@@ -888,7 +884,7 @@ namespace Team_Fisherman
                     }
                 }
 
-                string printLine() 
+                string printLine() // prints the progress bar
                 {
                     fishScore = Math.Max(0, fishScore);
                     string line = "";
@@ -899,25 +895,24 @@ namespace Team_Fisherman
                     return line;
                 }
 
-                void fishMove() 
+                void fishMove() // moves the fish
                 {
-                    if (fishX > barX && fishX < barX + 25 && fishScore < 452)
+                    if (fishX > barX && fishX < barX + 25 && fishScore < 452) // checks if the fish is in the bar or not and then adjusts the score
                     {   
                         fishScore += 2;
                     }
                     else 
                     {
-
                         fishScore--;
                     }
 
-                        Random random = new Random();
-                    if (random.Next(0, 15) == 1)
+                    Random random = new Random();
+                    if (random.Next(0, 15) == 1) // randomly picks what way the fish goes
                     {
                         fishDih = fishDih * -1;
                     }
 
-                    if (fishX > 4 && fishDih == -1)
+                    if (fishX > 4 && fishDih == -1) // swaps the direction the fish sprite faces
                     {
                         fishX += fishDih;
                         fishIcon1 = @"              _ ";
@@ -939,16 +934,17 @@ namespace Team_Fisherman
                     }
                 }
 
-                //color_buffer.Clear();
-                StringBuilder buffer = new StringBuilder();
-                if (fishScore <= 1)
+                StringBuilder buffer = new StringBuilder(); // creates the string buffer 
+
+                if (fishScore <= 1) // ends the fish game if fishScore less or equal then one
                 {
                     fishGameRunning = false;
                     return false;
                 }
 
-                buffer.Clear();
+                buffer.Clear(); // clears the buffer
                 Console.SetCursorPosition(0, 0);
+
                 string[] fish = { fishIcon1, fishIcon2, fishIcon3, fishIcon4, fishIcon5, fishIcon6 };
 
                 foreach (string line in File.ReadLines("Map/fighting/fishMap.txt")) // loops through txt file
@@ -960,10 +956,10 @@ namespace Team_Fisherman
                     buffer.Append("\n");
                 }
                 WriteTing(ref buffer, "completion bar:", screen_size, new Vector2(4, 13));
+                WriteTing(ref buffer, fishScore.ToString(), screen_size, new Vector2(20, 15));
                 WriteTing(ref buffer, printLine(), screen_size, new Vector2(2, 14));
 
-                WriteTing(ref buffer, fishScore.ToString(), screen_size, new Vector2(20, 15));
-
+                // catching bar
                 WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 20));
                 WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 21));
                 WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 22));
@@ -973,6 +969,7 @@ namespace Team_Fisherman
                 WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 26));
                 WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 27));
 
+                //fish sprite
                 WriteTing(ref buffer, fishIcon1, screen_size, new Vector2(fishX, 21));
                 WriteTing(ref buffer, fishIcon2, screen_size, new Vector2(fishX, 22));
                 WriteTing(ref buffer, fishIcon3, screen_size, new Vector2(fishX, 23));
@@ -997,6 +994,7 @@ namespace Team_Fisherman
                         }
                         buffer.Append("\n");
                     }
+
                     fishMove();
                     WriteTing(ref buffer, "completion bar:", screen_size, new Vector2(4, 13));
                     WriteTing(ref buffer, printLine(), screen_size, new Vector2(2, 14));
@@ -1024,6 +1022,7 @@ namespace Team_Fisherman
                     WriteTing(ref buffer, fishIcon4, screen_size, new Vector2(fishX, 24));
                     WriteTing(ref buffer, fishIcon5, screen_size, new Vector2(fishX, 25));
                     WriteTing(ref buffer, fishIcon6, screen_size, new Vector2(fishX, 26));
+
                     if (fishScore <= 1)
                     {
                         fishGameRunning = false;
@@ -1031,11 +1030,7 @@ namespace Team_Fisherman
                     }
 
                     Console.SetCursorPosition(0, 0);
-                    Console.Write(buffer.ToString());
-                    if (waity == 0) 
-                    { 
-                        
-                    }
+                    Console.Write(buffer.ToString()); // prints the buffer
                         if (barX < 90)
                         {
                             //Console.Clear();
@@ -1086,54 +1081,55 @@ namespace Team_Fisherman
                 }
                 waity--;
                 fishMove();
-                if (Console.KeyAvailable)
-                {
-                    if (c.Key == ConsoleKey.Spacebar)
-                    {
-                        waity = 200;
-                        for (int i = 0; i != 20; i++)
-                        {
-                            if (barX > 2)
-                            {
-                                barX -= 1;
-                            }
-                        }
-                    }
+                // code for testing the fish moving
+                //if (Console.KeyAvailable)
+                //{
+                //    if (c.Key == ConsoleKey.Spacebar)
+                //    {
+                //        waity = 200;
+                //        for (int i = 0; i != 20; i++)
+                //        {
+                //            if (barX > 2)
+                //            {
+                //                barX -= 1;
+                //            }
+                //        }
+                //    }
 
-                    if (c.Key == ConsoleKey.A)
-                    {
-                        if (fishX > 4)
-                        {
-                            fishX -= 1;
-                        }
-                        fishIcon1 = @"              _ ";
-                        fishIcon2 = @"  ____/|____ / /";
-                        fishIcon3 = @" / o        \ / ";
-                        fishIcon4 = @"(      ||    )  ";
-                        fishIcon5 = @" \__________/ \ ";
-                        fishIcon6 = @"             \_\";
-                    }
+                //    if (c.Key == ConsoleKey.A)
+                //    {
+                //        if (fishX > 4)
+                //        {
+                //            fishX -= 1;
+                //        }
+                //        fishIcon1 = @"              _ ";
+                //        fishIcon2 = @"  ____/|____ / /";
+                //        fishIcon3 = @" / o        \ / ";
+                //        fishIcon4 = @"(      ||    )  ";
+                //        fishIcon5 = @" \__________/ \ ";
+                //        fishIcon6 = @"             \_\";
+                //    }
 
-                    if (c.Key == ConsoleKey.D)
-                    {
-                        if (fishX < 100)
-                        {
-                            fishX += 1;
-                        }
-                        fishIcon1 = @" _              ";
-                        fishIcon2 = @"\ \ ____|\____  ";
-                        fishIcon3 = @" \ /        o \ ";
-                        fishIcon4 = @"  (   ||       )";
-                        fishIcon5 = @" / \__________/ ";
-                        fishIcon6 = @"/_/             ";
-                    }
-                    yak = true;
-                }
+                //    if (c.Key == ConsoleKey.D)
+                //    {
+                //        if (fishX < 100)
+                //        {
+                //            fishX += 1;
+                //        }
+                //        fishIcon1 = @" _              ";
+                //        fishIcon2 = @"\ \ ____|\____  ";
+                //        fishIcon3 = @" \ /        o \ ";
+                //        fishIcon4 = @"  (   ||       )";
+                //        fishIcon5 = @" / \__________/ ";
+                //        fishIcon6 = @"/_/             ";
+                //    }
+                //    yak = true;
+                //}
 
                 if (fishScore > 452) // win condition 
                 {
-                    return true;
                     fishGameRunning = false;
+                    return true;
                 }
 
             } while (fishGameRunning  == true);
@@ -1178,8 +1174,6 @@ namespace Team_Fisherman
             int waity = -1;
             bool poisoned = false; 
             
-            
-
             void alive()
             {
                 if (badGuyHealth <= 0)
@@ -1280,7 +1274,6 @@ namespace Team_Fisherman
             
 
             StringBuilder buffer = new StringBuilder();
-            //StringBuilder color_buffer = new StringBuilder();
             bool in_menu = true;
             Vector2 screen_size = new Vector2(120, 28);
             Vector2 play_pos = new Vector2(34, 24);
@@ -1293,9 +1286,9 @@ namespace Team_Fisherman
             string enemyIcon5 = "";
             string enemyIcon6 = "";
 
-            int randEnemy = random.Next(0, 4);
-            //int randEnemy = 3;
 
+            int randEnemy = random.Next(0, 4); //randomly picks a enemy for the player to fight
+            //int randEnemy = 3;
             if (randEnemy == 0) //weird cat
             {
                 badGuyHealth = 100;
@@ -1354,12 +1347,10 @@ namespace Team_Fisherman
             }
 
 
-            do
+            do // the main loop for the fighting
             {
-
                 // @@@
                 buffer.Clear();
-                //color_buffer.Clear();
                 Console.SetCursorPosition(0, 0);
 
                 foreach (string line in File.ReadLines("Map/fighting/FightingMenu.txt")) // loops through txt file
@@ -1371,19 +1362,22 @@ namespace Team_Fisherman
                     buffer.Append("\n");
                 }
 
+                //prints the enemy on the screen
                 WriteTing(ref buffer, enemyIcon1, screen_size, new Vector2(66, 7));
                 WriteTing(ref buffer, enemyIcon2, screen_size, new Vector2(66, 8));
                 WriteTing(ref buffer, enemyIcon3, screen_size, new Vector2(66, 9));
                 WriteTing(ref buffer, enemyIcon4, screen_size, new Vector2(66, 10));
                 WriteTing(ref buffer, enemyIcon5, screen_size, new Vector2(66, 11));
                 WriteTing(ref buffer, enemyIcon6, screen_size, new Vector2(66, 12));
+
+
                 WriteTing(ref buffer, badGuyName, screen_size, new Vector2(66, 13));
                 WriteTing(ref buffer, "enemy health: " + badGuyHealth, screen_size, new Vector2(66, 14));
                 WriteTing(ref buffer, badGuyAttack, screen_size, new Vector2(64, 16));
                 WriteTing(ref buffer, "health: " + health, screen_size, new Vector2(10, 22));
                 Console.Write(buffer.ToString()); // writes the thing
 
-                while (Console.KeyAvailable == false)
+                while (Console.KeyAvailable == false)// if there is no key input
                 {
                     if (waity == 0)
                     {
@@ -1399,7 +1393,7 @@ namespace Team_Fisherman
                 }
                 c = Console.ReadKey(true);
 
-                if (c.Key == ConsoleKey.A)
+                if (c.Key == ConsoleKey.A) // if the A key is pressed
                 {
                     Console.WriteLine("               === attacks ===");
                     Console.WriteLine("#################################################");
@@ -1489,7 +1483,7 @@ namespace Team_Fisherman
                 //    }
                 //    Console.ReadLine();
                 //}
-                else if (c.Key == ConsoleKey.D)
+                else if (c.Key == ConsoleKey.D) // if the D key is pressed
                 {
                     Console.Write("\n");
                     Console.WriteLine("    ==== inventory ====");
@@ -1497,7 +1491,7 @@ namespace Team_Fisherman
                     for (int i = 0; i < inventory.Length; i++)
                     {
                         bool result = int.TryParse(inventory[i], out int P);
-                        if (result == false) // string
+                        if (result == false)
                         {
                             Console.Write(" # ".PadRight(3) + inventory[i].PadRight(13) + " ###");
                             Console.Write("\n");
