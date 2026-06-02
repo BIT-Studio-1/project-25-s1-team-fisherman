@@ -835,11 +835,7 @@ namespace Team_Fisherman
         }
         
         //Put the code for fighting in here.
-<<<<<<< HEAD
-        static bool fishyGame()
-=======
-        public static void fishyGame()
->>>>>>> a1dae001ccc9f922d74117e76073b388e6ee21b2
+        public static bool fishyGame()
         {
             string fishIcon1 = @" _              ";
             string fishIcon2 = @"\ \ ____|\____  ";
@@ -1126,7 +1122,7 @@ namespace Team_Fisherman
         
         static void Fighting()
         {
-            fishyGame();
+            //fishyGame();
             
 
             static void WriteTing(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
@@ -1142,21 +1138,26 @@ namespace Team_Fisherman
             }
            
             string[] inventory = { "23", "fish", "2", "health potion", "56", "rock" };
-            string[] attacks = { "slash", "jab", "bow", "other" };
+            string[] attacks = { "slash (31 damage)", "jab (20 - 40 damage)", "bow(25 - 36 damage)", "poison (does 10 damage per round)" };
             string[] defence = { "block", "dodge", "parry", "other" };
 
             ConsoleKeyInfo c = new ConsoleKeyInfo();
 
             Random random = new Random();
             int x = 0;
-            int playerSpeed = 24;
+            int playerSpeed = 10;
+
             int badGuyHealth = 100;
             int badGuySpeed = 12;
-            string badGuyAttack = "";
             string badGuyName = "evil guy of doom";
+            string badGuyAttack = "";
+
             int health = 100;
             bool gameRunning = true;
             int waity = -1;
+            bool poisoned = false; 
+            
+            
 
             void alive()
             {
@@ -1178,9 +1179,22 @@ namespace Team_Fisherman
             // the enemies attack  //code for dodging - returns an int depending on how much damage taken 0 dead 1 survived 2 perfect -1 something went wrong
             void Attack(int playerDamg)
             {
+
+                if (poisoned == true)
+                {
+                    badGuyHealth -= 10;
+                }
+
+                if (playerDamg == -1)
+                {
+                    poisoned = true;
+                    playerDamg = 0;
+                }
+
                 int damage = 0; //random.Next(20, 40);
                 if (playerSpeed >= badGuySpeed)
                 {
+
                     badGuyHealth -= playerAttack(playerDamg);
                     alive();
                     health -= enemyAttack();
@@ -1193,6 +1207,7 @@ namespace Team_Fisherman
                     badGuyHealth -= playerAttack(playerDamg);
                     alive();
                 }
+                
             }
 
             static int playerAttack(int playerDamg)
@@ -1206,30 +1221,12 @@ namespace Team_Fisherman
                 //damage !!!
                 Random random = new Random();
                 int damage = 0; //random.Next(20, 40);
-                health = Dodging(health, 10);
-
-                //switch (Dodging(health))
-                //{
-                //    case 0: //death
-                //        return 2344;
-
-                //    case 1: // failed
-                //        return random.Next(20, 40);
-
-                //    case 2: // perfect
-                //        return 0;
-
-                //    case -1: //error
-                //        Console.WriteLine("error in the dodging");
-                //        break;
-                //}
-
-                //health -= damage;
-                //evil guy of doom does 33 damage |
-
+                damage = Dodging(health, 20);
+                health = health - damage;
+                
                 badGuyAttack = badGuyName + " does " + damage + " damage";
                 waity = 100;
-                return 3;
+                return damage;
             }
 
             // this function converts the string num relating to the "item" to a int then adds or subtracts the "opper" amount
@@ -1264,22 +1261,59 @@ namespace Team_Fisherman
             Vector2 play_pos = new Vector2(34, 24);
             Vector2 exit_pos = new Vector2(62, 24);
             Vector2 current = play_pos;
+            string enemyIcon1 = "";
+            String enemyIcon2 = "";
+            string enemyIcon3 = "";
+            string enemyIcon4 = "";
+            string enemyIcon5 = "";
+            string enemyIcon6 = "";
 
-            //string enemyIcon1 = "               ";
-            //string enemyIcon2 = " (\\___/)      ";
-            //string enemyIcon3 = " | >:) |    /  ";
-            //string enemyIcon4 = "  -----    /   ";
-            //string enemyIcon5 = "   |_____ /    ";
-            //string enemyIcon6 = "   /\\    /\\    ";
+            int randEnemy = random.Next(0, 2);
 
-            string enemyIcon1 = @" _                     0 ";
-            string enemyIcon2 = @"\ \ ____|\____       0   ";
-            string enemyIcon3 = @" \ /        o \   0   ";
-            string enemyIcon4 = @"  (   ||       ) ";
-            string enemyIcon5 = @" / \__________/      ";
-            string enemyIcon6 = @"/_/             ";
+            if (randEnemy == 0) //weird cat
+            {
+                badGuyHealth = 100;
+                badGuySpeed = 12;
+                badGuyName = "evil cat";
+
+                enemyIcon1 = "               ";
+                enemyIcon2 = " (\\___/)      ";
+                enemyIcon3 = " | >:) |    /  ";
+                enemyIcon4 = "  -----    /   ";
+                enemyIcon5 = "   |_____ /    ";
+                enemyIcon6 = "   /\\    /\\  ";
+            }
+            else if (randEnemy == 1) // goblin
+            {
+                badGuyHealth = 80;
+                badGuySpeed = 8;
+                badGuyName = "goblin";
+
+                enemyIcon1 = "   _/\\___/\\_  ";
+                enemyIcon2 = "  |  @ __ @ |   ";
+                enemyIcon3 = "  |_________|   ";
+                enemyIcon4 = "   /|.   .|\\   ";
+                enemyIcon5 = "  / |_____| \\  ";
+                enemyIcon6 = "    |     |     ";
+            }
+            else if (randEnemy == 1) // goblin
+            {
+                badGuyHealth = 80;
+                badGuySpeed = 8;
+                badGuyName = "goblin";
+
+                enemyIcon1 = " ( | )   ( | ) ";
+                enemyIcon2 = "    ||___||  ";
+                enemyIcon3 = "          ";
+                enemyIcon4 = "    ";
+                enemyIcon5 = "   ";
+                enemyIcon6 = "    ";
+            }
+
+
             do
             {
+
                 // @@@
                 buffer.Clear();
                 //color_buffer.Clear();
@@ -1306,14 +1340,6 @@ namespace Team_Fisherman
                 WriteTing(ref buffer, "health: " + health, screen_size, new Vector2(10, 22));
                 Console.Write(buffer.ToString()); // writes the thing
 
-                //string enemyIcon1 = "   _/\\___/\\_  ";
-                //string enemyIcon2 = "  |  @ __ @ |   ";
-                //string enemyIcon3 = "  |_________|   ";
-                //string enemyIcon4 = "   /|.   .|\\   ";
-                //string enemyIcon5 = "  / |_____| \\  ";
-                //string enemyIcon6 = "    |     |     ";
-
-                
                 while (Console.KeyAvailable == false)
                 {
                     if (waity == 0)
@@ -1332,15 +1358,15 @@ namespace Team_Fisherman
 
                 if (c.Key == ConsoleKey.A)
                 {
-                    Console.WriteLine("  === attacks ===");
-                    Console.WriteLine("######################");
+                    Console.WriteLine("               === attacks ===");
+                    Console.WriteLine("#################################################");
                     for (int i = 0; i < attacks.Length; i++)
                     {
                         Console.Write("## ".PadRight(3) + attacks[i].PadRight(5) + " ##");
                         if (((i + 1) % 2) == 0)
                         {
                             Console.Write("\n");
-                            Console.WriteLine("######################");
+                            Console.WriteLine("################################################################");
                         }
                     }
                     Console.Write("what attack do you want to do: ");
@@ -1354,16 +1380,25 @@ namespace Team_Fisherman
                             break;
                         case "jab":
                             Console.Write("you do the jab");
-                            Attack(20);
+                            Attack(random.Next(21, 41));
                             break;
                         case "bow":
                             Console.Write("you shoot the bow");
-                            Attack(15);
+                            Attack(random.Next(25, 36));
                             break;
-                        case "other":
-                            Console.Write("you do the other");
-                            badGuyHealth -= 3;
-                            Attack(3);
+                        case "poison":
+                            if (poisoned == true)
+                            {
+                                Console.WriteLine("the bad guy was already poisoned");
+                                Console.Write("but you throw the poison anyway");
+                                Attack(-1);
+                            }
+                            else 
+                            {
+                                Console.Write("you throw the poison");
+                                Attack(-1);
+                            }
+                                
                             break;
                         case "exit":
                             Console.WriteLine("exit");
@@ -1476,8 +1511,6 @@ namespace Team_Fisherman
         //code for dodging - returns an int depending on how much damage taken 0 dead 1 survived 2 perfect -1 something went wrong
         static int Dodging(int playerHealth, int damagePerHit)
         {
-
-
             Console.CursorVisible = false;
 
             // 10 rows by 31 columns grid.
@@ -1485,7 +1518,7 @@ namespace Team_Fisherman
             int[,] grid = new int[10, 31];
             int loopCounter = 0, playerPos = 15;
             int score = 0;
-
+            int damage = 0;
 
             int gridXLimit = 31, gridYLimit = 9;
             int xNumber = 3;
@@ -1525,7 +1558,7 @@ namespace Team_Fisherman
                                 {
                                     xNumber--;
                                 }
-                                if (score == 150)
+                                if (score == 150) 
                                 {
                                     isRunning = false;
                                 }
@@ -1547,7 +1580,7 @@ namespace Team_Fisherman
                 if (grid[9, playerPos] == 1)
                 {
                     Console.Beep();
-                    playerHealth -= damagePerHit;
+                    damage += damagePerHit;
                     Thread.Sleep(100);
 
                     if (playerHealth <= 0)
@@ -1565,7 +1598,8 @@ namespace Team_Fisherman
                     // Rendering What will be displayed on the screen
                     Console.SetCursorPosition(0, 0);
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine($"X's missed: {score}\t\tHealth: {playerHealth}\n----------------------------------");
+                    //Console.WriteLine($"X's missed: {score}\t\tHealth: {playerHealth - damage}\n----------------------------------");
+                    Console.WriteLine("X's missed: " + score + "\t\t Health: " + (playerHealth) + "\n----------------------------------");
 
                     for (int i = 0; i < gridYLimit + 1; i++)
                     {
@@ -1595,7 +1629,8 @@ namespace Team_Fisherman
             // Game Over Screen
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.White;
-            return playerHealth;
+            return damage;
+
             if (playerHealth >= 3)
             {
                 Console.WriteLine($"You did very bad!\n\nPress Enter to exit...");
