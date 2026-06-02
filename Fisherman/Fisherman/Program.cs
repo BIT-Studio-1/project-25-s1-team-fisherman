@@ -2045,8 +2045,8 @@ namespace Team_Fisherman
                 Console.WriteLine("You close your eyes and take a final breath.");
                 Thread.Sleep(3000);
 
-                Console.Write(Color_Helper(93, false));
-                Console.Write(Color_Helper(16, true));
+                Console.Write(Color_Helper(231, false));
+                Console.Write(Color_Helper(92, true));
                 Console.Clear();
                 Console.WriteLine();
                 Console.WriteLine();
@@ -2062,6 +2062,8 @@ namespace Team_Fisherman
                 Console.WriteLine();
                 Console.WriteLine();
                 Thread.Sleep(2500);
+                Console.WriteLine();
+                Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();
