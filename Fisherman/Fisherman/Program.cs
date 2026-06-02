@@ -16,6 +16,7 @@ using test_fish;
 using static System.Net.Mime.MediaTypeNames;
 using System.Data;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography.X509Certificates;
 /*Put suggestions/bugs here 
  ln 1200 put a Console.Readline(); currently skips the text
  ln 1132 put a new line char before "the". The word wraps in the console and becomes Th and e 
@@ -46,7 +47,9 @@ namespace Team_Fisherman
 
         public static Dictionary<string, int> inventory = new Dictionary<string, int>();
         public static int coins = 200;
-
+        public static bool memory1 = false;
+        public static bool memory2 = false;
+        public static bool memory3 = false;
 
 
         static void Main(string[] args)
@@ -60,7 +63,7 @@ namespace Team_Fisherman
 
 
             Console.CursorVisible = false;
-            Console.Title = "Fishing";
+            Console.Title = "Dead Tide";
             Console.OutputEncoding = Encoding.UTF8;
 
             //the coordinates are stored in a vector2, this has an X and Y value that represent the position on the screen, X is the number of characters from the left and Y is the number of lines from the top, the top left corner is (0,0) and the bottom right corner is (119,27) since the screen size is 120x28. please use integers for the coordinates to avoid issues with indexing.
@@ -334,11 +337,12 @@ namespace Team_Fisherman
                 Fighting();
                 return false;
             }
-            else if (buffer[To_Index(coords, size)] == 'd')
+            else if (buffer[To_Index(coords, size)] == 'T')
             {
+                fragment();
                 //add logic for key to unlock a door.
                 //return true means the player can stand on that tile but it will trigger the door logic, you can change this to false if you want the player to not be able to stand on the tile and just trigger the door logic when they are next to it.
-                return true;
+                return false;
             }
 
 
@@ -430,9 +434,9 @@ namespace Team_Fisherman
                 
                 Console.WriteLine();
                 Console.WriteLine($"Coins: {coins}");
-                Console.WriteLine("add");
+                Console.WriteLine("Press enter to exit");
                 string add = Console.ReadLine();
-                if (add == "exit") break;
+                if (add != "add" && add != "remove") break;
                 Console.WriteLine("item");
                 string item_name = Console.ReadLine().Trim();
                 Console.WriteLine("count");
@@ -464,8 +468,8 @@ namespace Team_Fisherman
             StringBuilder buffer = new StringBuilder();
             bool in_menu = true;
             //Vector2 screen_size = new Vector2(120, 28);
-            Vector2 play_pos = new Vector2(34, 24);
-            Vector2 exit_pos = new Vector2(62, 24);
+            Vector2 play_pos = new Vector2(45, 24);
+            Vector2 exit_pos = new Vector2(73, 24);
             Vector2 current = play_pos;
 
 
@@ -487,7 +491,7 @@ namespace Team_Fisherman
 
                 //allows you to edit the menu by changing the text in the menu.txt file, it will read the file and draw it to the console, you can change the text and layout of the menu by editing the file, just make sure to keep the play and exit options in the same place or update the play_pos and exit_pos variables to match the new positions. File.ReadLines("Map/menu.txt") returns an array of strings, each string is a line in the file, the foreach loop goes through each line and then through each character in the line and draws it to the buffer at the correct position based on the char_pos variable which is updated as it goes through the characters and lines.
 
-
+                buffer.Append(Color_Helper(129,true));
                 foreach (string line in File.ReadLines("Map/menu.txt"))
                 {
                     foreach (char c in line)
@@ -545,9 +549,11 @@ namespace Team_Fisherman
         //Put the code for fishing in here.
         static void Fishing()
         {
+            
             Fishing_Base.coins = coins;
             Fishing_Base.Fishing();
             coins = Fishing_Base.coins;
+            memory1 = Fishing_Base.memory;
             Thread.Sleep(500);
             Console.Clear();
 
@@ -557,8 +563,8 @@ namespace Team_Fisherman
         {
             string buy;
             int count = 0;
-            string[] m = { "Potion", "Fish Bait", "Jar of Dirt", "Protective Charm","exit" };
-            int[] p = { 15, 5, 1, 100, 0 };
+            string[] m = { "Potion", "Fish Bait", "Jar of Dirt", "Protective Charm","Truth","exit" };
+            int[] p = { 15, 5, 1, 100, 50, 0 };
             
             while (true)
             {
@@ -640,6 +646,19 @@ namespace Team_Fisherman
                             coins += p[3] * count;
                         }
                         break;
+                    case "4":
+                    case "truth":
+                        Console.WriteLine("\"\"");
+                        coins -= p[4];
+                        if (coins > 0)
+                        {
+                            Add_item("Truth", 1);
+                        }
+                        else
+                        {
+                            coins += p[4] ;
+                        }
+                        break;
                 }
                 
                 
@@ -690,8 +709,9 @@ namespace Team_Fisherman
                         Console.WriteLine("\"So, you want to know about what?\"");
                         talk1 = Console.ReadLine();
 
-                        if (talk1 == "memory fish" || talk1 == "truth" || talk1 == "truth fragment")
+                        if (Get_item_Count("Truth") != 0)
                         {
+                            memory2 = true;
                             Console.WriteLine("\"...So you've started seeing them too.\"");
                             Console.WriteLine();
                             Thread.Sleep(1000);
@@ -710,7 +730,7 @@ namespace Team_Fisherman
                             Console.WriteLine();
                             Console.WriteLine();
                             Thread.Sleep(1000);
-                            Console.WriteLine("*WOULD YOU WANT TO OPEN IT KNOW (YES/NO)*");
+                            Console.WriteLine("*WOULD YOU WANT TO OPEN IT (YES/NO)*");
                             truth1 = Console.ReadLine();
                             if (truth1 == "yes")
                             {
@@ -1833,10 +1853,11 @@ namespace Team_Fisherman
             Console.WriteLine();
             Console.WriteLine();
             Thread.Sleep(1000);
-            Console.WriteLine("*WOULD YOU WANT TO OPEN IT KNOW (YES/NO)*");
+            Console.WriteLine("*WOULD YOU WANT TO OPEN IT (YES/NO)*");
             truth2 = Console.ReadLine();
             if (truth2 == "yes")
             {
+                memory1 = true;
                 Thread.Sleep(1000);
                 Console.WriteLine("*YOU ARE NOT IN THE REAL WORLD*");
                 Console.WriteLine();
@@ -1878,29 +1899,113 @@ namespace Team_Fisherman
         // Player gets the Truth Fragment 3 in the forest or something
         static void fragment()
         {
-            string truth3;
-            Console.WriteLine("*You received a TRUTH FRAGMENT*");
-            Console.WriteLine();
-            Console.WriteLine();
-            Thread.Sleep(1000);
-            Console.WriteLine("*WOULD YOU WANT TO OPEN IT KNOW (YES/NO)*");
-            truth3 = Console.ReadLine();
-            if (truth3 == "yes")
+            string truth3, confirm, Dconfirm;
+            Console.WriteLine("Did you get any memory fish? (yes/no)");
+            confirm = Console.ReadLine();
+            if (confirm == "yes")
             {
                 Thread.Sleep(1000);
-                Console.WriteLine("*YOU ALREADY DIED*");
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.WriteLine("Press Enter to close it");
-                Console.ReadLine();
+                Console.WriteLine("Did you talk with Jane before?");
+                Thread.Sleep(1000);
+                Dconfirm = Console.ReadLine();
+                if (confirm == "yes" && Dconfirm == "yes")
+                {
+                    Console.WriteLine("*Then here your last TRUTH FRAGMENT*");
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Thread.Sleep(1000);
+                    Console.WriteLine("*WOULD YOU WANT TO OPEN IT (YES/NO)*");
+                    truth3 = Console.ReadLine();
+                    if (truth3 == "yes")
+                    {
+                        memory3 = true;
+                        Thread.Sleep(1000);
+                        Console.WriteLine("*YOU ALREADY DIED*");
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine("Press Enter to close it");
+                        Console.ReadLine();
+                        
+                    }
+                }
             }
 
+            if ((memory1 == true) && (memory2==true) && (memory3 == true))
+            {
+                Console.Clear();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("As the third Truth Fragment falls into your hands, the pieces finally come together.");
+                Console.WriteLine("The fog surrounding the island begins to fade.");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+
+                Thread.Sleep(1000);
+                Console.WriteLine("Memories return.");
+
+                Thread.Sleep(1500);
+                Console.WriteLine();
+                Console.WriteLine("You remember all the things.");
+                Console.WriteLine();
+                Console.WriteLine();
+
+                Thread.Sleep(1500);
+                Console.WriteLine();
+                Console.WriteLine("The storm.");
+                Console.WriteLine();
+                Console.WriteLine();
+
+                Thread.Sleep(1500);
+                Console.WriteLine();
+                Console.WriteLine("The wave.");
+                Console.WriteLine();
+                Console.WriteLine();
+
+                Thread.Sleep(1500);
+                Console.WriteLine();
+                Console.WriteLine("And the shipwreck.");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Thread.Sleep(4500);
+                Console.WriteLine("Thank you for playing.");
+                Console.WriteLine();
+                Console.WriteLine();
+                Thread.Sleep(1500);
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("=========================THE END==============================");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.ReadLine();
+
+
+            }
         }
 
     }

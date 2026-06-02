@@ -43,6 +43,7 @@ namespace test_fish
     {
         static Random rng = new Random();
         public static int coins = 0;
+        public static bool memory = false;
         static Fish[] table = {
         new Fish ("Boot",      "common",   0.1f,  1f,    5,    0.30f, ConsoleColor.White),
         new Fish("Sardine",   "common",   0.1f,  0.5f,  10,    0.28f, ConsoleColor.White),
@@ -90,6 +91,7 @@ namespace test_fish
         {
             casts++;
             Console.WriteLine("You cast your line out...");
+
             // Increased luck reduces wait time by 200ms рer level, with a floor of 500ms
             int waitMs = rng.Next(1000, 5000) - luckLv * 200;
             Thread.Sleep(Math.Max(500, waitMs));
@@ -105,9 +107,9 @@ namespace test_fish
             if (pityCounter >= 10)
             {
                 f = new Fish ("Memory Fish", "epic", 10f, 20f, 1000, 0.0f, ConsoleColor.Magenta);
-
+                memory = true;
                 pityCounter = 0;
-                Console.WriteLine("Activated Pity");
+                
             }
             else
             {
