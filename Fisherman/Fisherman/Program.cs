@@ -2010,7 +2010,7 @@ namespace Team_Fisherman
                 Console.WriteLine("Thank you for playing.");
                 Console.WriteLine();
                 Console.WriteLine();
-                Thread.Sleep(1500);
+                Thread.Sleep(2500);
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();
