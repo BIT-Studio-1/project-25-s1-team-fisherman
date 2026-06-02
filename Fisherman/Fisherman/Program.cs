@@ -672,7 +672,7 @@ namespace Team_Fisherman
             //Shop();
             string temp, shop, buy, talk1, talk2, check, check1, truth1;
 
-            string[] c = { "Buy", "Sell", "Talk", "Exit", "Leave" };
+            string[] c = { "Buy", "Talk", "Exit", "Leave" };
             Console.WriteLine("Shopping");
             Console.WriteLine("\"Hi, nice to meet you. My name is Jane.\"");
             Console.WriteLine("\"Is there anything I can help you?\"");
