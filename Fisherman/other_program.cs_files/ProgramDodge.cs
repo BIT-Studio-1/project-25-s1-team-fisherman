@@ -5,7 +5,7 @@ class Game
 {
     static void Main()
     {
-        // Preparing for dodge update 10
+        // Preparing for dodge update 12
         Console.CursorVisible = false;
 
         // 10 rows by 31 columns grid.
@@ -29,6 +29,7 @@ class Game
                 if (key == ConsoleKey.D && playerPos < 30) playerPos++;
                 while (Console.KeyAvailable) Console.ReadKey(true);
             }
+
             // Game Logic: Move obstacles down (Iterating TOP to BOTTOM to prevent double-moving) 
             for (int i = gridYLimit; i >= 0; i--)
             {
@@ -44,11 +45,13 @@ class Game
                         else
                         {
                             score++; // Cleared the bottom row successfully
-                            if ((score % 50 == 0) && (score < 150))
+
+                            // Prevent xNumber from dropping below 1 to avoid a DivideByZero exception
+                            if ((score % 50 == 0) && (score < 150) && (xNumber > 1))
                             {
                                 xNumber--;
                             }
-                            if (score == 150)
+                            if (score >= 150)
                             {
                                 isRunning = false;
                             }
@@ -56,16 +59,31 @@ class Game
                     }
                 }
             }
-            // Spawn Logic (drop an X at row 0)
+
+            // Spawn Logic: Creates a solid wall with a 3-tile random gap
             if (score < 141)
             {
                 loopCounter++;
                 if (loopCounter % xNumber == 0)
                 {
-                    int spawnPos = rand.Next(0, gridXLimit);
-                    grid[0, spawnPos] = 1;
+                    // Choose the starting X index for a 3-wide gap (0 to 28)
+                    int gapStart = rand.Next(0, gridXLimit - 2);
+
+                    for (int x = 0; x < gridXLimit; x++)
+                    {
+                        // Fill with an obstacle unless it falls within the 3-tile gap window
+                        if (x >= gapStart && x < gapStart + 3)
+                        {
+                            grid[0, x] = 0;
+                        }
+                        else
+                        {
+                            grid[0, x] = 1;
+                        }
+                    }
                 }
             }
+
             // Collision Detection (Player is always on row 9) 
             if (grid[9, playerPos] == 1)
             {
