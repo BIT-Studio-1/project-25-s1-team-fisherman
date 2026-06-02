@@ -49,7 +49,7 @@ namespace Team_Fisherman
         public static int coins = 200;
         public static bool memory1 = false;
         public static bool memory2 = false;
-        public static bool memory3 = false;
+        public static bool memory3 = false; // this is the memory you get for fighting
         public static int enemysKilled = 0;
 
         static void Main(string[] args)
@@ -1171,6 +1171,7 @@ namespace Team_Fisherman
             int badGuySpeed = 12;
             string badGuyName = "evil guy of doom";
             string badGuyAttack = "";
+            int badGuyDamage = 10;
 
             int health = 100;
             bool gameRunning = true;
@@ -1186,9 +1187,10 @@ namespace Team_Fisherman
                     Console.WriteLine("");
                     Console.WriteLine("the bad guy is dead you win");
                     enemysKilled ++;
-                    if (enemysKilled > 9)
-                    { 
-                      // code for memeory
+                    if (enemysKilled > 2)
+                    {
+                        // code for memeory
+                        memory3 = true;
                     }
                     Console.WriteLine("");
                     gameRunning = false;
@@ -1199,12 +1201,12 @@ namespace Team_Fisherman
                     Console.WriteLine("you are dead you lose");
                     Console.WriteLine("");
                     gameRunning = false;
+                    Environment.Exit(0);
                 }
             }
             // the enemies attack  //code for dodging - returns an int depending on how much damage taken 0 dead 1 survived 2 perfect -1 something went wrong
             void Attack(int playerDamg)
             {
-
                 if (poisoned == true)
                 {
                     badGuyHealth -= 10;
@@ -1219,7 +1221,6 @@ namespace Team_Fisherman
                 int damage = 0; //random.Next(20, 40);
                 if (playerSpeed >= badGuySpeed)
                 {
-
                     badGuyHealth -= playerAttack(playerDamg);
                     alive();
                     health -= enemyAttack();
@@ -1237,7 +1238,6 @@ namespace Team_Fisherman
 
             static int playerAttack(int playerDamg)
             {
-
                 return playerDamg;
             }
 
@@ -1246,7 +1246,7 @@ namespace Team_Fisherman
                 //damage !!!
                 Random random = new Random();
                 int damage = 0; //random.Next(20, 40);
-                damage = Dodging(health, 20);
+                damage = Dodging(health, badGuyDamage);
                 health = health - damage;
                 
                 badGuyAttack = badGuyName + " does " + damage + " damage";
@@ -1257,7 +1257,7 @@ namespace Team_Fisherman
             // this function converts the string num relating to the "item" to a int then adds or subtracts the "opper" amount
             void InventoryNum(string item, int opper)
             {
-                for (int i = 0; i < inventory.Length; i++)
+                for (int i = 0; i < inventory.Length; i++) //loops through list
                 {
                     if (inventory[i] == item)
                     {
@@ -1293,13 +1293,14 @@ namespace Team_Fisherman
             string enemyIcon5 = "";
             string enemyIcon6 = "";
 
-            //int randEnemy = random.Next(0, 4);
-            int randEnemy = 3;
+            int randEnemy = random.Next(0, 4);
+            //int randEnemy = 3;
 
             if (randEnemy == 0) //weird cat
             {
                 badGuyHealth = 100;
                 badGuySpeed = 12;
+                badGuyDamage = 15;
                 badGuyName = "evil cat";
 
                 enemyIcon1 = "               ";
@@ -1313,6 +1314,7 @@ namespace Team_Fisherman
             {
                 badGuyHealth = 80;
                 badGuySpeed = 8;
+                badGuyDamage = 10;
                 badGuyName = "goblin";
 
                 enemyIcon1 = "   _/\\___/\\_  ";
@@ -1326,6 +1328,7 @@ namespace Team_Fisherman
             {
                 badGuyHealth = 120;
                 badGuySpeed = 18;
+                badGuyDamage = 20;
                 badGuyName = "thing";
 
                 enemyIcon1 = " ( | )     ( | ) ";
@@ -1339,6 +1342,7 @@ namespace Team_Fisherman
             {
                 badGuyHealth = 200;
                 badGuySpeed = 4;
+                badGuyDamage = 30;
                 badGuyName = "zombie";
 
                 enemyIcon1 = "   _\\__|__/_   ";
@@ -1430,14 +1434,13 @@ namespace Team_Fisherman
                             {
                                 Console.WriteLine("the bad guy was already poisoned");
                                 Console.Write("but you throw the poison anyway");
-                                Attack(-1);
+                                
                             }
                             else 
                             {
                                 Console.Write("you throw the poison");
-                                Attack(-1);
                             }
-                                
+                            Attack(-1);
                             break;
                         case "exit":
                             Console.WriteLine("exit");
@@ -1446,48 +1449,47 @@ namespace Team_Fisherman
                             Console.WriteLine("incorrect input");
                             break;
                     }
-                    Console.ReadLine();
                 }
+                //else if (c.Key == ConsoleKey.D)
+                //{
+                //    Console.WriteLine("    ==== defence ====     ");
+                //    Console.WriteLine("##########################");
+                //    for (int i = 0; i < defence.Length; i++)
+                //    {
+                //        Console.Write("## ".PadRight(3) + defence[i].PadRight(5) + " ##");
+                //        // && i !> 0
+                //        if (((i + 1) % 2) == 0)
+                //        {
+                //            Console.Write("\n");
+                //            Console.WriteLine("######################");
+                //        }
+                //    }
+                //    Console.Write("how do you want to defend: ");
+                //    string defen = Console.ReadLine();
+                //    switch (defen)
+                //    {
+                //        case "dodge":
+                //            Console.Write("you do the dodge yuh");
+                //            break;
+                //        case "block":
+                //            Console.Write("you do the block");
+                //            break;
+                //        case "parry":
+                //            Console.Write("you parry");
+                //            break;
+                //        case "other":
+                //            Console.Write("you do the other");
+                //            break;
+                //        case "exit":
+                //            Console.WriteLine("exit");
+                //            break;
+                //        default:
+                //            Console.WriteLine("incorrect input");
+                //            break;
+                //    }
+                //    Console.ReadLine();
+                //}
                 else if (c.Key == ConsoleKey.D)
-                {
-                    Console.WriteLine("    ==== defence ====     ");
-                    Console.WriteLine("##########################");
-                    for (int i = 0; i < defence.Length; i++)
-                    {
-                        Console.Write("## ".PadRight(3) + defence[i].PadRight(5) + " ##");
-                        // && i !> 0
-                        if (((i + 1) % 2) == 0)
-                        {
-                            Console.Write("\n");
-                            Console.WriteLine("######################");
-                        }
-                    }
-                    Console.Write("how do you want to defend: ");
-                    string defen = Console.ReadLine();
-                    switch (defen)
-                    {
-                        case "dodge":
-                            Console.Write("you do the dodge yuh");
-                            break;
-                        case "block":
-                            Console.Write("you do the block");
-                            break;
-                        case "parry":
-                            Console.Write("you parry");
-                            break;
-                        case "other":
-                            Console.Write("you do the other");
-                            break;
-                        case "exit":
-                            Console.WriteLine("exit");
-                            break;
-                        default:
-                            Console.WriteLine("incorrect input");
-                            break;
-                    }
-                    Console.ReadLine();
-                }
-                else if (c.Key == ConsoleKey.S)
                 {
                     Console.Write("\n");
                     Console.WriteLine("    ==== inventory ====");
@@ -1534,16 +1536,15 @@ namespace Team_Fisherman
                     Console.ReadLine();
                 }
 
-                if (c.Key == ConsoleKey.P)
-                {
-                    Console.WriteLine("you have a reaction time of " + x + " seconds");
-                    Console.WriteLine("yuh");
-                    Console.ReadLine();
-                    Console.Clear();
-                }
+                //if (c.Key == ConsoleKey.P)
+                //{
+                //    Console.WriteLine("you have a reaction time of " + x + " seconds");
+                //    Console.WriteLine("yuh");
+                //    Console.ReadLine();
+                //    Console.Clear();
+                //}
+
             } while (gameRunning == true);
-            Console.ReadLine();
-            Console.ReadLine();
         }
         //Dodging();
 
