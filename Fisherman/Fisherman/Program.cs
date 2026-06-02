@@ -672,7 +672,7 @@ namespace Team_Fisherman
             //Shop();
             string temp, shop, buy, talk1, talk2, check, check1, truth1;
 
-            string[] c = { "Buy", "Sell", "Talk", "Exit", "Leave" };
+            string[] c = { "Buy", "Talk", "Exit", "Leave" };
             Console.WriteLine("Shopping");
             Console.WriteLine("\"Hi, nice to meet you. My name is Jane.\"");
             Console.WriteLine("\"Is there anything I can help you?\"");
@@ -1994,13 +1994,64 @@ namespace Team_Fisherman
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();
+
+                Thread.Sleep(1500);
+                Console.WriteLine();
+                Console.WriteLine("The villagers were never ordinary people.");
+                Thread.Sleep(1500);
+                Console.WriteLine("They were fragments of memories trapped on the island, repeating the same days over and over again.");
+                Console.WriteLine();
+                Thread.Sleep(1500);
+                Console.WriteLine("And the island itself was never a real place.");
+                Console.WriteLine();
+                Thread.Sleep(1500);
+                Console.WriteLine("It existed between memory and reality.");
+
+                Thread.Sleep(3000);
+                Console.WriteLine();
+                Console.WriteLine("For a long time, you believed you were searching for a way to leave");
+                Console.WriteLine();
+                Thread.Sleep(1500);
+                Console.WriteLine("But now you understand the truth.");
+                Console.WriteLine();
+                Thread.Sleep(1500);
+                Console.WriteLine("You had already died that night at the sea.");
                 Console.WriteLine();
                 Console.WriteLine();
+                Thread.Sleep(1500);
+                Console.WriteLine("IThe island was your final chance to remember who you were.");
+
+                Thread.Sleep(3000);
                 Console.WriteLine();
+                Console.WriteLine("As the last fragment merges with the others, the village slowly disappears.");
                 Console.WriteLine();
+
+                Thread.Sleep(1500);
+                Console.WriteLine();
+                Console.WriteLine("The fog lifts.");
                 Console.WriteLine();
                 Console.WriteLine();
 
+                Thread.Sleep(1500);
+                Console.WriteLine();
+                Console.WriteLine("The sea becomes calm.");
+                Console.WriteLine();
+                Console.WriteLine();
+
+                Thread.Sleep(1500);
+                Console.WriteLine();
+                Console.WriteLine("The horizon is visible for the first time.");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("You close your eyes and take a final breath.");
+                Thread.Sleep(3000);
+
+                Console.Write(Color_Helper(231, false));
+                Console.Write(Color_Helper(92, true));
+                Console.Clear();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("Then everything fades to white.");
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();
@@ -2011,7 +2062,9 @@ namespace Team_Fisherman
                 Console.WriteLine("Thank you for playing.");
                 Console.WriteLine();
                 Console.WriteLine();
-                Thread.Sleep(1500);
+                Thread.Sleep(2500);
+                Console.WriteLine();
+                Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();
