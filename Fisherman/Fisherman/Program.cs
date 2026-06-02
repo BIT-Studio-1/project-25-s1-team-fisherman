@@ -50,7 +50,7 @@ namespace Team_Fisherman
         public static bool memory1 = false;
         public static bool memory2 = false;
         public static bool memory3 = false;
-
+        public static int enemysKilled = 0;
 
         static void Main(string[] args)
         {
@@ -1185,6 +1185,11 @@ namespace Team_Fisherman
                 {
                     Console.WriteLine("");
                     Console.WriteLine("the bad guy is dead you win");
+                    enemysKilled ++;
+                    if (enemysKilled > 9)
+                    { 
+                      // code for memeory
+                    }
                     Console.WriteLine("");
                     gameRunning = false;
                 }
@@ -1288,7 +1293,8 @@ namespace Team_Fisherman
             string enemyIcon5 = "";
             string enemyIcon6 = "";
 
-            int randEnemy = random.Next(0, 2);
+            //int randEnemy = random.Next(0, 4);
+            int randEnemy = 3;
 
             if (randEnemy == 0) //weird cat
             {
@@ -1316,18 +1322,31 @@ namespace Team_Fisherman
                 enemyIcon5 = "  / |_____| \\  ";
                 enemyIcon6 = "    |     |     ";
             }
-            else if (randEnemy == 1) // goblin
+            else if (randEnemy == 2) // thing
             {
-                badGuyHealth = 80;
-                badGuySpeed = 8;
-                badGuyName = "goblin";
+                badGuyHealth = 120;
+                badGuySpeed = 18;
+                badGuyName = "thing";
 
-                enemyIcon1 = " ( | )   ( | ) ";
-                enemyIcon2 = "    ||___||  ";
-                enemyIcon3 = "          ";
-                enemyIcon4 = "    ";
-                enemyIcon5 = "   ";
-                enemyIcon6 = "    ";
+                enemyIcon1 = " ( | )     ( | ) ";
+                enemyIcon2 = "    ||_____||    ";
+                enemyIcon3 = "   /        \\     ";
+                enemyIcon4 = "   | )-----( | ";
+                enemyIcon5 = "   \\_________/     ";
+                enemyIcon6 = "   / / | | \\ \\   ";
+            }
+            else if (randEnemy == 3) // zombie
+            {
+                badGuyHealth = 200;
+                badGuySpeed = 4;
+                badGuyName = "zombie";
+
+                enemyIcon1 = "   _\\__|__/_   ";
+                enemyIcon2 = "  |(o\\ O /.)|  ";
+                enemyIcon3 = "  |_________|   ";
+                enemyIcon4 = "   /|     |\\   ";
+                enemyIcon5 = "  / |_____| \\  ";
+                enemyIcon6 = "    |  |  |     ";
             }
 
 
