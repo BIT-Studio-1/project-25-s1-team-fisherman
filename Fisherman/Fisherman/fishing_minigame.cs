@@ -103,7 +103,7 @@ namespace test_fish
         static void ReelIn()
         {
             Fish f = null;
-            Team_Fisherman.Program.fishyGame();
+            bool caughtFish = Team_Fisherman.Program.fishyGame();
 
             //Every 10 fish you caught a Memory Fish is Guaranteed
             if (pityCounter >= 10)
@@ -115,13 +115,17 @@ namespace test_fish
             }
             else
             {
-                f = RollFish(); 
-                if (f == null)
+                do
                 {
-                    Console.WriteLine("The fish got away!");
-                    return;
-                }
-
+                    if (!caughtFish)
+                    {
+                        Console.WriteLine("The Fish got away");
+                        return;
+                    }
+                    f = RollFish();
+                    
+                } while (f == null);
+                
                 pityCounter++;
             
             }
@@ -165,7 +169,7 @@ namespace test_fish
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Fishing time !");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Commands: cast, reel in, inventory, sell [name], sell all, upgrade, stats, quit");
+            Console.WriteLine("Commands: cast, reel in, inventory, upgrade, stats, quit");
 
             while (true)
             {
@@ -179,6 +183,7 @@ namespace test_fish
                 else if (input == "stats") Stats();
                 else if (input == "quit") break;
                 else Console.WriteLine("Unknown command. Try: cast, reel in, upgrade, stats");
+                Console.ForegroundColor= ConsoleColor.White;
             }
 
         }

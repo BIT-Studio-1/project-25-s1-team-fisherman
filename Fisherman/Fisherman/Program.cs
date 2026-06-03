@@ -48,7 +48,9 @@ namespace Team_Fisherman
         public static Dictionary<string, int> inventory = new Dictionary<string, int>();
         public static int coins = 200;
         public static bool memory1 = false;
+        public static bool veiwed_memory1 = false;
         public static bool memory2 = false;
+        public static bool veiwed_memory2 = false;
         public static bool memory3 = false; // this is the memory you get for fighting
         public static int enemysKilled = 0;
 
@@ -695,16 +697,27 @@ namespace Team_Fisherman
                 
                 case "1":
                 case "talk":
+                    if (memory1 && !veiwed_memory1)
+                    {
+                        Truth();
+                        veiwed_memory1 = true;
+                        break;
+                    }
+
+
                     Console.WriteLine();
                     Console.WriteLine("\"So, what's you want to talk to me?\"");
                     check1 = Console.ReadLine();
                     Console.WriteLine("\"Is this the first time we talk about this?*(YES/NO)*\"");
-                    check = Console.ReadLine();
+                    check = Console.ReadLine().ToLower().Trim();
 
                     if (check == "yes")
                     {
                         Console.WriteLine("\"So, you want to know about what?\"");
-                        talk1 = Console.ReadLine();
+                        Thread.Sleep(500);
+                        Console.WriteLine("Truth");
+                        Thread.Sleep(1000);
+                        //talk1 = Console.ReadLine();
 
                         if (Get_item_Count("Truth") != 0)
                         {
@@ -776,35 +789,39 @@ namespace Team_Fisherman
                             Console.WriteLine("Press Enter to exit");
                             Console.ReadLine();
                         }
+                        else
+                        {
+                            Console.WriteLine("\"I don't know what's you are talking about.\"");
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine("\"Maybe you should take a rest.\"");
+                            Thread.Sleep(1000);
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine("\"The fog does strange things to people's minds.\"");
+                            Thread.Sleep(1000);
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            Console.WriteLine("Press Enter to exit");
+                            Console.ReadLine();
+                        }
                     }
                     else
-                        Console.WriteLine("\"So, what's you want to talk to me?\"");
-                    talk2 = Console.ReadLine();
-
-                    if (talk2 == "memory fish")
                     {
-                        Console.WriteLine("\"I don't know what's you are talking about.\"");
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine("\"Maybe you should take a rest.\"");
-                        Thread.Sleep(1000);
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine("\"The fog does strange things to people's minds.\"");
-                        Thread.Sleep(1000);
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine();
-                        Console.WriteLine("Press Enter to exit");
+                        Console.WriteLine("So you have nothing to say.");
+                        Console.WriteLine("Then get out of here.");
                         Console.ReadLine();
                     }
+
+                    
                     break;
                 case "2":
                 case "Exit":
@@ -1082,51 +1099,51 @@ namespace Team_Fisherman
                 waity--;
                 fishMove();
                 // code for testing the fish moving
-                //if (Console.KeyAvailable)
-                //{
-                //    if (c.Key == ConsoleKey.Spacebar)
-                //    {
-                //        waity = 200;
-                //        for (int i = 0; i != 20; i++)
-                //        {
-                //            if (barX > 2)
-                //            {
-                //                barX -= 1;
-                //            }
-                //        }
-                //    }
+                if (Console.KeyAvailable)
+                {
+                    if (c.Key == ConsoleKey.Spacebar)
+                    {
+                        waity = 200;
+                        for (int i = 0; i != 20; i++)
+                        {
+                            if (barX > 2)
+                            {
+                                barX -= 1;
+                            }
+                        }
+                    }
+                }
+                    //    if (c.Key == ConsoleKey.A)
+                    //    {
+                    //        if (fishX > 4)
+                    //        {
+                    //            fishX -= 1;
+                    //        }
+                    //        fishIcon1 = @"              _ ";
+                    //        fishIcon2 = @"  ____/|____ / /";
+                    //        fishIcon3 = @" / o        \ / ";
+                    //        fishIcon4 = @"(      ||    )  ";
+                    //        fishIcon5 = @" \__________/ \ ";
+                    //        fishIcon6 = @"             \_\";
+                    //    }
 
-                //    if (c.Key == ConsoleKey.A)
-                //    {
-                //        if (fishX > 4)
-                //        {
-                //            fishX -= 1;
-                //        }
-                //        fishIcon1 = @"              _ ";
-                //        fishIcon2 = @"  ____/|____ / /";
-                //        fishIcon3 = @" / o        \ / ";
-                //        fishIcon4 = @"(      ||    )  ";
-                //        fishIcon5 = @" \__________/ \ ";
-                //        fishIcon6 = @"             \_\";
-                //    }
+                    //    if (c.Key == ConsoleKey.D)
+                    //    {
+                    //        if (fishX < 100)
+                    //        {
+                    //            fishX += 1;
+                    //        }
+                    //        fishIcon1 = @" _              ";
+                    //        fishIcon2 = @"\ \ ____|\____  ";
+                    //        fishIcon3 = @" \ /        o \ ";
+                    //        fishIcon4 = @"  (   ||       )";
+                    //        fishIcon5 = @" / \__________/ ";
+                    //        fishIcon6 = @"/_/             ";
+                    //    }
+                    //    yak = true;
+                    //}
 
-                //    if (c.Key == ConsoleKey.D)
-                //    {
-                //        if (fishX < 100)
-                //        {
-                //            fishX += 1;
-                //        }
-                //        fishIcon1 = @" _              ";
-                //        fishIcon2 = @"\ \ ____|\____  ";
-                //        fishIcon3 = @" \ /        o \ ";
-                //        fishIcon4 = @"  (   ||       )";
-                //        fishIcon5 = @" / \__________/ ";
-                //        fishIcon6 = @"/_/             ";
-                //    }
-                //    yak = true;
-                //}
-
-                if (fishScore > 452) // win condition 
+                    if (fishScore > 452) // win condition 
                 {
                     fishGameRunning = false;
                     return true;
@@ -1184,6 +1201,8 @@ namespace Team_Fisherman
                     if (enemysKilled > 2)
                     {
                         // code for memeory
+                        Console.WriteLine("You got the last memory");
+                        Console.ReadLine();
                         memory3 = true;
                     }
                     Console.WriteLine("");
@@ -1871,7 +1890,7 @@ namespace Team_Fisherman
             truth2 = Console.ReadLine();
             if (truth2 == "yes")
             {
-                memory1 = true;
+                veiwed_memory1 = true;
                 Thread.Sleep(1000);
                 Console.WriteLine("*YOU ARE NOT IN THE REAL WORLD*");
                 Console.WriteLine();
@@ -1916,14 +1935,19 @@ namespace Team_Fisherman
             string truth3, confirm, Dconfirm;
             Console.WriteLine("Did you get any memory fish? (yes/no)");
             confirm = Console.ReadLine();
-            if (confirm == "yes")
+            if (confirm == "yes" && veiwed_memory1)
             {
                 Thread.Sleep(1000);
                 Console.WriteLine("Did you talk with Jane before?");
                 Thread.Sleep(1000);
                 Dconfirm = Console.ReadLine();
-                if (confirm == "yes" && Dconfirm == "yes")
+                if (Dconfirm == "yes" && veiwed_memory2)
                 {
+                    if (memory3 == false)
+                    {
+                        Console.WriteLine("You don't have the last memory");
+                        return;
+                    }
                     Console.WriteLine("*Then here your last TRUTH FRAGMENT*");
                     Console.WriteLine();
                     Console.WriteLine();
@@ -2071,7 +2095,7 @@ namespace Team_Fisherman
                 Console.WriteLine();
                 Console.ReadLine();
 
-
+                Environment.Exit(0);
             }
         }
 
