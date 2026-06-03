@@ -3,7 +3,7 @@ class Game
     static void Main()
     {
         // Updating dodge 0.1.2
-        //commit 2
+        // commit 10
         Console.CursorVisible = false;
 
         // 10 rows by 31 columns grid.
@@ -20,14 +20,14 @@ class Game
         int framesPerDrop = 4; // how fast the x's fall
         bool shouldSpawnNext = true;
 
-        // Animation state tracking
+        // Flashing obstacles
         int flashCounter = 0;
-        const int flashDurationFlashes = 50; // 50 ticks * 20ms = 1 second
+        const int flashDurationFlashes = 50;
         bool flashToggle = false;
 
         while (isRunning)
         {
-            // Input control (WASD)
+            // Input control ( W A S D )
             if (Console.KeyAvailable)
             {
                 var key = Console.ReadKey(true).Key;
@@ -46,7 +46,7 @@ class Game
             // Increment the frame counter every time the main loop runs
             blinkCounter++;
 
-            // Control the flashing state of the top row if a wall is flashing (State 1)
+            // Control the obstacles at the top row if the is flashing
             bool topRowIsFlashing = false;
             for (int x = 0; x < gridXLimit; x++)
             {
@@ -60,13 +60,13 @@ class Game
             if (topRowIsFlashing)
             {
                 flashCounter++;
-                //flash color every 4 frames (80ms) for the blink effect
+                // Flash color every 4 frames (80ms) for the blink/flashing X's effect
                 if (blinkCounter % 4 == 0)
                 {
                     flashToggle = !flashToggle;
                 }
 
-                // After 1 second (50 flashes), convert the wall to falling state (State 2)
+                // After 1 second (50 flashes), convert the flashing obstacles into falling obstacles
                 if (flashCounter >= flashDurationFlashes)
                 {
                     flashCounter = 0;
@@ -82,7 +82,7 @@ class Game
             {
                 blinkCounter = 0; // Reset counter for the next interval
 
-                // Check if the bottom row contains any active falling obstacles (State 2)
+                // Check if the bottom row contains any non flashing falling obstacles
                 bool bottomRowHasObstacles = false;
                 for (int x = 0; x < gridXLimit; x++)
                 {
@@ -93,7 +93,7 @@ class Game
                     }
                 }
 
-                // Game Logic: Move active obstacles (State 2) down
+                // Game Logic: Move non flashing obstacles
                 for (int i = gridYLimit; i >= 0; i--)
                 {
                     for (int x = 0; x < gridXLimit; x++)
@@ -124,7 +124,7 @@ class Game
                     isRunning = false;
                 }
 
-                // Spawn Logic: Creates a wall with a 3 space gap in flashing State (1)
+                // Spawn Logic: Creates a wall with a 3 space gap
                 if (score < 241 && shouldSpawnNext)
                 {
                     shouldSpawnNext = false; // Reset flag so it doesn't spam walls
@@ -173,12 +173,12 @@ class Game
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.Write("P");
                         }
-                        else if (grid[i, j] == 1) // Flashing State
+                        else if (grid[i, j] == 1) // Flashing
                         {
                             Console.ForegroundColor = flashToggle ? ConsoleColor.White : ConsoleColor.DarkGray;
                             Console.Write("X");
                         }
-                        else if (grid[i, j] == 2) // Falling State
+                        else if (grid[i, j] == 2) // Falling
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.Write("X");
