@@ -1537,15 +1537,18 @@ namespace Team_Fisherman
                     {
                         case "fish":
                             Console.WriteLine("you eat the fish");
+                            health = health + 5;
                             InventoryNum("fish", -1);
                             break;
                         case "health potion":
                             Console.WriteLine("you drink potion");
                             InventoryNum("health potion", -1);
+                            health = health + 20;
                             break;
                         case "rock":
-                            Console.WriteLine("you rock");
+                            Console.WriteLine("you eat the rock");
                             InventoryNum("rock", -1);
+                            health = health - 10;
                             break;
                         case "exit":
                             Console.WriteLine("exit");
