@@ -89,8 +89,8 @@ namespace Team_Fisherman
 
             Menu();
             //inventory_menu();
-            //Wait();
-            //GameIntro();
+            Wait();
+            GameIntro();
             Console.Write(RESET);
             Console.Clear();
             Console.Write("\x1b[3j");
