@@ -3,7 +3,7 @@ class Game
     static void Main()
     {
         // Updating dodge 0.1.2
-        // commit 1
+        // commit 2
         Console.CursorVisible = false;
 
         // 10 rows by 31 columns grid.
