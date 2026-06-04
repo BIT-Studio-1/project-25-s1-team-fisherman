@@ -1002,7 +1002,8 @@ namespace Team_Fisherman
                 while (Console.KeyAvailable == false)
                 {
                     Thread.Sleep(25);
-                    buffer.Clear();
+
+                    buffer.Clear(); // this clears the buffer
                     foreach (string line in File.ReadLines("Map/fighting/fishMap.txt")) // loops through txt file
                     {
                         foreach (char p in line) //each line
@@ -1012,11 +1013,12 @@ namespace Team_Fisherman
                         buffer.Append("\n");
                     }
 
-                    fishMove();
+                    fishMove();//calls fish move 
                     WriteTing(ref buffer, "completion bar:", screen_size, new Vector2(4, 13));
                     WriteTing(ref buffer, printLine(), screen_size, new Vector2(2, 14));
                     WriteTing(ref buffer, fishScore.ToString(), screen_size, new Vector2(20, 15));
 
+                    //this clears the area where the fish might be
                     WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 21));
                     WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 22));
                     WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 23));
@@ -1024,6 +1026,7 @@ namespace Team_Fisherman
                     WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 25));
                     WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 26));
                     
+
                     WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 20));
                     WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 21));
                     WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 22));
@@ -1040,7 +1043,7 @@ namespace Team_Fisherman
                     WriteTing(ref buffer, fishIcon5, screen_size, new Vector2(fishX, 25));
                     WriteTing(ref buffer, fishIcon6, screen_size, new Vector2(fishX, 26));
 
-                    if (fishScore <= 1)
+                    if (fishScore < 1) // this checks if the fishScore is less then one and if so it ends the program and returns false
                     {
                         fishGameRunning = false;
                         return false;
@@ -1048,53 +1051,59 @@ namespace Team_Fisherman
 
                     Console.SetCursorPosition(0, 0);
                     Console.Write(buffer.ToString()); // prints the buffer
-                        if (barX < 90)
+                    if (barX < 90)
+                    {
+                        //Console.Clear();
+                        buffer.Clear();
+                        foreach (string line in File.ReadLines("Map/fighting/fishMap.txt")) // loops through txt file
                         {
-                            //Console.Clear();
-                            buffer.Clear();
-                            foreach (string line in File.ReadLines("Map/fighting/fishMap.txt")) // loops through txt file
+                            foreach (char p in line) //each line
                             {
-                                foreach (char p in line) //each line
-                                {
-                                    buffer.Append(p);
-                                }
-                                buffer.Append("\n");
+                                buffer.Append(p);
                             }
-                            WriteTing(ref buffer, "completion bar:", screen_size, new Vector2(4, 13));
-                            WriteTing(ref buffer, printLine(), screen_size, new Vector2(2, 14));
-                            WriteTing(ref buffer, fishScore.ToString(), screen_size, new Vector2(20, 15));
-
-                            WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 21));
-                            WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 22));
-                            WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 23));
-                            WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 24));
-                            WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 25));
-                            WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 26));
-                            barX += 2;
-                            WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 20));
-                            WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 21));
-                            WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 22));
-                            WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 23));
-                            WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 24));
-                            WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 25));
-                            WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 26));
-                            WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 27));
-
-                            WriteTing(ref buffer, fishIcon1, screen_size, new Vector2(fishX, 21));
-                            WriteTing(ref buffer, fishIcon2, screen_size, new Vector2(fishX, 22));
-                            WriteTing(ref buffer, fishIcon3, screen_size, new Vector2(fishX, 23));
-                            WriteTing(ref buffer, fishIcon4, screen_size, new Vector2(fishX, 24));
-                            WriteTing(ref buffer, fishIcon5, screen_size, new Vector2(fishX, 25));
-                            WriteTing(ref buffer, fishIcon6, screen_size, new Vector2(fishX, 26));
-                            Console.SetCursorPosition(0, 0);
-                            Console.Write(buffer.ToString());
-                            waity = 1000;
+                            buffer.Append("\n");
                         }
-                        else 
-                        {
-                            yak = false;
-                            waity--;
-                        }
+                        WriteTing(ref buffer, "completion bar:", screen_size, new Vector2(4, 13));
+                        WriteTing(ref buffer, printLine(), screen_size, new Vector2(2, 14));
+                        WriteTing(ref buffer, fishScore.ToString(), screen_size, new Vector2(20, 15));
+
+                        //clears where the fish might be
+                        WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 21));
+                        WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 22));
+                        WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 23));
+                        WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 24));
+                        WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 25));
+                        WriteTing(ref buffer, "                     ", screen_size, new Vector2(barX, 26));
+
+                        barX += 2; // this slowly moves the bar back to its starting point
+
+                        //this draws the fish bar on screen
+                        WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 20));
+                        WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 21));
+                        WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 22));
+                        WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 23));
+                        WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 24));
+                        WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 25));
+                        WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 26));
+                        WriteTing(ref buffer, fishBarSize, screen_size, new Vector2(barX, 27));
+
+                        //this draws the fish on screen
+                        WriteTing(ref buffer, fishIcon1, screen_size, new Vector2(fishX, 21));
+                        WriteTing(ref buffer, fishIcon2, screen_size, new Vector2(fishX, 22));
+                        WriteTing(ref buffer, fishIcon3, screen_size, new Vector2(fishX, 23));
+                        WriteTing(ref buffer, fishIcon4, screen_size, new Vector2(fishX, 24));
+                        WriteTing(ref buffer, fishIcon5, screen_size, new Vector2(fishX, 25));
+                        WriteTing(ref buffer, fishIcon6, screen_size, new Vector2(fishX, 26));
+
+                        Console.SetCursorPosition(0, 0);
+                        Console.Write(buffer.ToString()); // this writes the buffer to the screen
+                        waity = 1000;
+                    }
+                    else 
+                    {
+                        yak = false;
+                        waity--;
+                    }
                 }
                 waity--;
                 fishMove();
