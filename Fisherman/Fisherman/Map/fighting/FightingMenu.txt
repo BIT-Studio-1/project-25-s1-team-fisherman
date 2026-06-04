@@ -21,8 +21,8 @@
 |                                                                                                                      |
 |                                                                                                                      |
 |                                                                                                                      |
-|         A.attacks                                                                                                    |
-|         D.inventory                                                                                                  |
+|         Z.attacks                                                                                                    |
+|         X.inventory                                                                                                  |
 |                                                                                                                      |
 |                                                                                                                      |
 |                                                                                                                      |

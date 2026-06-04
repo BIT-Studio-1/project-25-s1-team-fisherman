@@ -1421,7 +1421,7 @@ namespace Team_Fisherman
                 }
                 c = Console.ReadKey(true);
 
-                if (c.Key == ConsoleKey.A) // if the A key is pressed
+                if (c.Key == ConsoleKey.Z) // if the A key is pressed
                 {
                     Console.WriteLine("               === attacks ===");
                     Console.WriteLine("#################################################");
@@ -1511,7 +1511,7 @@ namespace Team_Fisherman
                 //    }
                 //    Console.ReadLine();
                 //}
-                else if (c.Key == ConsoleKey.D) // if the D key is pressed
+                else if (c.Key == ConsoleKey.X) // if the D key is pressed
                 {
                     Console.Write("\n");
                     Console.WriteLine("    ==== inventory ====");
