@@ -1315,7 +1315,7 @@ namespace Team_Fisherman
             string enemyIcon6 = "";
 
 
-            int randEnemy = random.Next(0, 4); //randomly picks a enemy for the player to fight
+            int randEnemy = random.Next(0, 5); //randomly picks a enemy for the player to fight
             //int randEnemy = 3;
             if (randEnemy == 0) //weird cat
             {
@@ -1372,6 +1372,34 @@ namespace Team_Fisherman
                 enemyIcon4 = "   /|     |\\   ";
                 enemyIcon5 = "  / |_____| \\  ";
                 enemyIcon6 = "    |  |  |     ";
+            }
+            else if (randEnemy == 3) // zombie
+            {
+                badGuyHealth = 200;
+                badGuySpeed = 4;
+                badGuyDamage = 30;
+                badGuyName = "zombie";
+
+                enemyIcon1 = "   _\\__|__/_   ";
+                enemyIcon2 = "  |(o\\ O /.)|  ";
+                enemyIcon3 = "  |_________|   ";
+                enemyIcon4 = "   /|     |\\   ";
+                enemyIcon5 = "  / |_____| \\  ";
+                enemyIcon6 = "    |  |  |     ";
+            }
+            else if (randEnemy == 4) // worm
+            {
+                badGuyHealth = 210;
+                badGuySpeed = 1000;
+                badGuyDamage = 100;
+                badGuyName = "worm of doom";
+
+                enemyIcon1 = "                ";
+                enemyIcon2 = "                ";
+                enemyIcon3 = "         \\     ";
+                enemyIcon4 = "         /      ";
+                enemyIcon5 = "                ";
+                enemyIcon6 = "                ";
             }
 
 
