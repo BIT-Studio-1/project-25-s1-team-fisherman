@@ -10,7 +10,7 @@
 |                                                                                                                      |
 |                                                                                                                      |
 |                                                                                                                      |
-|                                                                                                                      |
+|                                                press space bar to move the bar to catch the fish                     |
 |                                                                                                                      |
 |                                                                                                                      |
 |                                                                                                                      |
