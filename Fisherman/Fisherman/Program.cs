@@ -1834,12 +1834,12 @@ namespace Team_Fisherman
             Console.WriteLine("\"You've finally returned.\"");
             Console.WriteLine();
             Thread.Sleep(1000);
-            Console.WriteLine("You open your eyes, and the villagers are stare at you as if they already know who you are.");
+            Console.WriteLine("You open your eyes, and the villagers stare at you as if they already know who you are.");
             Console.WriteLine("But you have never been here before.");
             Console.WriteLine();
 
             Thread.Sleep(4000);
-            Console.WriteLine("As the day pass...");
+            Console.WriteLine("As the day passes...");
             Thread.Sleep(1500);
             Console.WriteLine("The island begins to feel wrong.");
             Thread.Sleep(1500);
