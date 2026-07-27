@@ -48,11 +48,11 @@ namespace Team_Fisherman
         public static Dictionary<string, int> inventory = new Dictionary<string, int>();
         public static int coins = 200;
         public static bool memory1 = false;
-        public static bool veiwed_memory1 = false;
+        public static bool viewed_memory1 = false;
         public static bool memory2 = false;
-        public static bool veiwed_memory2 = false;
+        public static bool viewed_memory2 = false;
         public static bool memory3 = false; // this is the memory you get for fighting
-        public static int enemysKilled = 0;
+        public static int enemes_killed = 0;
 
         static void Main(string[] args)
         {
@@ -100,7 +100,7 @@ namespace Team_Fisherman
 
             while (true)
             {
-                path = Get_path(map_tile, path, out map_changed);
+                path = Get_Path(map_tile, path, out map_changed);
                 if (map_changed)
                 {
                     if (player_pos.X == 118)
@@ -262,7 +262,7 @@ namespace Team_Fisherman
                     Menu();
                     break;
                 case ConsoleKey.I:
-                    inventory_menu();
+                    Inventory_Menu();
                     break;
 
             }
@@ -275,7 +275,7 @@ namespace Team_Fisherman
         //up 
         //start right
         //down
-        static string Get_path(Vector2 map_pos, string current, out bool map_changed)
+        static string Get_Path(Vector2 map_pos, string current, out bool map_changed)
         {
             string path = current;
             map_changed = false;
@@ -376,14 +376,14 @@ namespace Team_Fisherman
 
         //displays the menu and allows the player to choose between starting the game or exiting.
 
-        static int Get_item_Count(string name)
+        static int Get_Item_Count(string name)
         {
             int count = 0;
             inventory.TryGetValue(name, out count);
 
             return count;
         }
-        static void Add_item(string name, int count)
+        static void Add_Item(string name, int count)
         {
             if (inventory.ContainsKey(name))
             {
@@ -394,7 +394,7 @@ namespace Team_Fisherman
                 inventory.Add(name, count);
             }
         }
-        static void Remove_item(string name, int count)
+        static void Remove_Item(string name, int count)
         {
             if (inventory.ContainsKey(name))
             {
@@ -405,10 +405,10 @@ namespace Team_Fisherman
                 }
             }
         }
-        static string[] display_inventory()
+        static string[] Display_Inventory()
         {
             string[] buffer = new string[inventory.Count];
-            foreach (var pair in inventory)
+            foreach (KeyValuePair<string,int> pair in inventory)
             {
                 string item = pair.Key;
                 string count = pair.Value.ToString();
@@ -419,13 +419,13 @@ namespace Team_Fisherman
             return buffer;
         }
 
-        static void inventory_menu()
+        static void Inventory_Menu()
         {
             while (true)
             {
 
 
-                string[] inv = display_inventory();
+                string[] inv = Display_Inventory();
                 Console.Clear();
                 Console.WriteLine("Inventory");
                 Console.WriteLine("=========");
@@ -448,11 +448,11 @@ namespace Team_Fisherman
                     int int_count = Convert.ToInt32(count);
                     if (add == "add")
                     {
-                        Add_item(item_name, int_count);
+                        Add_Item(item_name, int_count);
                     }
                     else if (add == "remove")
                     {
-                        Remove_item(item_name, int_count);
+                        Remove_Item(item_name, int_count);
                     }
                     
                     //Add_item(item_name, int_count);
@@ -592,7 +592,7 @@ namespace Team_Fisherman
                         coins -= p[0] * count;
                         if (coins > 0)
                         {
-                            Add_item("Potion", count);
+                            Add_Item("Potion", count);
                         }
                         else
                         {
@@ -608,7 +608,7 @@ namespace Team_Fisherman
                         coins -= p[1] * count;
                         if (coins > 0)
                         {
-                            Add_item("Fish Bait", count);
+                            Add_Item("Fish Bait", count);
                         }
                         else
                         {
@@ -623,7 +623,7 @@ namespace Team_Fisherman
                         coins -= p[2] * count;
                         if (coins > 0)
                         {
-                            Add_item("Jar of Dirt", count);
+                            Add_Item("Jar of Dirt", count);
                         }
                         else
                         {
@@ -638,7 +638,7 @@ namespace Team_Fisherman
                         coins -= p[3] * count;
                         if (coins > 0)
                         {
-                            Add_item("Protective Charm", count);
+                            Add_Item("Protective Charm", count);
                         }
                         else
                         {
@@ -651,7 +651,7 @@ namespace Team_Fisherman
                         coins -= p[4];
                         if (coins > 0)
                         {
-                            Add_item("Truth", 1);
+                            Add_Item("Truth", 1);
                         }
                         else
                         {
@@ -697,10 +697,10 @@ namespace Team_Fisherman
                 
                 case "1":
                 case "talk":
-                    if (memory1 && !veiwed_memory1)
+                    if (memory1 && !viewed_memory1)
                     {
                         Truth();
-                        veiwed_memory1 = true;
+                        viewed_memory1 = true;
                         break;
                     }
 
@@ -719,7 +719,7 @@ namespace Team_Fisherman
                         Thread.Sleep(1000);
                         //talk1 = Console.ReadLine();
 
-                        if (Get_item_Count("Truth") != 0)
+                        if (Get_Item_Count("Truth") != 0)
                         {
                             memory2 = true;
                             Console.WriteLine("\"...So you've started seeing them too.\"");
@@ -1206,8 +1206,8 @@ namespace Team_Fisherman
                 {
                     Console.WriteLine("");
                     Console.WriteLine("the bad guy is dead you win");
-                    enemysKilled ++;
-                    if (enemysKilled > 2)
+                    enemes_killed ++;
+                    if (enemes_killed > 2)
                     {
                         // code for memeory
                         Console.WriteLine("You got the last memory");
@@ -1930,7 +1930,7 @@ namespace Team_Fisherman
             truth2 = Console.ReadLine();
             if (truth2 == "yes")
             {
-                veiwed_memory1 = true;
+                viewed_memory1 = true;
                 Thread.Sleep(1000);
                 Console.WriteLine("*YOU ARE NOT IN THE REAL WORLD*");
                 Console.WriteLine();
@@ -1975,13 +1975,13 @@ namespace Team_Fisherman
             string truth3, confirm, Dconfirm;
             Console.WriteLine("Did you get any memory fish? (yes/no)");
             confirm = Console.ReadLine();
-            if (confirm == "yes" && veiwed_memory1)
+            if (confirm == "yes" && viewed_memory1)
             {
                 Thread.Sleep(1000);
                 Console.WriteLine("Did you talk with Jane before?");
                 Thread.Sleep(1000);
                 Dconfirm = Console.ReadLine();
-                if (Dconfirm == "yes" && veiwed_memory2)
+                if (Dconfirm == "yes" && viewed_memory2)
                 {
                     if (memory3 == false)
                     {
