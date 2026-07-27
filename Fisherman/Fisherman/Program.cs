@@ -1604,6 +1604,7 @@ namespace Team_Fisherman
         //code for dodging - returns an int depending on how much damage taken 0 dead 1 survived 2 perfect -1 something went wrong
         static int Dodging(int player_health, int damage_per_hit)
         {
+            // updated variables to snake_case
             Console.CursorVisible = false;
 
             // 10 rows by 31 columns grid.
