@@ -1607,8 +1607,9 @@ namespace Team_Fisherman
             // updated variables to snake_case
             Console.CursorVisible = false;
 
-            // 10 rows by 31 columns grid.
-            // 0 = empty, 1 = obstacle present. 
+            /* 10 rows by 31 columns grid.
+             0 = empty, 1 = obstacle present.
+            */
             int[,] grid = new int[10, 31];
             int loop_counter = 0, player_pos = 15;
             int score = 0;
@@ -1692,7 +1693,6 @@ namespace Team_Fisherman
                     // Rendering What will be displayed on the screen
                     Console.SetCursorPosition(0, 0);
                     Console.WriteLine(WHITE);
-                    //Console.WriteLine($"X's missed: {score}\t\tHealth: {playerHealth - damage}\n----------------------------------");
                     Console.WriteLine("X's missed: " + score + "\t\t Health: " + (player_health) + "\n----------------------------------");
 
                     for (int i = 0; i < grid_y_limit + 1; i++)
