@@ -1602,45 +1602,45 @@ namespace Team_Fisherman
         //Dodging();
 
         //code for dodging - returns an int depending on how much damage taken 0 dead 1 survived 2 perfect -1 something went wrong
-        static int Dodging(int playerHealth, int damagePerHit)
+        static int Dodging(int player_health, int damage_per_hit)
         {
             Console.CursorVisible = false;
 
             // 10 rows by 31 columns grid.
             // 0 = empty, 1 = obstacle present. 
             int[,] grid = new int[10, 31];
-            int loopCounter = 0, playerPos = 15;
+            int loop_counter = 0, player_pos = 15;
             int score = 0;
             int damage = 0;
 
-            int gridXLimit = 31, gridYLimit = 9;
-            int xNumber = 3;
-            bool isRunning = true;
+            int grid_x_limit = 31, grid_y_limit = 9;
+            int x_number = 3;
+            bool is_running = true;
             Random rand = new();
-
-            while (isRunning)
+                
+            while (is_running)
             {
                 // Input Control 
                 if (Console.KeyAvailable)
                 {
                     var key = Console.ReadKey(true).Key;
 
-                    if (key == ConsoleKey.A && playerPos > 0)
-                        playerPos--;
-                    if (key == ConsoleKey.D && playerPos < 30)
-                        playerPos++;
+                    if (key == ConsoleKey.A && player_pos > 0)
+                        player_pos--;
+                    if (key == ConsoleKey.D && player_pos < 30)
+                        player_pos++;
                     while (Console.KeyAvailable)
                         Console.ReadKey(true);
                 }
                 // Game Logic: Move obstacles down (Iterating TOP to BOTTOM to prevent double-moving) 
-                for (int i = gridYLimit; i >= 0; i--)
+                for (int i = grid_y_limit; i >= 0; i--)
                 {
-                    for (int x = 0; x < gridXLimit; x++)
+                    for (int x = 0; x < grid_x_limit; x++)
                     {
                         if (grid[i, x] == 1)
                         {
                             grid[i, x] = 0; // Clear current position 
-                            if (i < gridYLimit)
+                            if (i < grid_y_limit)
                             {
                                 grid[i + 1, x] = 1; // Move down one row safely
                             }
@@ -1649,11 +1649,11 @@ namespace Team_Fisherman
                                 score++; // Cleared the bottom row successfully
                                 if ((score % 50 == 0) && (score < 150))
                                 {
-                                    xNumber--;
+                                    x_number--;
                                 }
                                 if (score == 150) 
                                 {
-                                    isRunning = false;
+                                    is_running = false;
                                 }
                             }
                         }
@@ -1662,27 +1662,27 @@ namespace Team_Fisherman
                 // Spawn Logic (drop an X at row 0)
                 if (score < 141)
                 {
-                    loopCounter++;
-                    if (loopCounter % xNumber == 0)
+                    loop_counter++;
+                    if (loop_counter % x_number == 0)
                     {
-                        int spawnPos = rand.Next(0, gridXLimit);
-                        grid[0, spawnPos] = 1;
+                        int spawn_pos = rand.Next(0, grid_x_limit);
+                        grid[0, spawn_pos] = 1;
                     }
                 }
                 // Collision Detection (Player is always on row 9) 
-                if (grid[9, playerPos] == 1)
+                if (grid[9, player_pos] == 1)
                 {
                     Console.Beep();
-                    damage += damagePerHit;
+                    damage += damage_per_hit;
                     Thread.Sleep(100);
 
-                    if (playerHealth <= 0)
+                    if (player_health <= 0)
                     {
-                        isRunning = false;
+                        is_running = false;
                     }
                     else
                     {
-                        grid[9, playerPos] = 0; // Clear the obstacle so it doesn't instantly hit again
+                        grid[9, player_pos] = 0; // Clear the obstacle so it doesn't instantly hit again
                         score += 1;
                     }
                 }
@@ -1690,22 +1690,23 @@ namespace Team_Fisherman
                 {
                     // Rendering What will be displayed on the screen
                     Console.SetCursorPosition(0, 0);
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine(WHITE);
                     //Console.WriteLine($"X's missed: {score}\t\tHealth: {playerHealth - damage}\n----------------------------------");
-                    Console.WriteLine("X's missed: " + score + "\t\t Health: " + (playerHealth) + "\n----------------------------------");
+                    Console.WriteLine("X's missed: " + score + "\t\t Health: " + (player_health) + "\n----------------------------------");
 
-                    for (int i = 0; i < gridYLimit + 1; i++)
+                    for (int i = 0; i < grid_y_limit + 1; i++)
                     {
-                        for (int j = 0; j < gridXLimit; j++)
+                        for (int j = 0; j < grid_x_limit; j++)
                         {
-                            if (i == gridYLimit && j == playerPos)
+                            if (i == grid_y_limit && j == player_pos)
                             {
-                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine(GREEN);
                                 Console.Write("P");
+                                
                             }
                             else if (grid[i, j] == 1)
                             {
-                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine(RED);
                                 Console.Write("X");
                             }
                             else
@@ -1721,22 +1722,22 @@ namespace Team_Fisherman
 
             // Game Over Screen
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(RESET);
             return damage;
 
-            if (playerHealth >= 3)
+            if (player_health >= 3)
             {
                 Console.WriteLine($"You did very bad!\n\nPress Enter to exit...");
                 return 0;
             }
-            else if ((playerHealth > 0) && (playerHealth < 3))
+            else if ((player_health > 0) && (player_health < 3))
             {
                 Console.WriteLine($"You Survived! Score: {score}\n\nPress Enter to exit...");
                 return 1;
             }
-            else if (playerHealth == 0)
+            else if (player_health == 0)
             {
-                Console.WriteLine($"Perfect Dodge! Score: {score} Health: {playerHealth}\n\nPress Enter to exit...");
+                Console.WriteLine($"Perfect Dodge! Score: {score} Health: {player_health}\n\nPress Enter to exit...");
                 return 2;
             }
             Console.ReadLine();
