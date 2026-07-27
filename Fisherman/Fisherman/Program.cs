@@ -887,7 +887,7 @@ namespace Team_Fisherman
             int fish_score = 100; // how close the fish is to being caught
             bool fish_game_running = true; // if the game is running or not
 
-            void WriteTing(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
+            void Write_Ting(ref StringBuilder buff, string guy, Vector2 screen_size, Vector2 pos)
             {
                 int count = 0;
                 foreach (char h in guy)
@@ -897,7 +897,7 @@ namespace Team_Fisherman
                 }
             }
 
-            string printLine() // prints the progress bar
+            string Print_Line() // prints the progress bar
             {
                 fish_score = Math.Max(0, fish_score);
                 string line = "";
@@ -908,7 +908,7 @@ namespace Team_Fisherman
                 return line;
             }
 
-            void fishMove() // moves the fish
+            void Fish_Move() // moves the fish
             {
                 if (fish_x > bar_x && fish_x < bar_x + 25 && fish_score < 452) // checks if the fish is in the bar or not and then adjusts the score
                 {
@@ -950,11 +950,6 @@ namespace Team_Fisherman
 
             do
             {
-                
-                
-
-                
-
                 StringBuilder buffer = new StringBuilder(); // creates the string buffer 
 
                 if (fish_score <= 1) // ends the fish game if fishScore less or equal then one
@@ -976,27 +971,27 @@ namespace Team_Fisherman
                     }
                     buffer.Append("\n");
                 }
-                WriteTing(ref buffer, "completion bar:", screen_size, new Vector2(4, 13));
-                WriteTing(ref buffer, fish_score.ToString(), screen_size, new Vector2(20, 15));
-                WriteTing(ref buffer, printLine(), screen_size, new Vector2(2, 14));
+                Write_Ting(ref buffer, "completion bar:", screen_size, new Vector2(4, 13));
+                Write_Ting(ref buffer, fish_score.ToString(), screen_size, new Vector2(20, 15));
+                Write_Ting(ref buffer, Print_Line(), screen_size, new Vector2(2, 14));
 
                 // catching bar
-                WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 20));
-                WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 21));
-                WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 22));
-                WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 23));
-                WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 24));
-                WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 25));
-                WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 26));
-                WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 27));
+                Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 20));
+                Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 21));
+                Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 22));
+                Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 23));
+                Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 24));
+                Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 25));
+                Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 26));
+                Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 27));
 
                 //fish sprite
-                WriteTing(ref buffer, fish_icon1, screen_size, new Vector2(fish_x, 21));
-                WriteTing(ref buffer, fish_icon2, screen_size, new Vector2(fish_x, 22));
-                WriteTing(ref buffer, fish_icon3, screen_size, new Vector2(fish_x, 23));
-                WriteTing(ref buffer, fish_icon4, screen_size, new Vector2(fish_x, 24));
-                WriteTing(ref buffer, fish_icon5, screen_size, new Vector2(fish_x, 25));
-                WriteTing(ref buffer, fish_icon6, screen_size, new Vector2(fish_x, 26));
+                Write_Ting(ref buffer, fish_icon1, screen_size, new Vector2(fish_x, 21));
+                Write_Ting(ref buffer, fish_icon2, screen_size, new Vector2(fish_x, 22));
+                Write_Ting(ref buffer, fish_icon3, screen_size, new Vector2(fish_x, 23));
+                Write_Ting(ref buffer, fish_icon4, screen_size, new Vector2(fish_x, 24));
+                Write_Ting(ref buffer, fish_icon5, screen_size, new Vector2(fish_x, 25));
+                Write_Ting(ref buffer, fish_icon6, screen_size, new Vector2(fish_x, 26));
                 Console.Write(buffer.ToString());
 
                 ConsoleKeyInfo c = new ConsoleKeyInfo();
@@ -1017,35 +1012,35 @@ namespace Team_Fisherman
                         buffer.Append("\n");
                     }
 
-                    fishMove();//calls fish move 
-                    WriteTing(ref buffer, "completion bar:", screen_size, new Vector2(4, 13));
-                    WriteTing(ref buffer, printLine(), screen_size, new Vector2(2, 14));
-                    WriteTing(ref buffer, fish_score.ToString(), screen_size, new Vector2(20, 15));
+                    Fish_Move();//calls fish move 
+                    Write_Ting(ref buffer, "completion bar:", screen_size, new Vector2(4, 13));
+                    Write_Ting(ref buffer, Print_Line(), screen_size, new Vector2(2, 14));
+                    Write_Ting(ref buffer, fish_score.ToString(), screen_size, new Vector2(20, 15));
 
                     //this clears the area where the fish might be
-                    WriteTing(ref buffer, "                     ", screen_size, new Vector2(bar_x, 21));
-                    WriteTing(ref buffer, "                     ", screen_size, new Vector2(bar_x, 22));
-                    WriteTing(ref buffer, "                     ", screen_size, new Vector2(bar_x, 23));
-                    WriteTing(ref buffer, "                     ", screen_size, new Vector2(bar_x, 24));
-                    WriteTing(ref buffer, "                     ", screen_size, new Vector2(bar_x, 25));
-                    WriteTing(ref buffer, "                     ", screen_size, new Vector2(bar_x, 26));
+                    Write_Ting(ref buffer, "                     ", screen_size, new Vector2(bar_x, 21));
+                    Write_Ting(ref buffer, "                     ", screen_size, new Vector2(bar_x, 22));
+                    Write_Ting(ref buffer, "                     ", screen_size, new Vector2(bar_x, 23));
+                    Write_Ting(ref buffer, "                     ", screen_size, new Vector2(bar_x, 24));
+                    Write_Ting(ref buffer, "                     ", screen_size, new Vector2(bar_x, 25));
+                    Write_Ting(ref buffer, "                     ", screen_size, new Vector2(bar_x, 26));
                     
 
-                    WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 20));
-                    WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 21));
-                    WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 22));
-                    WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 23));
-                    WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 24));
-                    WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 25));
-                    WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 26));
-                    WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 27));
+                    Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 20));
+                    Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 21));
+                    Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 22));
+                    Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 23));
+                    Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 24));
+                    Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 25));
+                    Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 26));
+                    Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 27));
 
-                    WriteTing(ref buffer, fish_icon1, screen_size, new Vector2(fish_x, 21));
-                    WriteTing(ref buffer, fish_icon2, screen_size, new Vector2(fish_x, 22));
-                    WriteTing(ref buffer, fish_icon3, screen_size, new Vector2(fish_x, 23));
-                    WriteTing(ref buffer, fish_icon4, screen_size, new Vector2(fish_x, 24));
-                    WriteTing(ref buffer, fish_icon5, screen_size, new Vector2(fish_x, 25));
-                    WriteTing(ref buffer, fish_icon6, screen_size, new Vector2(fish_x, 26));
+                    Write_Ting(ref buffer, fish_icon1, screen_size, new Vector2(fish_x, 21));
+                    Write_Ting(ref buffer, fish_icon2, screen_size, new Vector2(fish_x, 22));
+                    Write_Ting(ref buffer, fish_icon3, screen_size, new Vector2(fish_x, 23));
+                    Write_Ting(ref buffer, fish_icon4, screen_size, new Vector2(fish_x, 24));
+                    Write_Ting(ref buffer, fish_icon5, screen_size, new Vector2(fish_x, 25));
+                    Write_Ting(ref buffer, fish_icon6, screen_size, new Vector2(fish_x, 26));
 
                     if (fish_score < 1) // this checks if the fishScore is less then one and if so it ends the program and returns false
                     {
@@ -1067,37 +1062,37 @@ namespace Team_Fisherman
                             }
                             buffer.Append("\n");
                         }
-                        WriteTing(ref buffer, "completion bar:", screen_size, new Vector2(4, 13));
-                        WriteTing(ref buffer, printLine(), screen_size, new Vector2(2, 14));
-                        WriteTing(ref buffer, fish_score.ToString(), screen_size, new Vector2(20, 15));
+                        Write_Ting(ref buffer, "completion bar:", screen_size, new Vector2(4, 13));
+                        Write_Ting(ref buffer, Print_Line(), screen_size, new Vector2(2, 14));
+                        Write_Ting(ref buffer, fish_score.ToString(), screen_size, new Vector2(20, 15));
 
                         //clears where the fish might be
-                        WriteTing(ref buffer, "                     ", screen_size, new Vector2(bar_x, 21));
-                        WriteTing(ref buffer, "                     ", screen_size, new Vector2(bar_x, 22));
-                        WriteTing(ref buffer, "                     ", screen_size, new Vector2(bar_x, 23));
-                        WriteTing(ref buffer, "                     ", screen_size, new Vector2(bar_x, 24));
-                        WriteTing(ref buffer, "                     ", screen_size, new Vector2(bar_x, 25));
-                        WriteTing(ref buffer, "                     ", screen_size, new Vector2(bar_x, 26));
+                        Write_Ting(ref buffer, "                     ", screen_size, new Vector2(bar_x, 21));
+                        Write_Ting(ref buffer, "                     ", screen_size, new Vector2(bar_x, 22));
+                        Write_Ting(ref buffer, "                     ", screen_size, new Vector2(bar_x, 23));
+                        Write_Ting(ref buffer, "                     ", screen_size, new Vector2(bar_x, 24));
+                        Write_Ting(ref buffer, "                     ", screen_size, new Vector2(bar_x, 25));
+                        Write_Ting(ref buffer, "                     ", screen_size, new Vector2(bar_x, 26));
 
                         bar_x += 2; // this slowly moves the bar back to its starting point
 
                         //this draws the fish bar on screen
-                        WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 20));
-                        WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 21));
-                        WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 22));
-                        WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 23));
-                        WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 24));
-                        WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 25));
-                        WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 26));
-                        WriteTing(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 27));
+                        Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 20));
+                        Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 21));
+                        Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 22));
+                        Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 23));
+                        Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 24));
+                        Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 25));
+                        Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 26));
+                        Write_Ting(ref buffer, fish_bar_size, screen_size, new Vector2(bar_x, 27));
 
                         //this draws the fish on screen
-                        WriteTing(ref buffer, fish_icon1, screen_size, new Vector2(fish_x, 21));
-                        WriteTing(ref buffer, fish_icon2, screen_size, new Vector2(fish_x, 22));
-                        WriteTing(ref buffer, fish_icon3, screen_size, new Vector2(fish_x, 23));
-                        WriteTing(ref buffer, fish_icon4, screen_size, new Vector2(fish_x, 24));
-                        WriteTing(ref buffer, fish_icon5, screen_size, new Vector2(fish_x, 25));
-                        WriteTing(ref buffer, fish_icon6, screen_size, new Vector2(fish_x, 26));
+                        Write_Ting(ref buffer, fish_icon1, screen_size, new Vector2(fish_x, 21));
+                        Write_Ting(ref buffer, fish_icon2, screen_size, new Vector2(fish_x, 22));
+                        Write_Ting(ref buffer, fish_icon3, screen_size, new Vector2(fish_x, 23));
+                        Write_Ting(ref buffer, fish_icon4, screen_size, new Vector2(fish_x, 24));
+                        Write_Ting(ref buffer, fish_icon5, screen_size, new Vector2(fish_x, 25));
+                        Write_Ting(ref buffer, fish_icon6, screen_size, new Vector2(fish_x, 26));
 
                         Console.SetCursorPosition(0, 0);
                         Console.Write(buffer.ToString()); // this writes the buffer to the screen
@@ -1109,7 +1104,7 @@ namespace Team_Fisherman
                     }
                 }
                 waity--;
-                fishMove();
+                Fish_Move();
                 // code for testing the fish moving
                 if (Console.KeyAvailable)
                 {
@@ -1278,7 +1273,7 @@ namespace Team_Fisherman
             }
 
             // this function converts the string num relating to the "item" to a int then adds or subtracts the "opper" amount
-            void InventoryNum(string item, int opper)
+            void Inventory_Num(string item, int opper)
             {
                 for (int i = 0; i < inventory.Length; i++) //loops through list
                 {
@@ -1317,95 +1312,79 @@ namespace Team_Fisherman
 
             int rand_enemy = random.Next(0, 5); //randomly picks a enemy for the player to fight
             //int randEnemy = 3;
-            if (rand_enemy == 0) //weird cat
+
+
+            switch (rand_enemy)
             {
-                bad_guy_health = 100;
-                bad_guy_speed = 12;
-                bad_guy_damage = 15;
-                bad_guy_name = "evil cat";
+                case 0:
+                    bad_guy_health = 100;
+                    bad_guy_speed = 12;
+                    bad_guy_damage = 15;
+                    bad_guy_name = "evil cat";
 
-                enemy_icon1 = "               ";
-                enemy_icon2 = " (\\___/)      ";
-                enemy_icon3 = " | >:) |    /  ";
-                enemy_icon4 = "  -----    /   ";
-                enemy_icon5 = "   |_____ /    ";
-                enemy_icon6 = "   /\\    /\\  ";
+                    enemy_icon1 = "               ";
+                    enemy_icon2 = " (\\___/)      ";
+                    enemy_icon3 = " | >:) |    /  ";
+                    enemy_icon4 = "  -----    /   ";
+                    enemy_icon5 = "   |_____ /    ";
+                    enemy_icon6 = "   /\\    /\\  ";
+                    break;
+                case 1:
+                    bad_guy_health = 80;
+                    bad_guy_speed = 8;
+                    bad_guy_damage = 10;
+                    bad_guy_name = "goblin";
+
+                    enemy_icon1 = "   _/\\___/\\_  ";
+                    enemy_icon2 = "  |  @ __ @ |   ";
+                    enemy_icon3 = "  |_________|   ";
+                    enemy_icon4 = "   /|.   .|\\   ";
+                    enemy_icon5 = "  / |_____| \\  ";
+                    enemy_icon6 = "    |     |     ";
+                    break;
+                case 2:
+                    bad_guy_health = 120;
+                    bad_guy_speed = 18;
+                    bad_guy_damage = 20;
+                    bad_guy_name = "thing";
+
+                    enemy_icon1 = " ( | )     ( | ) ";
+                    enemy_icon2 = "    ||_____||    ";
+                    enemy_icon3 = "   /        \\     ";
+                    enemy_icon4 = "   | )-----( | ";
+                    enemy_icon5 = "   \\_________/     ";
+                    enemy_icon6 = "   / / | | \\ \\   ";
+                    break;
+                case 3:
+                    bad_guy_health = 200;
+                    bad_guy_speed = 4;
+                    bad_guy_damage = 30;
+                    bad_guy_name = "zombie";
+
+                    enemy_icon1 = "   _\\__|__/_   ";
+                    enemy_icon2 = "  |(o\\ O /.)|  ";
+                    enemy_icon3 = "  |_________|   ";
+                    enemy_icon4 = "   /|     |\\   ";
+                    enemy_icon5 = "  / |_____| \\  ";
+                    enemy_icon6 = "    |  |  |     ";
+                    break;
+                case 4:
+                    bad_guy_health = 210;
+                    bad_guy_speed = 1000;
+                    bad_guy_damage = 100;
+                    bad_guy_name = "worm of doom";
+
+                    enemy_icon1 = "                ";
+                    enemy_icon2 = "                ";
+                    enemy_icon3 = "         \\     ";
+                    enemy_icon4 = "         /      ";
+                    enemy_icon5 = "                ";
+                    enemy_icon6 = "                ";
+                    break;
             }
-            else if (rand_enemy == 1) // goblin
-            {
-                bad_guy_health = 80;
-                bad_guy_speed = 8;
-                bad_guy_damage = 10;
-                bad_guy_name = "goblin";
-
-                enemy_icon1 = "   _/\\___/\\_  ";
-                enemy_icon2 = "  |  @ __ @ |   ";
-                enemy_icon3 = "  |_________|   ";
-                enemy_icon4 = "   /|.   .|\\   ";
-                enemy_icon5 = "  / |_____| \\  ";
-                enemy_icon6 = "    |     |     ";
-            }
-            else if (rand_enemy == 2) // thing
-            {
-                bad_guy_health = 120;
-                bad_guy_speed = 18;
-                bad_guy_damage = 20;
-                bad_guy_name = "thing";
-
-                enemy_icon1 = " ( | )     ( | ) ";
-                enemy_icon2 = "    ||_____||    ";
-                enemy_icon3 = "   /        \\     ";
-                enemy_icon4 = "   | )-----( | ";
-                enemy_icon5 = "   \\_________/     ";
-                enemy_icon6 = "   / / | | \\ \\   ";
-            }
-            else if (rand_enemy == 3) // zombie
-            {
-                bad_guy_health = 200;
-                bad_guy_speed = 4;
-                bad_guy_damage = 30;
-                bad_guy_name = "zombie";
-
-                enemy_icon1 = "   _\\__|__/_   ";
-                enemy_icon2 = "  |(o\\ O /.)|  ";
-                enemy_icon3 = "  |_________|   ";
-                enemy_icon4 = "   /|     |\\   ";
-                enemy_icon5 = "  / |_____| \\  ";
-                enemy_icon6 = "    |  |  |     ";
-            }
-            else if (rand_enemy == 3) // zombie
-            {
-                bad_guy_health = 200;
-                bad_guy_speed = 4;
-                bad_guy_damage = 30;
-                bad_guy_name = "zombie";
-
-                enemy_icon1 = "   _\\__|__/_   ";
-                enemy_icon2 = "  |(o\\ O /.)|  ";
-                enemy_icon3 = "  |_________|   ";
-                enemy_icon4 = "   /|     |\\   ";
-                enemy_icon5 = "  / |_____| \\  ";
-                enemy_icon6 = "    |  |  |     ";
-            }
-            else if (rand_enemy == 4) // worm
-            {
-                bad_guy_health = 210;
-                bad_guy_speed = 1000;
-                bad_guy_damage = 100;
-                bad_guy_name = "worm of doom";
-
-                enemy_icon1 = "                ";
-                enemy_icon2 = "                ";
-                enemy_icon3 = "         \\     ";
-                enemy_icon4 = "         /      ";
-                enemy_icon5 = "                ";
-                enemy_icon6 = "                ";
-            }
-
 
             do // the main loop for the fighting
             {
-                // @@@
                 buffer.Clear();
                 Console.SetCursorPosition(0, 0);
 
@@ -1426,7 +1405,7 @@ namespace Team_Fisherman
                 WriteTing(ref buffer, enemy_icon5, screen_size, new Vector2(66, 11));
                 WriteTing(ref buffer, enemy_icon6, screen_size, new Vector2(66, 12));
 
-
+                //prints other UI elements
                 WriteTing(ref buffer, bad_guy_name, screen_size, new Vector2(66, 13));
                 WriteTing(ref buffer, "enemy health: " + bad_guy_health, screen_size, new Vector2(66, 14));
                 WriteTing(ref buffer, bad_guy_attack, screen_size, new Vector2(64, 16));
@@ -1566,16 +1545,16 @@ namespace Team_Fisherman
                         case "fish":
                             Console.WriteLine("you eat the fish");
                             health = health + 5;
-                            InventoryNum("fish", -1);
+                            Inventory_Num("fish", -1);
                             break;
                         case "health potion":
                             Console.WriteLine("you drink potion");
-                            InventoryNum("health potion", -1);
+                            Inventory_Num("health potion", -1);
                             health = health + 20;
                             break;
                         case "rock":
                             Console.WriteLine("you eat the rock");
-                            InventoryNum("rock", -1);
+                            Inventory_Num("rock", -1);
                             health = health - 10;
                             break;
                         case "exit":
