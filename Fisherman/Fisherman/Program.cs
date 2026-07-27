@@ -52,7 +52,7 @@ namespace Team_Fisherman
         public static bool memory2 = false;
         public static bool viewed_memory2 = false;
         public static bool memory3 = false; // this is the memory you get for fighting
-        public static int enemes_killed = 0;
+        public static int enemies_killed = 0;
 
         static void Main(string[] args)
         {
@@ -319,35 +319,28 @@ namespace Team_Fisherman
         static bool Is_Valid(Vector2 coords, Vector2 size, StringBuilder buffer)
         {
             coords = Vector2.Clamp(coords, Vector2.Zero, new Vector2(119, 28));
-            if (buffer[To_Index(coords, size)] == '#' || buffer[To_Index(coords, size)] == '+')
-                return false;
-            else if (buffer[To_Index(coords, size)] == '~')
+            char c = buffer[To_Index(coords, size)];
+            switch (c) 
             {
-                Console.Clear();
-                Fishing();
-                return false;
+                case '#':
+                case '+':
+                    return false;
+                case '~':
+                    Console.Clear();
+                    Fishing();
+                    return false;
+                case 's':
+                    Console.Clear();
+                    Shopping();
+                    return false;
+                case 'm':
+                    Console.Clear();
+                    Fighting();
+                    return false;
+                case 't':
+                    fragment();
+                    return false;
             }
-            else if (buffer[To_Index(coords, size)] == 'S')
-            {
-                Console.Clear();
-                Shopping();
-                return false;
-            }
-            else if (buffer[To_Index(coords, size)] == 'm')
-            {
-                Console.Clear();
-                Fighting();
-                return false;
-            }
-            else if (buffer[To_Index(coords, size)] == 'T')
-            {
-                fragment();
-                //add logic for key to unlock a door.
-                //return true means the player can stand on that tile but it will trigger the door logic, you can change this to false if you want the player to not be able to stand on the tile and just trigger the door logic when they are next to it.
-                return false;
-            }
-
-
             return true;
         }
         //this helper function converts a Vector2 into an index for the buffer, this means you can access the buffer my choosing the pixel in the console. it takes a Vector2 (coords) and a Vector2 (size) and returns an int (index) for accessing the buffer.
@@ -669,7 +662,7 @@ namespace Team_Fisherman
         static void Shopping()
         {
             //Shop();
-            string temp, shop, buy, talk1, talk2, check, check1, truth1;
+            string  shop, check, check1, truth1;
 
             string[] c = { "Buy", "Talk", "Exit", "Leave" };
             Console.WriteLine("Shopping");
@@ -1206,8 +1199,8 @@ namespace Team_Fisherman
                 {
                     Console.WriteLine("");
                     Console.WriteLine("the bad guy is dead you win");
-                    enemes_killed ++;
-                    if (enemes_killed > 2)
+                    enemies_killed ++;
+                    if (enemies_killed > 2)
                     {
                         // code for memeory
                         Console.WriteLine("You got the last memory");
