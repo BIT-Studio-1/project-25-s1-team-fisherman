@@ -89,8 +89,8 @@ namespace Team_Fisherman
 
             Menu();
             //inventory_menu();
-            Wait();
-            GameIntro();
+            //Wait();
+            //GameIntro();
             Console.Write(RESET);
             Console.Clear();
             Console.Write("\x1b[3j");
@@ -264,12 +264,32 @@ namespace Team_Fisherman
                 case ConsoleKey.I:
                     Inventory_Menu();
                     break;
+                case ConsoleKey.H: 
+                    Key_Binds();
+                    break;
 
             }
 
             Vector2 clamped_offset = Vector2.Clamp(offset, Vector2.Zero, new Vector2(118, 27));
             map_tile = clamped_offset - offset;
             return clamped_offset;
+        }
+        static void Key_Binds()
+        {
+            Console.Write(RESET);
+            Console.Clear();
+            Console.Write("\x1b[3j");
+            Console.WriteLine("Key Binds");
+            Console.WriteLine($"{"Move", -15} WASD");
+            Console.WriteLine($"{"Inventory",-15} I");
+            Console.WriteLine($"{"Menu",-15} ESC");
+            Console.WriteLine($"{"Start Fish Game",-15} Space");
+            Console.WriteLine();
+            Console.WriteLine("To Interact with stuff walk into it");
+            Console.WriteLine("The goal is to find the truth, The say that you can find that in the sea, the town, the forest");
+
+
+            Console.ReadLine();
         }
 
         //up 
@@ -329,7 +349,7 @@ namespace Team_Fisherman
                     Console.Clear();
                     Fishing();
                     return false;
-                case 's':
+                case 'S':
                     Console.Clear();
                     Shopping();
                     return false;
@@ -337,7 +357,7 @@ namespace Team_Fisherman
                     Console.Clear();
                     Fighting();
                     return false;
-                case 't':
+                case 'T':
                     fragment();
                     return false;
             }
