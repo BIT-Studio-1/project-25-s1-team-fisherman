@@ -286,7 +286,8 @@ namespace Team_Fisherman
             Console.WriteLine($"{"Start Fish Game",-15} Space");
             Console.WriteLine();
             Console.WriteLine("To Interact with stuff walk into it");
-            Console.WriteLine("The goal is to find the truth, The say that you can find that in the sea, the town, the forest");
+            Console.WriteLine("The goal is to find the truth, The say that you can find that in the sea, the Shop Keeper, the forest");
+
 
 
             Console.ReadLine();
