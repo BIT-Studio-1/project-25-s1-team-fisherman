@@ -869,7 +869,7 @@ namespace Team_Fisherman
         }
         
         //Put the code for fighting in here.
-        public static bool fishyGame() //function for the fish minigame
+        public static bool fishy_Game() //function for the fish minigame
         {
             // fish sprite
             string fishIcon1 = @" _              ";
