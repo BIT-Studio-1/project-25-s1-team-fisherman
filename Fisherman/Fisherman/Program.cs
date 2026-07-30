@@ -1692,7 +1692,7 @@ namespace Team_Fisherman
                 {
                     // Rendering What will be displayed on the screen
                     Console.SetCursorPosition(0, 0);
-                    Console.WriteLine(WHITE);
+                    Console.Write(WHITE);
                     Console.WriteLine("X's missed: " + score + "\t\t Health: " + (player_health) + "\n----------------------------------");
 
                     for (int i = 0; i < grid_y_limit + 1; i++)
@@ -1701,13 +1701,13 @@ namespace Team_Fisherman
                         {
                             if (i == grid_y_limit && j == player_pos)
                             {
-                                Console.WriteLine(GREEN);
+                                Console.Write(GREEN);
                                 Console.Write("P");
 
                             }
                             else if (grid[i, j] == 1)
                             {
-                                Console.WriteLine(RED);
+                                Console.Write(RED);
                                 Console.Write("X");
                             }
                             else
@@ -1723,7 +1723,7 @@ namespace Team_Fisherman
 
             // Game Over Screen
             Console.Clear();
-            Console.WriteLine(RESET);
+            Console.Write(RESET);
             return damage;
 
             if (player_health >= 3)
