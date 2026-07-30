@@ -11,7 +11,7 @@ namespace test_fish
     {
         public string name;
         public string rarity;
-        public float Min_weight, Max_weight;
+        public float min_weight, max_weight;
         public int Value;
         public float Chance;
         public ConsoleColor Color;
@@ -19,10 +19,10 @@ namespace test_fish
 
 
 
-        public Fish(string name, string rarity, float min_W, float max_W, int value, float chance, ConsoleColor color)
+        public Fish(string name, string rarity, float min_w, float max_w, int value, float chance, ConsoleColor color)
         {
             this.name = name; this.rarity = rarity;
-            Min_weight = min_W; Max_weight = max_W;
+            min_weight = min_w; max_weight = max_w;
             Value = value; Chance = chance;
             Color = color;
         }
@@ -35,7 +35,7 @@ namespace test_fish
         public float Get_Weight()
         {
             var rng = new Random();
-            return (float)Math.Round(Min_weight + rng.NextDouble() * (Max_weight - Min_weight), 1);
+            return (float)Math.Round(min_weight + rng.NextDouble() * (max_weight - min_weight), 1);
         }
     }
 
