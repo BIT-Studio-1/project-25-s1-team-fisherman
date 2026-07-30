@@ -990,7 +990,7 @@ namespace Team_Fisherman
                 Write_Ting(ref buffer, fish_score.ToString(), screen_size, new Vector2(20, 15));
                 Write_Ting(ref buffer, Print_Line(), screen_size, new Vector2(2, 14));
 
-               
+
                 Fish_Sprite_Draw(ref buffer, 8, fish_bar_size, bar_x, 20); // this draw the fish bar
 
                 Fish_Draw(ref buffer, 6, Fish_Sprite, fish_x, 21); // this draws the fish sprite
@@ -1025,7 +1025,7 @@ namespace Team_Fisherman
                     Fish_Sprite_Draw(ref buffer, 8, fish_bar_size, bar_x, 20);
 
                     Fish_Draw(ref buffer, 6, Fish_Sprite, fish_x, 21);
-  
+
 
                     if (fish_score < 1) // this checks if the fishScore is less then one and if so it ends the program and returns false
                     {
@@ -1049,13 +1049,13 @@ namespace Team_Fisherman
                         Write_Ting(ref buffer, "completion bar:", screen_size, new Vector2(4, 13));
                         Write_Ting(ref buffer, Print_Line(), screen_size, new Vector2(2, 14));
                         Write_Ting(ref buffer, fish_score.ToString(), screen_size, new Vector2(20, 15));
-                        
+
                         Fish_Sprite_Draw(ref buffer, 6, "                     ", bar_x, 21); //clears where the fish might be
 
                         bar_x += 2; // this slowly moves the bar back to its starting point
-                        
+
                         Fish_Sprite_Draw(ref buffer, 8, fish_bar_size, bar_x, 20); //this draws the fish bar on screen
-                        
+
                         Fish_Draw(ref buffer, 6, Fish_Sprite, fish_x, 21); //this draws the fish on screen
 
                         Console.SetCursorPosition(0, 0);
