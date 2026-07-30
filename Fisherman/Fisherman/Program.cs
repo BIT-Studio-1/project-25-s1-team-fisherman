@@ -1649,7 +1649,7 @@ namespace Team_Fisherman
             int damage = 0;
 
             int grid_x_limit = 31, grid_y_limit = 9;
-            int x_number = 3;
+            int x_number = 1;
             bool is_running = true;
             Random rand = new();
 
@@ -1682,11 +1682,11 @@ namespace Team_Fisherman
                             else
                             {
                                 score++; // Cleared the bottom row successfully
-                                if ((score % 50 == 0) && (score < 150))
+                                if ((score % 50 == 0) && (score < 50))
                                 {
                                     x_number--;
                                 }
-                                if (score == 150)
+                                if (score == 50)
                                 {
                                     is_running = false;
                                 }
@@ -1695,7 +1695,7 @@ namespace Team_Fisherman
                     }
                 }
                 // Spawn Logic (drop an X at row 0)
-                if (score < 141)
+                if (score < 41)
                 {
                     loop_counter++;
                     if (loop_counter % x_number == 0)
@@ -1725,7 +1725,7 @@ namespace Team_Fisherman
                 {
                     // Rendering What will be displayed on the screen
                     Console.SetCursorPosition(0, 0);
-                    Console.WriteLine(WHITE);
+                    Console.Write(WHITE);
                     Console.WriteLine("X's missed: " + score + "\t\t Health: " + (player_health) + "\n----------------------------------");
 
                     for (int i = 0; i < grid_y_limit + 1; i++)
@@ -1734,13 +1734,13 @@ namespace Team_Fisherman
                         {
                             if (i == grid_y_limit && j == player_pos)
                             {
-                                Console.WriteLine(GREEN);
+                                Console.Write(GREEN);
                                 Console.Write("P");
 
                             }
                             else if (grid[i, j] == 1)
                             {
-                                Console.WriteLine(RED);
+                                Console.Write(RED);
                                 Console.Write("X");
                             }
                             else
@@ -1756,7 +1756,7 @@ namespace Team_Fisherman
 
             // Game Over Screen
             Console.Clear();
-            Console.WriteLine(RESET);
+            Console.Write(RESET);
             return damage;
 
             if (player_health >= 3)
