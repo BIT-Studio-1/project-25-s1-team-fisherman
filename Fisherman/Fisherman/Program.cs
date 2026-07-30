@@ -1610,13 +1610,13 @@ namespace Team_Fisherman
             /* 10 rows by 31 columns grid.
              0 = empty, 1 = obstacle present.
             */
-            int[,] grid = new int[10, 31];
+            int[,] grid = new int[10, 31]; // 2d array
             int loop_counter = 0, player_pos = 15;
             int score = 0;
             int damage = 0;
 
             int grid_x_limit = 31, grid_y_limit = 9;
-            int x_number = 3;
+            int x_number = 1; // UPDATE: Changed amount of x's that drop from 3 to 1 (lower numbers = more x's falling)
             bool is_running = true;
             Random rand = new();
 
@@ -1649,11 +1649,11 @@ namespace Team_Fisherman
                             else
                             {
                                 score++; // Cleared the bottom row successfully
-                                if ((score % 50 == 0) && (score < 150))
+                                if ((score % 50 == 0) && (score < 50)) // UPDATE: changed score from 150 to 50
                                 {
                                     x_number--;
                                 }
-                                if (score == 150)
+                                if (score == 50) // UPDATE: changed score from 150 to 50
                                 {
                                     is_running = false;
                                 }
@@ -1662,7 +1662,7 @@ namespace Team_Fisherman
                     }
                 }
                 // Spawn Logic (drop an X at row 0)
-                if (score < 141)
+                if (score < 41) // UPDATE: changed score from 141 to 41
                 {
                     loop_counter++;
                     if (loop_counter % x_number == 0)
