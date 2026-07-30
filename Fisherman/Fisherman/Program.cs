@@ -46,13 +46,14 @@ namespace Team_Fisherman
         public static Vector2 screen_size = new Vector2(120, 28);
 
         public static Dictionary<string, int> inventory = new Dictionary<string, int>();
-        public static int coins = 200;
+        public static int coins = 0;
         public static bool memory1 = false;
-        public static bool veiwed_memory1 = false;
+        public static bool viewed_memory1 = false;
         public static bool memory2 = false;
-        public static bool veiwed_memory2 = false;
+        public static bool viewed_memory2 = false;
         public static bool memory3 = false; // this is the memory you get for fighting
-        public static int enemysKilled = 0;
+        public static int enemies_killed = 0;
+        public static bool show_intro = true;
 
         static void Main(string[] args)
         {
@@ -83,14 +84,17 @@ namespace Team_Fisherman
 
 
             bool map_changed = false;
-
+            
 
 
 
             Menu();
             //inventory_menu();
-            Wait();
-            GameIntro();
+            if (show_intro)
+            {
+                Wait();
+                GameIntro();
+            }
             Console.Write(RESET);
             Console.Clear();
             Console.Write("\x1b[3j");
@@ -100,7 +104,7 @@ namespace Team_Fisherman
 
             while (true)
             {
-                path = Get_path(map_tile, path, out map_changed);
+                path = Get_Path(map_tile, path, out map_changed);
                 if (map_changed)
                 {
                     if (player_pos.X == 118)
@@ -262,7 +266,10 @@ namespace Team_Fisherman
                     Menu();
                     break;
                 case ConsoleKey.I:
-                    inventory_menu();
+                    Inventory_Menu();
+                    break;
+                case ConsoleKey.H:
+                    Key_Binds();
                     break;
 
             }
@@ -271,11 +278,29 @@ namespace Team_Fisherman
             map_tile = clamped_offset - offset;
             return clamped_offset;
         }
+        static void Key_Binds()
+        {
+            Console.Write(RESET);
+            Console.Clear();
+            Console.Write("\x1b[3j");
+            Console.WriteLine("Key Binds");
+            Console.WriteLine($"{"Move",-15} WASD");
+            Console.WriteLine($"{"Inventory",-15} I");
+            Console.WriteLine($"{"Menu",-15} ESC");
+            Console.WriteLine($"{"Start Fish Game",-15} Space");
+            Console.WriteLine();
+            Console.WriteLine("To Interact with stuff walk into it");
+            Console.WriteLine("The goal is to find the truth, The say that you can find that in the sea, the Shop Keeper, the forest");
+
+            Console.WriteLine("Press Enter To Exit");
+
+            Console.ReadLine();
+        }
 
         //up 
         //start right
         //down
-        static string Get_path(Vector2 map_pos, string current, out bool map_changed)
+        static string Get_Path(Vector2 map_pos, string current, out bool map_changed)
         {
             string path = current;
             map_changed = false;
@@ -319,35 +344,28 @@ namespace Team_Fisherman
         static bool Is_Valid(Vector2 coords, Vector2 size, StringBuilder buffer)
         {
             coords = Vector2.Clamp(coords, Vector2.Zero, new Vector2(119, 28));
-            if (buffer[To_Index(coords, size)] == '#' || buffer[To_Index(coords, size)] == '+')
-                return false;
-            else if (buffer[To_Index(coords, size)] == '~')
+            char c = buffer[To_Index(coords, size)];
+            switch (c)
             {
-                Console.Clear();
-                Fishing();
-                return false;
+                case '#':
+                case '+':
+                    return false;
+                case '~':
+                    Console.Clear();
+                    Fishing();
+                    return false;
+                case 'S':
+                    Console.Clear();
+                    Shopping();
+                    return false;
+                case 'm':
+                    Console.Clear();
+                    Fighting();
+                    return false;
+                case 'T':
+                    fragment();
+                    return false;
             }
-            else if (buffer[To_Index(coords, size)] == 'S')
-            {
-                Console.Clear();
-                Shopping();
-                return false;
-            }
-            else if (buffer[To_Index(coords, size)] == 'm')
-            {
-                Console.Clear();
-                Fighting();
-                return false;
-            }
-            else if (buffer[To_Index(coords, size)] == 'T')
-            {
-                fragment();
-                //add logic for key to unlock a door.
-                //return true means the player can stand on that tile but it will trigger the door logic, you can change this to false if you want the player to not be able to stand on the tile and just trigger the door logic when they are next to it.
-                return false;
-            }
-
-
             return true;
         }
         //this helper function converts a Vector2 into an index for the buffer, this means you can access the buffer my choosing the pixel in the console. it takes a Vector2 (coords) and a Vector2 (size) and returns an int (index) for accessing the buffer.
@@ -376,14 +394,14 @@ namespace Team_Fisherman
 
         //displays the menu and allows the player to choose between starting the game or exiting.
 
-        static int Get_item_Count(string name)
+        static int Get_Item_Count(string name)
         {
             int count = 0;
             inventory.TryGetValue(name, out count);
 
             return count;
         }
-        static void Add_item(string name, int count)
+        static void Add_Item(string name, int count)
         {
             if (inventory.ContainsKey(name))
             {
@@ -394,7 +412,7 @@ namespace Team_Fisherman
                 inventory.Add(name, count);
             }
         }
-        static void Remove_item(string name, int count)
+        static void Remove_Item(string name, int count)
         {
             if (inventory.ContainsKey(name))
             {
@@ -405,10 +423,10 @@ namespace Team_Fisherman
                 }
             }
         }
-        static string[] display_inventory()
+        static string[] Display_Inventory()
         {
             string[] buffer = new string[inventory.Count];
-            foreach (var pair in inventory)
+            foreach (KeyValuePair<string, int> pair in inventory)
             {
                 string item = pair.Key;
                 string count = pair.Value.ToString();
@@ -419,13 +437,13 @@ namespace Team_Fisherman
             return buffer;
         }
 
-        static void inventory_menu()
+        static void Inventory_Menu()
         {
             while (true)
             {
 
 
-                string[] inv = display_inventory();
+                string[] inv = Display_Inventory();
                 Console.Clear();
                 Console.WriteLine("Inventory");
                 Console.WriteLine("=========");
@@ -438,7 +456,8 @@ namespace Team_Fisherman
                 Console.WriteLine($"Coins: {coins}");
                 Console.WriteLine("Press enter to exit");
                 string add = Console.ReadLine();
-                if (add != "add" && add != "remove") break;
+                if (add != "add" && add != "remove")
+                    break;
                 Console.WriteLine("item");
                 string item_name = Console.ReadLine().Trim();
                 Console.WriteLine("count");
@@ -448,11 +467,11 @@ namespace Team_Fisherman
                     int int_count = Convert.ToInt32(count);
                     if (add == "add")
                     {
-                        Add_item(item_name, int_count);
+                        Add_Item(item_name, int_count);
                     }
                     else if (add == "remove")
                     {
-                        Remove_item(item_name, int_count);
+                        Remove_Item(item_name, int_count);
                     }
 
                     //Add_item(item_name, int_count);
@@ -490,13 +509,19 @@ namespace Team_Fisherman
 
                 //allows you to edit the menu by changing the text in the menu.txt file, it will read the file and draw it to the console, you can change the text and layout of the menu by editing the file, just make sure to keep the play and exit options in the same place or update the play_pos and exit_pos variables to match the new positions. File.ReadLines("Map/menu.txt") returns an array of strings, each string is a line in the file, the foreach loop goes through each line and then through each character in the line and draws it to the buffer at the correct position based on the char_pos variable which is updated as it goes through the characters and lines.
 
-                buffer.Append(Color_Helper(129, true));
+                buffer.Append(Color_Helper(196, true));
                 foreach (string line in File.ReadLines("Map/menu.txt"))
                 {
                     foreach (char c in line)
                     {
-
-                        buffer.Append(c);
+                        if (c == '@')
+                        {
+                            buffer.Append(Color_Helper(255,true) + " ");
+                        }
+                        else
+                        {
+                            buffer.Append(c);
+                        }
                     }
                     buffer.Append("\n");
 
@@ -510,7 +535,7 @@ namespace Team_Fisherman
 
                 for (int x = (int)current.X; x < current.X + 23; x++)
                 {
-                    buffer[To_Index(new Vector2(x, 24), screen_size)] = '#';
+                    buffer[To_Index(new Vector2(x + 11, 24), screen_size)] = '#';
                 }
 
 
@@ -528,7 +553,15 @@ namespace Team_Fisherman
                     case ConsoleKey.D:
                         current.X += 28;
                         break;
-                    default:
+
+                    case ConsoleKey.H:
+                        Key_Binds();
+                        break;
+                    case ConsoleKey.S:
+                        show_intro = !show_intro;
+                        break;
+                    case ConsoleKey.Spacebar:
+                    case ConsoleKey.Enter:
                         if (current == play_pos)
                         {
                             //breaks the while statement and starts the game.
@@ -592,7 +625,7 @@ namespace Team_Fisherman
                         coins -= p[0] * count;
                         if (coins > 0)
                         {
-                            Add_item("Potion", count);
+                            Add_Item("Potion", count);
                         }
                         else
                         {
@@ -608,7 +641,7 @@ namespace Team_Fisherman
                         coins -= p[1] * count;
                         if (coins > 0)
                         {
-                            Add_item("Fish Bait", count);
+                            Add_Item("Fish Bait", count);
                         }
                         else
                         {
@@ -623,7 +656,7 @@ namespace Team_Fisherman
                         coins -= p[2] * count;
                         if (coins > 0)
                         {
-                            Add_item("Jar of Dirt", count);
+                            Add_Item("Jar of Dirt", count);
                         }
                         else
                         {
@@ -638,7 +671,7 @@ namespace Team_Fisherman
                         coins -= p[3] * count;
                         if (coins > 0)
                         {
-                            Add_item("Protective Charm", count);
+                            Add_Item("Protective Charm", count);
                         }
                         else
                         {
@@ -651,7 +684,7 @@ namespace Team_Fisherman
                         coins -= p[4];
                         if (coins > 0)
                         {
-                            Add_item("Truth", 1);
+                            Add_Item("Truth", 1);
                         }
                         else
                         {
@@ -669,7 +702,7 @@ namespace Team_Fisherman
         static void Shopping()
         {
             //Shop();
-            string temp, shop, buy, talk1, talk2, check, check1, truth1;
+            string shop, check, check1, truth1;
 
             string[] c = { "Buy", "Talk", "Exit", "Leave" };
             Console.WriteLine("Shopping");
@@ -697,10 +730,10 @@ namespace Team_Fisherman
 
                 case "1":
                 case "talk":
-                    if (memory1 && !veiwed_memory1)
+                    if (memory1 && !viewed_memory1)
                     {
                         Truth();
-                        veiwed_memory1 = true;
+                        viewed_memory1 = true;
                         break;
                     }
 
@@ -719,7 +752,7 @@ namespace Team_Fisherman
                         Thread.Sleep(1000);
                         //talk1 = Console.ReadLine();
 
-                        if (Get_item_Count("Truth") != 0)
+                        if (Get_Item_Count("Truth") != 0)
                         {
                             memory2 = true;
                             Console.WriteLine("\"...So you've started seeing them too.\"");
@@ -1206,8 +1239,8 @@ namespace Team_Fisherman
                 {
                     Console.WriteLine("");
                     Console.WriteLine("the bad guy is dead you win");
-                    enemysKilled++;
-                    if (enemysKilled > 2)
+                    enemies_killed++;
+                    if (enemies_killed > 2)
                     {
                         // code for memeory
                         Console.WriteLine("You got the last memory");
@@ -1932,7 +1965,7 @@ namespace Team_Fisherman
             truth2 = Console.ReadLine();
             if (truth2 == "yes")
             {
-                veiwed_memory1 = true;
+                viewed_memory1 = true;
                 Thread.Sleep(1000);
                 Console.WriteLine("*YOU ARE NOT IN THE REAL WORLD*");
                 Console.WriteLine();
@@ -1977,13 +2010,13 @@ namespace Team_Fisherman
             string truth3, confirm, Dconfirm;
             Console.WriteLine("Did you get any memory fish? (yes/no)");
             confirm = Console.ReadLine();
-            if (confirm == "yes" && veiwed_memory1)
+            if (confirm == "yes" && viewed_memory1)
             {
                 Thread.Sleep(1000);
                 Console.WriteLine("Did you talk with Jane before?");
                 Thread.Sleep(1000);
                 Dconfirm = Console.ReadLine();
-                if (Dconfirm == "yes" && veiwed_memory2)
+                if (Dconfirm == "yes" && viewed_memory2)
                 {
                     if (memory3 == false)
                     {

@@ -172,7 +172,7 @@ namespace test_fish
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine("Fishing time !");
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Commands: cast, reel in, inventory, upgrade, stats, quit");
+            Console.WriteLine("Commands: cast, reel in, inventory, upgrade, stats, exit");
 
             while (true)
             {
@@ -184,8 +184,8 @@ namespace test_fish
                 //The slice operation input[5..] removes the initial "sell " text, leaving only the fish name behind.
                 else if (input == "upgrade") Upgrade();
                 else if (input == "stats") Stats();
-                else if (input == "quit") break;
-                else Console.WriteLine("Unknown command. Try: cast, reel in, upgrade, stats");
+                else if (input == "quit" || input == "exit") break;
+                else Console.WriteLine("Unknown command. Try: cast, reel in, upgrade, stats, exit");
                 Console.ForegroundColor= ConsoleColor.White;
             }
         }
