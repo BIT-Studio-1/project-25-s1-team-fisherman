@@ -53,6 +53,7 @@ namespace Team_Fisherman
         public static bool viewed_memory2 = false;
         public static bool memory3 = false; // this is the memory you get for fighting
         public static int enemies_killed = 0;
+        public static bool show_intro = true;
 
         static void Main(string[] args)
         {
@@ -83,14 +84,17 @@ namespace Team_Fisherman
 
 
             bool map_changed = false;
-
+            
 
 
 
             Menu();
             //inventory_menu();
-            //Wait();
-            //GameIntro();
+            if (show_intro)
+            {
+                Wait();
+                GameIntro();
+            }
             Console.Write(RESET);
             Console.Clear();
             Console.Write("\x1b[3j");
@@ -505,13 +509,19 @@ namespace Team_Fisherman
 
                 //allows you to edit the menu by changing the text in the menu.txt file, it will read the file and draw it to the console, you can change the text and layout of the menu by editing the file, just make sure to keep the play and exit options in the same place or update the play_pos and exit_pos variables to match the new positions. File.ReadLines("Map/menu.txt") returns an array of strings, each string is a line in the file, the foreach loop goes through each line and then through each character in the line and draws it to the buffer at the correct position based on the char_pos variable which is updated as it goes through the characters and lines.
 
-                buffer.Append(Color_Helper(129, true));
+                buffer.Append(Color_Helper(196, true));
                 foreach (string line in File.ReadLines("Map/menu.txt"))
                 {
                     foreach (char c in line)
                     {
-
-                        buffer.Append(c);
+                        if (c == '@')
+                        {
+                            buffer.Append(Color_Helper(255,true) + " ");
+                        }
+                        else
+                        {
+                            buffer.Append(c);
+                        }
                     }
                     buffer.Append("\n");
 
@@ -525,7 +535,7 @@ namespace Team_Fisherman
 
                 for (int x = (int)current.X; x < current.X + 23; x++)
                 {
-                    buffer[To_Index(new Vector2(x, 24), screen_size)] = '#';
+                    buffer[To_Index(new Vector2(x + 11, 24), screen_size)] = '#';
                 }
 
 
@@ -546,6 +556,9 @@ namespace Team_Fisherman
 
                     case ConsoleKey.H:
                         Key_Binds();
+                        break;
+                    case ConsoleKey.S:
+                        show_intro = !show_intro;
                         break;
                     case ConsoleKey.Spacebar:
                     case ConsoleKey.Enter:
