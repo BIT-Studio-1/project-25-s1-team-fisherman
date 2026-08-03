@@ -1,22 +1,16 @@
 
 
-using System.Drawing;
-
-
-
-
 using System;
+using System.Data;
+using System.Drawing;
+using System.Globalization;
 using System.Numerics;
-
+using System.Reflection.Metadata.Ecma335;
 using System.Security;
-
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
-
 using test_fish;
 using static System.Net.Mime.MediaTypeNames;
-using System.Data;
-using System.Reflection.Metadata.Ecma335;
-using System.Security.Cryptography.X509Certificates;
 /*Put suggestions/bugs here 
  ln 1200 put a Console.Readline(); currently skips the text
  ln 1132 put a new line char before "the". The word wraps in the console and becomes Th and e 
@@ -46,7 +40,7 @@ namespace Team_Fisherman
         public static Vector2 screen_size = new Vector2(120, 28);
 
         public static Dictionary<string, int> inventory = new Dictionary<string, int>();
-        public static int coins = 0;
+        public static int coins = 200;
         public static bool memory1 = false;
         public static bool viewed_memory1 = false;
         public static bool memory2 = false;
@@ -87,7 +81,7 @@ namespace Team_Fisherman
 
 
 
-
+            Shopping();
             Menu();
             //inventory_menu();
             if (show_intro)
@@ -417,6 +411,7 @@ namespace Team_Fisherman
         }
         static void Add_Item(string name, int count)
         {
+            name = name.ToLower();
             if (inventory.ContainsKey(name))
             {
                 inventory[name] += count;
@@ -609,42 +604,56 @@ namespace Team_Fisherman
         static void Shop()
         {
             string buy;
-            int count = 0;
-            string[] m = { "Potion", "Fish Bait", "Jar of Dirt", "Protective Charm", "Truth", "exit" };
-            int[] p = { 15, 5, 1, 100, 50, 0 };
+            
+            
+            int[] p = { 0 };
+            Dictionary<string, int> items = new Dictionary<string, int>
+            {
+                {"health potion", 15 },
+                {"fish bait", 5 },
+                {"jar of dirt", 1},
+                {"protective charm", 100 },
+                {"truth", 50 },
+                {"exit", 0 }
 
+            };
+            //Used to covert the first leter of each word to uppercase
+            TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
             while (true)
             {
+                int count = 0;
                 Console.WriteLine("\"Looking for any supplies?\"");
                 Console.WriteLine("========================BUY SYSTEM=========================");
-                for (int i = 0; i < m.Length; i++)
+
+                foreach (KeyValuePair<string, int> item in items)
                 {
-                    Console.Write(i.ToString().PadRight(10));
-                    Console.Write(m[i].PadLeft(15));
-                    Console.WriteLine(p[i].ToString().PadLeft(25));
+                    Console.Write(count.ToString().PadRight(10));
+                    Console.Write(textInfo.ToTitleCase(item.Key).PadLeft(15));
+                    Console.WriteLine(item.Value.ToString().PadLeft(25));  
+                    count++;
                 }
 
-                Console.WriteLine();
+                Console.WriteLine($"You have {coins} coins");
                 Console.WriteLine();
                 Thread.Sleep(1000);
                 Console.WriteLine("\"The sea is dangerous after dark.\"");
                 Console.WriteLine("\"Buy what you need before heading out.\"");
-                buy = Console.ReadLine().ToLower();
+                buy = Console.ReadLine()?.ToLower() ?? "";
                 switch (buy)
                 {
                     case "0":
-                    case "potion":
+                    case "health potion":
                         Console.WriteLine("\"\"");
                         Console.WriteLine("How many");
                         count = Convert.ToInt32(Console.ReadLine());
-                        coins -= p[0] * count;
+                        coins -= items["health potion"] * count;
                         if (coins > 0)
                         {
-                            Add_Item("Potion", count);
+                            Add_Item("health potion", count);
                         }
                         else
                         {
-                            coins += p[0] * count;
+                            coins += items["health potion"] * count;
                         }
 
                         break;
@@ -653,14 +662,14 @@ namespace Team_Fisherman
                         Console.WriteLine("\"\"");
                         Console.WriteLine("How many");
                         count = Convert.ToInt32(Console.ReadLine());
-                        coins -= p[1] * count;
+                        coins -= items["fish bait"] * count;
                         if (coins > 0)
                         {
-                            Add_Item("Fish Bait", count);
+                            Add_Item("fish bait", count);
                         }
                         else
                         {
-                            coins += p[1] * count;
+                            coins += items["fish bait"] * count;
                         }
                         break;
                     case "2":
@@ -668,14 +677,14 @@ namespace Team_Fisherman
                         Console.WriteLine("\"\"");
                         Console.WriteLine("How many");
                         count = Convert.ToInt32(Console.ReadLine());
-                        coins -= p[2] * count;
+                        coins -= items["jar of dirt"] * count;
                         if (coins > 0)
                         {
                             Add_Item("Jar of Dirt", count);
                         }
                         else
                         {
-                            coins += p[2] * count;
+                            coins += items["jar of dirt"] * count;
                         }
                         break;
                     case "3":
@@ -683,14 +692,14 @@ namespace Team_Fisherman
                         Console.WriteLine("\"\"");
                         Console.WriteLine("How many");
                         count = Convert.ToInt32(Console.ReadLine());
-                        coins -= p[3] * count;
+                        coins -= items["protective charm"] * count;
                         if (coins > 0)
                         {
                             Add_Item("Protective Charm", count);
                         }
                         else
                         {
-                            coins += p[3] * count;
+                            coins += items["protective charm"] * count;
                         }
                         break;
                     case "4":
@@ -706,14 +715,17 @@ namespace Team_Fisherman
                             coins += p[4];
                         }
                         break;
+                    case "5":
+                    case "exit":
+                        return;
                 }
 
 
-                if (buy == "exit")
-                    break;
+                
             }
-            Console.WriteLine("\"\"");
+            
         }
+
         //Put the code for shopping in here.
         static void Shopping()
         {
@@ -1427,10 +1439,11 @@ namespace Team_Fisherman
                 enemyIcon6 = "                ";
             }
 
-            for (int i = 0; i < inventory.Length / 2; i++)
-            {
-                Add_Item(inventory[i * 2 + 1], Convert.ToInt32(inventory[i * 2]));
-            }
+
+            //for (int i = 0; i < inventory.Length / 2; i++)
+            //{
+            //    Add_Item(inventory[i * 2 + 1], Convert.ToInt32(inventory[i * 2]));
+            //}
             do // the main loop for the fighting
             {
                 // @@@
@@ -1570,8 +1583,8 @@ namespace Team_Fisherman
                 //╥
                 else if (c.Key == ConsoleKey.X) // if the D key is pressed
                 {
-                    
                     Console.Write("\n");
+
                     Console.WriteLine("    ==== inventory ====");
                     Console.WriteLine("##########################");
                     string[] inventory_array = Display_Inventory();
