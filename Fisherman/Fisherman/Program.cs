@@ -84,7 +84,7 @@ namespace Team_Fisherman
 
 
             bool map_changed = false;
-            
+
 
 
 
@@ -393,13 +393,27 @@ namespace Team_Fisherman
         }
 
         //displays the menu and allows the player to choose between starting the game or exiting.
-
+        //╥
         static int Get_Item_Count(string name)
         {
             int count = 0;
             inventory.TryGetValue(name, out count);
 
             return count;
+        }
+        static string Get_Item_Name(int index)
+        {
+            int c = 0;
+            foreach (string item in inventory.Keys)
+            {
+                if (c == index)
+                    return item;
+                c++;
+            }
+
+
+
+            return "";
         }
         static void Add_Item(string name, int count)
         {
@@ -425,7 +439,8 @@ namespace Team_Fisherman
         }
         static string[] Display_Inventory()
         {
-            string[] buffer = new string[inventory.Count];
+
+            string[] buffer = Array.Empty<string>();
             foreach (KeyValuePair<string, int> pair in inventory)
             {
                 string item = pair.Key;
@@ -516,7 +531,7 @@ namespace Team_Fisherman
                     {
                         if (c == '@')
                         {
-                            buffer.Append(Color_Helper(255,true) + " ");
+                            buffer.Append(Color_Helper(255, true) + " ");
                         }
                         else
                         {
@@ -694,7 +709,8 @@ namespace Team_Fisherman
                 }
 
 
-                if (buy == "exit") break;
+                if (buy == "exit")
+                    break;
             }
             Console.WriteLine("\"\"");
         }
@@ -1255,6 +1271,7 @@ namespace Team_Fisherman
                     Console.WriteLine("");
                     Console.WriteLine("you are dead you lose");
                     Console.WriteLine("");
+                    Console.ReadLine();
                     gameRunning = false;
                     Environment.Exit(0);
                 }
@@ -1308,31 +1325,6 @@ namespace Team_Fisherman
                 waity = 100;
                 return damage;
             }
-
-            // this function converts the string num relating to the "item" to a int then adds or subtracts the "opper" amount
-            void InventoryNum(string item, int opper)
-            {
-                for (int i = 0; i < inventory.Length; i++) //loops through list
-                {
-                    if (inventory[i] == item)
-                    {
-                        Console.WriteLine(inventory[i - 1]);
-
-                        int int_inv = Convert.ToInt32(inventory[i - 1]);
-                        if (int_inv > 0)
-                        {
-                            int_inv += opper;
-                            inventory[i - 1] = int_inv.ToString();
-                        }
-                        else
-                        {
-                            Console.WriteLine("you don't have enough");
-                        }
-                        return;
-                    }
-                }
-            }
-
 
             StringBuilder buffer = new StringBuilder();
             bool in_menu = true;
@@ -1435,7 +1427,10 @@ namespace Team_Fisherman
                 enemyIcon6 = "                ";
             }
 
-
+            for (int i = 0; i < inventory.Length / 2; i++)
+            {
+                Add_Item(inventory[i * 2 + 1], Convert.ToInt32(inventory[i * 2]));
+            }
             do // the main loop for the fighting
             {
                 // @@@
@@ -1572,50 +1567,95 @@ namespace Team_Fisherman
                 //    }
                 //    Console.ReadLine();
                 //}
+                //╥
                 else if (c.Key == ConsoleKey.X) // if the D key is pressed
                 {
+                    
                     Console.Write("\n");
                     Console.WriteLine("    ==== inventory ====");
                     Console.WriteLine("##########################");
-                    for (int i = 0; i < inventory.Length; i++)
+                    string[] inventory_array = Display_Inventory();
+                    int count = 0;
+                    if (inventory_array.Length > 0)
                     {
-                        bool result = int.TryParse(inventory[i], out int P);
-                        if (result == false)
+                        foreach (string item in inventory_array)
                         {
-                            Console.Write(" # ".PadRight(3) + inventory[i].PadRight(13) + " ###");
-                            Console.Write("\n");
-                            Console.WriteLine("##########################");
+                            Console.Write(count + " ");
+                            Console.WriteLine(item);
+                            count++;
                         }
-                        else  //number
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("You dont have any items to use");
+                        Console.ReadLine();
+                        break;
+                    }
+
+
+
+                    Console.Write("what item do you want to use: ");
+                    string inv = Console.ReadLine() ?? "";
+                    count = 0;
+
+                    //converts a string into the coresponding int
+                    int inv_int = -1;
+                    bool found = true;
+                    if (!int.TryParse(inv, out inv_int))
+                    {
+                        found = false;
+                        foreach (string item in inventory_array)
                         {
-                            Console.Write("### ".PadRight(4) + inventory[i].PadRight(2));
+                            int index = item.IndexOf(':');
+                            if (item.Remove(index).Trim() == inv.ToLower().Trim())
+                            {
+                                found = true;
+                                inv_int = count;
+                            }
+                            count++;
                         }
                     }
-                    Console.Write("what item do you want to use: ");
-                    string inv = Console.ReadLine();
+                    if (inv_int == 0 && !found)
+                    {
+                        inv_int = -1;
+                    }
+
+                    Console.WriteLine(inv_int);
+
+
                     Console.WriteLine(inv);
-                    switch (inv)
+
+                    Dictionary<string, string> inventory_quotes = new Dictionary<string, string>
+                    {
+                        {"fish", "you eat the fish"},
+                        {"health potion", "you drink potion and regained 20 health"},
+                        {"rock", "you eat the rock, it hurts"}
+
+                    };
+                    string name = Get_Item_Name(inv_int);
+                    string quote = "";
+                    _ = inventory_quotes.TryGetValue(name, out quote);
+                    Console.WriteLine(quote);
+                    switch (name)
                     {
                         case "fish":
-                            Console.WriteLine("you eat the fish");
                             health = health + 5;
-                            InventoryNum("fish", -1);
+                            Remove_Item("fish", 1);
                             break;
                         case "health potion":
-                            Console.WriteLine("you drink potion");
-                            InventoryNum("health potion", -1);
                             health = health + 20;
+                            Remove_Item("health potion", 1);
                             break;
                         case "rock":
-                            Console.WriteLine("you eat the rock");
-                            InventoryNum("rock", -1);
                             health = health - 10;
+                            Remove_Item("rock", 1);
                             break;
                         case "exit":
                             Console.WriteLine("exit");
                             break;
                         default:
-                            Console.WriteLine("incorrect input");
+                            Console.WriteLine("Invaild input");
                             break;
                     }
                     // item stuff
