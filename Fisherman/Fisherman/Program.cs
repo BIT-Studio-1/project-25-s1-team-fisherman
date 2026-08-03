@@ -40,7 +40,7 @@ namespace Team_Fisherman
         public static Vector2 screen_size = new Vector2(120, 28);
 
         public static Dictionary<string, int> inventory = new Dictionary<string, int>();
-        public static int coins = 200;
+        public static int coins = 0;
         public static bool memory1 = false;
         public static bool viewed_memory1 = false;
         public static bool memory2 = false;
@@ -81,7 +81,7 @@ namespace Team_Fisherman
 
 
 
-            Shopping();
+            
             Menu();
             //inventory_menu();
             if (show_intro)
@@ -1261,6 +1261,8 @@ namespace Team_Fisherman
             int waity = -1;
             bool poisoned = false;
 
+            bool protection = false;
+
             void alive()
             {
                 if (badGuyHealth <= 0)
@@ -1268,6 +1270,7 @@ namespace Team_Fisherman
                     Console.WriteLine("");
                     Console.WriteLine("the bad guy is dead you win");
                     enemies_killed++;
+                    Console.ReadLine();
                     if (enemies_killed > 2)
                     {
                         // code for memeory
@@ -1331,6 +1334,7 @@ namespace Team_Fisherman
                 Random random = new Random();
                 int damage = 0; //random.Next(20, 40);
                 damage = Dodging(health, badGuyDamage);
+                
                 health = health - damage;
 
                 badGuyAttack = badGuyName + " does " + damage + " damage";
@@ -1446,6 +1450,10 @@ namespace Team_Fisherman
             //}
             do // the main loop for the fighting
             {
+                if (protection)
+                {
+                    badGuyDamage = badGuyDamage / 2;
+                }
                 // @@@
                 buffer.Clear();
                 Console.SetCursorPosition(0, 0);
@@ -1643,7 +1651,8 @@ namespace Team_Fisherman
                     {
                         {"fish", "you eat the fish"},
                         {"health potion", "you drink potion and regained 20 health"},
-                        {"rock", "you eat the rock, it hurts"}
+                        {"rock", "you eat the rock, it hurts"},
+                        {"protective charm", "You feel safer during this fight"}
 
                     };
                     string name = Get_Item_Name(inv_int);
@@ -1664,6 +1673,11 @@ namespace Team_Fisherman
                             health = health - 10;
                             Remove_Item("rock", 1);
                             break;
+                        case "protective charm":
+                            protection = true;
+                            Console.WriteLine(protection);
+                            break;
+
                         case "exit":
                             Console.WriteLine("exit");
                             break;
