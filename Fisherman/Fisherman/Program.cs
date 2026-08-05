@@ -1185,7 +1185,7 @@ namespace Team_Fisherman
             int health = 100;
             bool game_running = true;
             int waity = -1;
-            bool poisoned = false;
+            int poison_damage = 0;
 
             bool protection = false;
 
@@ -1220,14 +1220,11 @@ namespace Team_Fisherman
             // the enemies attack  //code for dodging - returns an int depending on how much damage taken 0 dead 1 survived 2 perfect -1 something went wrong
             void Attack(int player_damg)
             {
-                if (poisoned == true)
-                {
-                    bad_guy_health -= 10;
-                }
+                bad_guy_health -= poison_damage;
 
                 if (player_damg == -1)
                 {
-                    poisoned = true;
+                    poison_damage += 10;
                     player_damg = 0;
                 }
 
@@ -1432,10 +1429,10 @@ namespace Team_Fisherman
                             Attack(random.Next(25, 36));
                             break;
                         case "poison":
-                            if (poisoned == true)
+                            if (poison_damage != 0)
                             {
                                 Console.WriteLine("the bad guy was already poisoned");
-                                Console.Write("but you throw the poison anyway");
+                                Console.Write("but you throw the poison anyway and make it stronger");
 
                             }
                             else
