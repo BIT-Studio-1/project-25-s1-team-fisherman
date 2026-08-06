@@ -83,7 +83,7 @@ namespace Team_Fisherman
 
 
 
-
+            Fishing();
             Menu();
             //inventory_menu();
             if (show_intro)
