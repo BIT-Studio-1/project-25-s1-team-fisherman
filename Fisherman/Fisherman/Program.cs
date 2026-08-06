@@ -1,5 +1,6 @@
 
 
+using Fisherman;
 using System;
 using System.Data;
 using System.Drawing;
@@ -10,6 +11,7 @@ using System.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using test_fish;
+
 using static System.Net.Mime.MediaTypeNames;
 /*Put suggestions/bugs here 
  ln 1200 put a Console.Readline(); currently skips the text
@@ -592,12 +594,14 @@ namespace Team_Fisherman
         static void Fishing()
         {
 
-            Fishing_Base.coins = coins;
-            Fishing_Base.Fishing();
-            coins = Fishing_Base.coins;
-            memory1 = Fishing_Base.memory;
-            Thread.Sleep(500);
-            Console.Clear();
+            Fishing_Game fish = new();
+
+            //Fishing_Base.coins = coins;
+            //Fishing_Base.Fishing();
+            //coins = Fishing_Base.coins;
+            //memory1 = Fishing_Base.memory;
+            //Thread.Sleep(500);
+            //Console.Clear();
 
 
         }
