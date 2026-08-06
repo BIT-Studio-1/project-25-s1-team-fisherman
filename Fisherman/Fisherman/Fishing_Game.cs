@@ -8,7 +8,7 @@ namespace Fisherman
 {
     public class Fishing_Game
     {
-
+        const string RESET = "\x1b[0m";
         public Fishing_Game()
         {
             Draw();
@@ -35,6 +35,9 @@ namespace Fisherman
             {
                 throw new Exception("File not found");
             }
+
+            char[] special = { '╥', 'B' };
+
             StringBuilder buffer = new StringBuilder();
             while (true)
             {
@@ -42,7 +45,7 @@ namespace Fisherman
                 //Console.Write("\x1b[3j");
                 Console.SetCursorPosition(0, 0);
                 buffer.Clear();
-
+                //buffer.Append(Color_Helper(32,true));
                 if (frame % 2 == 0)
                 {
                     foreach (string wave in waves[..(waves.Length / 2)])
@@ -62,14 +65,24 @@ namespace Fisherman
                 int index = 0;
                 foreach (string cloud in clouds)
                 {
-                    foreach(char  c in cloud)
+                    foreach (char c in cloud)
                     {
-                        if (c != ' ')
+                        if (special.Contains(c))
                         {
-                            buffer[index] = c;
+                            buffer.Insert(index, c);
+                        }
+                        else if (c == ' ')
+                        {
 
                         }
-                        
+                        else
+                        {
+
+                            buffer[index] = c;
+                        }
+
+
+
                         index++;
                     }
                 }
@@ -78,10 +91,13 @@ namespace Fisherman
 
 
 
+                string text = buffer.ToString();
+
+                text = text.Replace("B", Color_Helper(32, true));
+                text = text.Replace("╥", RESET);
 
 
-
-                Console.Write(buffer.ToString());
+                Console.Write(text);
 
                 Console.ReadLine();
 
