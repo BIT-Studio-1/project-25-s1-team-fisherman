@@ -966,7 +966,7 @@ namespace Team_Fisherman
 
             int fish_x = 30; // X position of the fish
             int bar_x = 30; // X position of the bar
-            int waity = 200;
+            int waity = 200; // a way for the program to slow down
             const string fish_bar_size = "#############################"; // the size of the bar
             int fish_dih = 1; // fish direction 
             int fish_score = 100; // how close the fish is to being caught
@@ -1214,7 +1214,7 @@ namespace Team_Fisherman
                     Console.WriteLine("");
                     Console.ReadLine();
                     game_running = false;
-                    Environment.Exit(0);
+                    Environment.Exit(0); // closes the console window
                 }
             }
             // the enemies attack  //code for dodging - returns an int depending on how much damage taken 0 dead 1 survived 2 perfect -1 something went wrong
