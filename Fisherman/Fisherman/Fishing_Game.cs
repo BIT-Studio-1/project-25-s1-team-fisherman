@@ -27,7 +27,11 @@ namespace Fisherman
                 if (File.Exists(path + file))
                 {
                     string[] lines = File.ReadAllLines(path + file);
-                    lines = lines[..29];
+                    if (lines.Length > 29)
+                    {
+
+                        lines = lines[..29];
+                    }
 
                     int y = 0;
                     foreach (string line in lines)
@@ -35,13 +39,14 @@ namespace Fisherman
                         int x = 0;
                         foreach (char c in line)
                         {
-                            if (c != ' ')
+                            if (c != ' ' || letters[x, y] != '\0')
                             {
                                 letters[x, y] = c;
                                 Console.Write(c);
 
                             }
                             x++;
+                            x =Math.Min(x, 120);
                         }
 
 
