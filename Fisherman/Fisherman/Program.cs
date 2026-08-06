@@ -967,7 +967,7 @@ namespace Team_Fisherman
             int fish_x = 30; // X position of the fish
             int bar_x = 30; // X position of the bar
             int waity = 200;
-            const string fish_bar_size = "#########################"; // the size of the bar
+            const string fish_bar_size = "#############################"; // the size of the bar
             int fish_dih = 1; // fish direction 
             int fish_score = 100; // how close the fish is to being caught
             bool fish_game_running = true; // if the game is running or not
@@ -985,7 +985,7 @@ namespace Team_Fisherman
 
             void Fish_Move() // moves the fish
             {
-                if (fish_x > bar_x && fish_x < bar_x + 25 && fish_score < 453) // checks if the fish is in the bar or not and then adjusts the score
+                if (fish_x > bar_x && fish_x < bar_x + 29 && fish_score < 453) // checks if the fish is in the bar or not and then adjusts the score
                 {
                     fish_score += 2;
                 }
