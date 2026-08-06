@@ -27,7 +27,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Team_Fisherman
 {
-    internal class Program
+    public class Program
     {
         //These are ANSI escape sequences, they are the same thing as \n and \t but use a slightly different format. these color the text placed after them until the RESET is added, there are other sequences like underlining and italics as well. Theses are needed because i am using string builders and Console.Color doesn't work with them. you can also combine them.
         //format for custom color is \x1b[38;5;{ID}m for foreground \x1b[48;5;{ID}m for background where {ID} is from the image in the discord
@@ -365,13 +365,13 @@ namespace Team_Fisherman
             return true;
         }
         //this helper function converts a Vector2 into an index for the buffer, this means you can access the buffer my choosing the pixel in the console. it takes a Vector2 (coords) and a Vector2 (size) and returns an int (index) for accessing the buffer.
-        static int To_Index(Vector2 coords, Vector2 size)
+        public static int To_Index(Vector2 coords, Vector2 size)
         {
             int index = (int)(coords.X + (coords.Y * (size.X + 1)));
             return index;
         }
         //This returns the escape code for the specified color based on the image in the discord, setting the is_foreground changes if the text color changes or the highlight color
-        static string Color_Helper(int id, bool is_foreground)
+        public static string Color_Helper(int id, bool is_foreground)
         {
             string color = "";
             if (is_foreground)
