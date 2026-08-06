@@ -29,6 +29,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
 
+    <None Update="Map\Fishing\rain.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
     <None Update="Map\Fishing\waves.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

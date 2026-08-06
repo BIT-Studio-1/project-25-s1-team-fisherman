@@ -26,10 +26,23 @@ namespace Fisherman
             {
                 waves = File.ReadAllLines("Map/Fishing/waves.txt");
             }
+            else
+            {
+                throw new Exception("File not found");
+            }
             string[] clouds = new string[0];
             if (File.Exists("Map/Fishing/clouds.txt"))
             {
                 clouds = File.ReadAllLines("Map/Fishing/clouds.txt");
+            }
+            else
+            {
+                throw new Exception("File not found");
+            }
+            string[] rain = new string[0];
+            if (File.Exists("Map/Fishing/rain.txt"))
+            {
+                rain = File.ReadAllLines("Map/Fishing/rain.txt");
             }
             else
             {
@@ -73,20 +86,42 @@ namespace Fisherman
                         }
                         else if (c == ' ')
                         {
-
                         }
                         else
                         {
-
                             buffer[index] = c;
                         }
-
-
-
                         index++;
                     }
                 }
-
+                index = 0;
+                string[] rain_change;
+                if (frame % 2 == 0)
+                {
+                    rain_change = rain[..(rain.Length / 2)];
+                }
+                else
+                {
+                    rain_change = rain[(rain.Length / 2)..];
+                }
+                foreach (string cloud in rain_change)
+                {
+                    foreach (char c in cloud)
+                    {
+                        if (special.Contains(c))
+                        {
+                            buffer.Insert(index, c);
+                        }
+                        else if (c == ' ')
+                        {
+                        }
+                        else
+                        {
+                            buffer[index] = c;
+                        }
+                        index++;
+                    }
+                }
 
 
 
@@ -99,7 +134,9 @@ namespace Fisherman
 
                 Console.Write(text);
 
-                Console.ReadLine();
+                Thread.Sleep(500);
+
+                //Console.ReadLine();
 
 
 
