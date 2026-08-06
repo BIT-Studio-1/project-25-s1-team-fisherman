@@ -1134,7 +1134,7 @@ namespace Team_Fisherman
                     if (c.Key == ConsoleKey.Spacebar)
                     {
                         waity = 200;
-                        for (int i = 0; i != 20; i++)
+                        for (int i = 0; i != 15; i++)
                         {
                             if (bar_x > 2)
                             {
