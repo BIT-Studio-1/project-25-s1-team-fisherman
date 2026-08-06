@@ -11,11 +11,68 @@ namespace Fisherman
         const string RESET = "\x1b[0m";
         public Fishing_Game()
         {
-            Draw();
-
+            Draw2();
+            // make index per line
 
         }
+        private static void Draw2()
+        {
+            //29 lines y
+            string path = "Map/Fishing/";
+            string[] files = { "waves.txt", "clouds.txt", "rain.txt", "menu.txt" };
+            char[,] letters = new char[121, 29];
+            bool firsst = true;
+            foreach (string file in files)
+            {
+                if (File.Exists(path + file))
+                {
+                    string[] lines = File.ReadAllLines(path + file);
+                    lines = lines[..29];
 
+                    int y = 0;
+                    foreach (string line in lines)
+                    {
+                        int x = 0;
+                        foreach (char c in line)
+                        {
+                            if (c != ' ')
+                            {
+                                letters[x, y] = c;
+                                Console.Write(c);
+
+                            }
+                            x++;
+                        }
+
+
+                        y++;
+
+                    }
+
+
+
+
+
+
+
+
+                }
+                else
+                {
+                    throw new Exception($"File not found at path {path + file}");
+                }
+            }
+
+
+
+            //Console.WriteLine(sb.ToString());
+
+
+
+
+            Console.ReadLine();
+
+        }
 
 
         private static void Draw()
@@ -43,6 +100,15 @@ namespace Fisherman
             if (File.Exists("Map/Fishing/rain.txt"))
             {
                 rain = File.ReadAllLines("Map/Fishing/rain.txt");
+            }
+            else
+            {
+                throw new Exception("File not found");
+            }
+            string[] menu = new string[0];
+            if (File.Exists("Map/Fishing/menu.txt"))
+            {
+                menu = File.ReadAllLines("Map/Fishing/menu.txt");
             }
             else
             {
@@ -122,6 +188,25 @@ namespace Fisherman
                         index++;
                     }
                 }
+                index = 0;
+                foreach (string line in menu)
+                {
+                    foreach (char c in line)
+                    {
+                        if (special.Contains(c))
+                        {
+                            buffer.Insert(index, c);
+                        }
+                        if (c == ' ')
+                        {
+
+                        }
+                        else
+                        { buffer[index] = c; }
+                        index++;
+                    }
+                }
+
 
 
 
@@ -134,9 +219,12 @@ namespace Fisherman
 
                 Console.Write(text);
 
-                Thread.Sleep(500);
 
-                //Console.ReadLine();
+
+
+                //Thread.Sleep(500);
+
+                Console.ReadLine();
 
 
 
