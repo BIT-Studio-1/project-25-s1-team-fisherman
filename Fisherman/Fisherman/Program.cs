@@ -952,7 +952,7 @@ namespace Team_Fisherman
                 Write_Ting(ref buff, Draw, screen_size, new Vector2(X, Y + i));
             }
         }
-        public static bool fishyGame() //function for the fish mini game
+        public static bool Fishy_Game() //function for the fish mini game
         {
             List<string> Fish_Sprite = new List<string>// fish sprite
             {
@@ -966,8 +966,8 @@ namespace Team_Fisherman
 
             int fish_x = 30; // X position of the fish
             int bar_x = 30; // X position of the bar
-            int waity = 200;
-            const string fish_bar_size = "#########################"; // the size of the bar
+            int waity = 200; // a way for the program to slow down
+            const string fish_bar_size = "#############################"; // the size of the bar
             int fish_dih = 1; // fish direction 
             int fish_score = 100; // how close the fish is to being caught
             bool fish_game_running = true; // if the game is running or not
@@ -985,7 +985,7 @@ namespace Team_Fisherman
 
             void Fish_Move() // moves the fish
             {
-                if (fish_x > bar_x && fish_x < bar_x + 25 && fish_score < 453) // checks if the fish is in the bar or not and then adjusts the score
+                if (fish_x > bar_x && fish_x < bar_x + 29 && fish_score < 453) // checks if the fish is in the bar or not and then adjusts the score
                 {
                     fish_score += 2;
                 }
@@ -1185,7 +1185,7 @@ namespace Team_Fisherman
             int health = 100;
             bool game_running = true;
             int waity = -1;
-            bool poisoned = false;
+            int poison_damage = 0;
 
             bool protection = false;
 
@@ -1214,20 +1214,17 @@ namespace Team_Fisherman
                     Console.WriteLine("");
                     Console.ReadLine();
                     game_running = false;
-                    Environment.Exit(0);
+                    Environment.Exit(0); // closes the console window
                 }
             }
             // the enemies attack  //code for dodging - returns an int depending on how much damage taken 0 dead 1 survived 2 perfect -1 something went wrong
             void Attack(int player_damg)
             {
-                if (poisoned == true)
-                {
-                    bad_guy_health -= 10;
-                }
+                bad_guy_health -= poison_damage;
 
                 if (player_damg == -1)
                 {
-                    poisoned = true;
+                    poison_damage += 10;
                     player_damg = 0;
                 }
 
@@ -1438,10 +1435,10 @@ namespace Team_Fisherman
                             break;
                         case "4":
                         case "poison":
-                            if (poisoned == true)
+                            if (poison_damage != 0)
                             {
                                 Console.WriteLine("the bad guy was already poisoned");
-                                Console.Write("but you throw the poison anyway");
+                                Console.Write("but you throw the poison anyway and make it stronger");
 
                             }
                             else

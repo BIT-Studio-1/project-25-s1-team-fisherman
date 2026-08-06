@@ -106,7 +106,7 @@ namespace test_fish
         static void Reel_In()
         {
             Fish f = null;
-            bool caught_Fish = Team_Fisherman.Program.fishyGame();
+            bool caught_Fish = Team_Fisherman.Program.Fishy_Game();
 
             //Every 10 fish you caught a Memory Fish is Guaranteed
             if (pity_counter >= 10)
