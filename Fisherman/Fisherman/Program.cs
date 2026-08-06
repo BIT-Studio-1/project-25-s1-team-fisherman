@@ -952,7 +952,7 @@ namespace Team_Fisherman
                 Write_Ting(ref buff, Draw, screen_size, new Vector2(X, Y + i));
             }
         }
-        public static bool fishyGame() //function for the fish mini game
+        public static bool Fishy_Game() //function for the fish mini game
         {
             List<string> Fish_Sprite = new List<string>// fish sprite
             {
