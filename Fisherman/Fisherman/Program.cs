@@ -1167,7 +1167,7 @@ namespace Team_Fisherman
             }
 
             string[] inventory = { "23", "fish", "2", "health potion", "56", "rock" };
-            string[] attacks = { "slash (31 damage)", "jab (20 - 40 damage)", "bow(25 - 36 damage)", "poison (does 10 damage per round)" };
+            string[] attacks = { "0 slash (31 damage)", "1 jab (20 - 40 damage)","2 Exit", "3 bow(25 - 36 damage)", " 4 poison (10 damage per round) " };
             string[] defence = { "block", "dodge", "parry", "other" };
 
             ConsoleKeyInfo c = new ConsoleKeyInfo();
@@ -1199,7 +1199,7 @@ namespace Team_Fisherman
                     Console.ReadLine();
                     if (enemies_killed > 2)
                     {
-                        // code for memeory
+                        // code for memory
                         Console.WriteLine("You got the last memory");
                         Console.ReadLine();
                         memory3 = true;
@@ -1401,33 +1401,39 @@ namespace Team_Fisherman
                 if (c.Key == ConsoleKey.Z) // if the A key is pressed
                 {
                     Console.WriteLine("               === attacks ===");
-                    Console.WriteLine("#################################################");
+                    Console.WriteLine("#################################################################");
                     for (int i = 0; i < attacks.Length; i++)
                     {
                         Console.Write("## ".PadRight(3) + attacks[i].PadRight(5) + " ##");
-                        if (((i + 1) % 2) == 0)
+                        if (((i + 1) % 3) == 0)
                         {
                             Console.Write("\n");
-                            Console.WriteLine("################################################################");
+                            Console.WriteLine("#################################################################");
                         }
                     }
+                    Console.Write("\n");
+                    Console.WriteLine("#################################################################");
                     Console.Write("what attack do you want to do: ");
                     string attack = Console.ReadLine();
 
                     switch (attack)
                     {
+                        case "0":
                         case "slash":
                             Console.Write("you do the slash");
                             Attack(31);
                             break;
+                        case "1":
                         case "jab":
                             Console.Write("you do the jab");
                             Attack(random.Next(21, 41));
                             break;
+                        case "3":
                         case "bow":
                             Console.Write("you shoot the bow");
                             Attack(random.Next(25, 36));
                             break;
+                        case "4":
                         case "poison":
                             if (poison_damage != 0)
                             {
@@ -1441,6 +1447,7 @@ namespace Team_Fisherman
                             }
                             Attack(-1);
                             break;
+                        case "2":
                         case "exit":
                             Console.WriteLine("exit");
                             break;
