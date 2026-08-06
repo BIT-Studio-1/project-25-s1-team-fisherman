@@ -1085,7 +1085,6 @@ namespace Team_Fisherman
 
                     Fish_Draw(ref buffer, 6, Fish_Sprite, fish_x, 21);
 
-
                     if (fish_score < 1) // this checks if the fishScore is less then one and if so it ends the program and returns false
                     {
                         fish_game_running = false;
@@ -1257,7 +1256,6 @@ namespace Team_Fisherman
                 int damage = 0; //random.Next(20, 40);
                 damage = Dodging(health, bad_guy_damage);
                 health = health - damage;
-
                 bad_guy_attack = bad_guy_name + " does " + damage + " damage";
                 waity = 100;
                 return damage;
@@ -1276,7 +1274,6 @@ namespace Team_Fisherman
             string enemy_icon5 = "";
             string enemy_icon6 = "";
 
-
             int rand_enemy = random.Next(0, 5); //randomly picks a enemy for the player to fight
 
             switch (rand_enemy)
@@ -1287,12 +1284,12 @@ namespace Team_Fisherman
                     bad_guy_damage = 15;
                     bad_guy_name = "evil cat";
 
-                    enemy_icon1 = "               ";
-                    enemy_icon2 = " (\\___/)      ";
-                    enemy_icon3 = " | >:) |    /  ";
-                    enemy_icon4 = "  -----    /   ";
-                    enemy_icon5 = "   |_____ /    ";
-                    enemy_icon6 = "   /\\    /\\  ";
+                    enemy_icon1 = @"               ";
+                    enemy_icon2 = @" (\___/)      ";
+                    enemy_icon3 = @" | >:) |    /  ";
+                    enemy_icon4 = @"  -----    /   ";
+                    enemy_icon5 = @"   |_____ /    ";
+                    enemy_icon6 = @"   /\    /\  ";
                     break;
                 case 1:
                     bad_guy_health = 80;
@@ -1300,12 +1297,12 @@ namespace Team_Fisherman
                     bad_guy_damage = 10;
                     bad_guy_name = "goblin";
 
-                    enemy_icon1 = "   _/\\___/\\_  ";
-                    enemy_icon2 = "  |  @ __ @ |   ";
-                    enemy_icon3 = "  |_________|   ";
-                    enemy_icon4 = "   /|.   .|\\   ";
-                    enemy_icon5 = "  / |_____| \\  ";
-                    enemy_icon6 = "    |     |     ";
+                    enemy_icon1 = @"   _/\___/\_  ";
+                    enemy_icon2 = @"  |  @ __ @ |   ";
+                    enemy_icon3 = @"  |_________|   ";
+                    enemy_icon4 = @"   /|.   .|\   ";
+                    enemy_icon5 = @"  / |_____| \  ";
+                    enemy_icon6 = @"    |     |     ";
                     break;
                 case 2:
                     bad_guy_health = 120;
@@ -1313,12 +1310,12 @@ namespace Team_Fisherman
                     bad_guy_damage = 20;
                     bad_guy_name = "thing";
 
-                    enemy_icon1 = " ( | )     ( | ) ";
-                    enemy_icon2 = "    ||_____||    ";
-                    enemy_icon3 = "   /        \\     ";
-                    enemy_icon4 = "   | )-----( | ";
-                    enemy_icon5 = "   \\_________/     ";
-                    enemy_icon6 = "   / / | | \\ \\   ";
+                    enemy_icon1 = @" ( | )     ( | ) ";
+                    enemy_icon2 = @"    ||_____||    ";
+                    enemy_icon3 = @"   /        \    ";
+                    enemy_icon4 = @"   | )-----( | ";
+                    enemy_icon5 = @"   \_________/     ";
+                    enemy_icon6 = @"   / / | | \ \   ";
                     break;
                 case 3:
                     bad_guy_health = 200;
@@ -1326,25 +1323,25 @@ namespace Team_Fisherman
                     bad_guy_damage = 30;
                     bad_guy_name = "zombie";
 
-                    enemy_icon1 = "   _\\__|__/_   ";
-                    enemy_icon2 = "  |(o\\ O /.)|  ";
-                    enemy_icon3 = "  |_________|   ";
-                    enemy_icon4 = "   /|     |\\   ";
-                    enemy_icon5 = "  / |_____| \\  ";
-                    enemy_icon6 = "    |  |  |     ";
+                    enemy_icon1 = @"   _\__|__/_   ";
+                    enemy_icon2 = @"  |(o\ O /.)|  ";
+                    enemy_icon3 = @"  |_________|   ";
+                    enemy_icon4 = @"   /|     |\   ";
+                    enemy_icon5 = @"  / |_____| \  ";
+                    enemy_icon6 = @"    |  |  |     ";
                     break;
                 case 4:
-                    bad_guy_health = 210;
+                    bad_guy_health = 50;
                     bad_guy_speed = 1000;
                     bad_guy_damage = 100;
                     bad_guy_name = "worm of doom";
 
-                    enemy_icon1 = "                ";
-                    enemy_icon2 = "                ";
-                    enemy_icon3 = "         \\     ";
-                    enemy_icon4 = "         /      ";
-                    enemy_icon5 = "                ";
-                    enemy_icon6 = "                ";
+                    enemy_icon1 = @"                ";
+                    enemy_icon2 = @"                ";
+                    enemy_icon3 = @"         \      ";
+                    enemy_icon4 = @"         /      ";
+                    enemy_icon5 = @"                ";
+                    enemy_icon6 = @"                ";
                     break;
             }
 
@@ -1400,20 +1397,29 @@ namespace Team_Fisherman
 
                 if (c.Key == ConsoleKey.Z) // if the A key is pressed
                 {
-                    Console.WriteLine("               === attacks ===");
-                    Console.WriteLine("#################################################################");
+                    //Console.WriteLine("               === attacks ===");
+                    //Console.WriteLine("#################################################################");
+
+                    WriteTing(ref buffer,                      "=== attacks ===", screen_size, new Vector2(20, 19));
+                    WriteTing(ref buffer, "#################################################################", screen_size, new Vector2(20, 20));
+                    Console.Write(buffer.ToString());
+                    int fightingUI = 21;
                     for (int i = 0; i < attacks.Length; i++)
                     {
-                        Console.Write("## ".PadRight(3) + attacks[i].PadRight(5) + " ##");
+                        //Console.Write("## ".PadRight(3) + attacks[i].PadRight(5) + " ##");
+                        WriteTing(ref buffer, "## ".PadRight(3) + attacks[i].PadRight(5) + " ##", screen_size, new Vector2(20, fightingUI));
                         if (((i + 1) % 3) == 0)
                         {
-                            Console.Write("\n");
-                            Console.WriteLine("#################################################################");
+                            //Console.WriteLine("#################################################################");
+                            //WriteTing(ref buffer, "#################################################################", screen_size, new Vector2(20, fightingUI));
+                            
                         }
+                        fightingUI++;
                     }
-                    Console.Write("\n");
-                    Console.WriteLine("#################################################################");
-                    Console.Write("what attack do you want to do: ");
+                    //Console.WriteLine("#################################################################");
+                    WriteTing(ref buffer, "#################################################################", screen_size, new Vector2(20, 23));
+                    WriteTing(ref buffer, "what attack do you want to do: ", screen_size, new Vector2(20, 24));
+                    Console.Write(buffer.ToString());
                     string attack = Console.ReadLine();
 
                     switch (attack)
@@ -1563,6 +1569,7 @@ namespace Team_Fisherman
                         {"protective charm", "You feel safer during this fight"}
 
                     };
+
                     string name = Get_Item_Name(inv_int);
                     string quote = "";
                     _ = inventory_quotes.TryGetValue(name, out quote);
