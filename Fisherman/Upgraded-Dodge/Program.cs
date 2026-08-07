@@ -223,6 +223,24 @@
                         }
                         fall_timer = 0;
                     }
+                    // Spawn Logic: Generate a line of X's with a 3-space gap
+                    if (spawn_timer >= 30)
+                    {
+                        int gap_start = rand.Next(0, grid_x_limit - 2);
+
+                        for (int x = 0; x < grid_x_limit; x++)
+                        {
+                            if (x < gap_start || x > gap_start + 2)
+                            {
+                                grid[0, x] = 1;
+                            }
+                        }
+                        spawn_timer = 0;
+                    }
+                    else
+                    {
+                        spawn_timer++;
+                    }
                 }
                 return 0;
             }
