@@ -376,6 +376,25 @@
                             grid[0, player_pos] = 1;
                         }
                     }
+
+                    // Collision Detection (Player is always on row 9) 
+                    if (grid[9, player_pos] == 1)
+                    {
+                        Console.Beep();
+                        damage += damage_per_hit;
+                        player_health -= damage_per_hit;
+                        Thread.Sleep(100);
+
+                        if (player_health <= 0)
+                        {
+                            is_running = false;
+                        }
+                        else
+                        {
+                            grid[9, player_pos] = 0;
+                            score += 1;
+                        }
+                    }
                 }
                 return 0;
             }
