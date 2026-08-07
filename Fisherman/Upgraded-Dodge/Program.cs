@@ -223,6 +223,7 @@
                         }
                         fall_timer = 0;
                     }
+
                     // Spawn Logic: Generate a line of X's with a 3-space gap
                     if (spawn_timer >= 30)
                     {
@@ -240,6 +241,29 @@
                     else
                     {
                         spawn_timer++;
+                    }
+
+                    // Collision Detection 
+                    if (grid[9, player_pos] == 1)
+                    {
+                        Console.Beep();
+                        damage += damage_per_hit;
+                        player_health -= damage_per_hit;
+
+                        for (int x = 0; x < grid_x_limit; x++)
+                        {
+                            grid[9, x] = 0;
+                        }
+
+                        Thread.Sleep(100);
+                        if (player_health <= 0)
+                        {
+                            is_running = false;
+                        }
+                        else
+                        {
+                            score += 1;
+                        }
                     }
                 }
                 return 0;
