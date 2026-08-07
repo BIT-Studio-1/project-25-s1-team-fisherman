@@ -195,6 +195,34 @@
                         if (key == ConsoleKey.D && player_pos < 30) player_pos++;
                         while (Console.KeyAvailable) Console.ReadKey(true);
                     }
+
+                    fall_timer++;
+                    if (fall_timer >= fall_delay_frames)
+                    {
+                        for (int i = grid_y_limit; i >= 0; i--)
+                        {
+                            for (int x = 0; x < grid_x_limit; x++)
+                            {
+                                if (grid[i, x] == 1)
+                                {
+                                    grid[i, x] = 0;
+                                    if (i < grid_y_limit)
+                                    {
+                                        grid[i + 1, x] = 1;
+                                    }
+                                    else
+                                    {
+                                        score++;
+                                        if (score >= 150)
+                                        {
+                                            is_running = false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        fall_timer = 0;
+                    }
                 }
                 return 0;
             }
