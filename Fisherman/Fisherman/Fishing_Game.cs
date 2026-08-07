@@ -22,13 +22,11 @@ namespace Fisherman
             {
                 if (!File.Exists(path + file))
                 {
-                    throw new FileNotFoundException($"File not found at {path+file}");
+                    throw new FileNotFoundException($"File not found at {path + file}");
                 }
                 file_cache[file] = File.ReadAllLines(path + file);
             }
-
             char[,] letters = new char[121, 29];
-
             while (true)
             {
                 Thread.Sleep(1);
@@ -42,57 +40,39 @@ namespace Fisherman
                 {
                     continue;
                 }
-
                 Console.SetCursorPosition(0, 0);
                 for (int y = 0; y < 29; y++)
                     for (int x = 0; x < 121; x++)
                         letters[x, y] = ' ';
                 foreach (string file in files)
                 {
-                    if (File.Exists(path + file))
+                    string[] lines = file_cache[file];
+                    if (lines.Length > 29)
                     {
-                        string[] lines = File.ReadAllLines(path + file);
-                        if (lines.Length > 29)
-                        {
-                            if (flip)
-                            {
-                                lines = lines[..29];
-                            }
-                            else
-                            {
-                                lines = lines[28..];
-                            }
-                        }
-                        int y = 0;
-                        foreach (string line in lines)
-                        {
-                            int x = 0;
-                            foreach (char c in line)
-                            {
-                                if (c != ' ')
-                                {
-                                    letters[x, y] = c;
-                                    //Console.Write(c);
-                                }
-                                x++;
-                                x = Math.Min(x, 120);
-                            }
-                            y++;
-                        }
+                        if (flip) lines = lines[..29];
+                        else lines = lines[28..];
                     }
-                    else
+                    int y = 0;
+                    foreach (string line in lines)
                     {
-                        throw new Exception($"File not found at path {path + file}");
+                        int x = 0;
+                        foreach (char c in line)
+                        {
+                            if (c != ' ')
+                            {
+                                letters[x, y] = c;
+                            }
+                            x++;
+                            x = Math.Min(x, 120);
+                        }
+                        y++;
                     }
                 }
                 //Console.WriteLine(sb.ToString());
                 Console.WriteLine(ToText(letters));
                 //Console.ReadLine();   
-                
             }
         }
-
-
         private static string ToText(char[,] letters)
         {
             StringBuilder sb = new StringBuilder();
