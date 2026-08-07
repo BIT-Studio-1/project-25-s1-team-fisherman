@@ -265,6 +265,38 @@
                             score += 1;
                         }
                     }
+                    else
+                    {
+                        // Rendering 
+                        Console.ForegroundColor = ConsoleColor.White;
+                        //Console.Write(WHITE);
+                        Console.SetCursorPosition(0, 0);
+                        Console.WriteLine("X's missed: " + score + "\t\t Health: " + (player_health) + "\n----------------------------------");
+                        for (int i = 0; i < grid_y_limit + 1; i++)
+                        {
+                            for (int j = 0; j < grid_x_limit; j++)
+                            {
+                                if (i == grid_y_limit && j == player_pos)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    //Console.Write(GREEN);
+                                    Console.Write("P");
+                                }
+                                else if (grid[i, j] == 1)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    //Console.Write(RED);
+                                    Console.Write("X");
+                                }
+                                else
+                                {
+                                    Console.Write(" ");
+                                }
+                            }
+                            Console.WriteLine();
+                        }
+                        Thread.Sleep(50);
+                    }
                 }
                 return 0;
             }
