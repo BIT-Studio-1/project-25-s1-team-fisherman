@@ -17,6 +17,18 @@ namespace Fisherman
             string[] files = { "waves.txt", "clouds.txt", "rain.txt", "menu.txt" };
             int frame = 500;
             bool flip = false;
+            Dictionary<string, string[]> file_cache = new Dictionary<string, string[]>();
+            foreach (string file in files)
+            {
+                if (!File.Exists(path + file))
+                {
+                    throw new FileNotFoundException($"File not found at {path+file}");
+                }
+                file_cache[file] = File.ReadAllLines(path + file);
+            }
+
+            char[,] letters = new char[121, 29];
+
             while (true)
             {
                 Thread.Sleep(1);
@@ -32,7 +44,6 @@ namespace Fisherman
                 }
 
                 Console.SetCursorPosition(0, 0);
-                char[,] letters = new char[121, 29];
                 for (int y = 0; y < 29; y++)
                     for (int x = 0; x < 121; x++)
                         letters[x, y] = ' ';
