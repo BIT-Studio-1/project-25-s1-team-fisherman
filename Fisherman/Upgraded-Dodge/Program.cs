@@ -426,7 +426,25 @@
                         Thread.Sleep(100);
                     }
                 }
-                return 0;
+                // Game Over Screen
+                //Console.Write(WHITE);
+                Console.Clear();
+
+                if (player_health <= 1)
+                {
+                    Console.WriteLine($"You did very bad!\n\nPress Enter to exit...");
+                }
+                else if ((player_health > 1) && (player_health < 3))
+                {
+                    Console.WriteLine($"You Survived! Score: {score}\n\nPress Enter to exit...");
+                }
+                else if (player_health <= 3)
+                {
+                    Console.WriteLine($"Perfect Dodge! Score: {score} Health: {player_health}\n\nPress Enter to exit...");
+                }
+
+                Console.ReadLine();
+                return damage;
             }
         }
     }
