@@ -185,6 +185,17 @@
                 int fall_timer = 0;
                 int fall_delay_frames = 4;
 
+                while (is_running)
+                {
+                    // Input Control 
+                    if (Console.KeyAvailable)
+                    {
+                        var key = Console.ReadKey(true).Key;
+                        if (key == ConsoleKey.A && player_pos > 0) player_pos--;
+                        if (key == ConsoleKey.D && player_pos < 30) player_pos++;
+                        while (Console.KeyAvailable) Console.ReadKey(true);
+                    }
+                }
                 return 0;
             }
 
