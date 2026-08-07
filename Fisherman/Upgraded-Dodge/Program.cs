@@ -221,7 +221,7 @@
                     }
 
                     // Spawn Logic: Generate a line of X's with a 3-space gap
-                    if (spawn_timer >= 30)
+                    if (spawn_timer >= 30 && score < 140)
                     {
                         int gap_start = rand.Next(0, grid_x_limit - 2);
 
