@@ -15,9 +15,22 @@ namespace Fisherman
             //29 lines y
             string path = "Map/Fishing/";
             string[] files = { "waves.txt", "clouds.txt", "rain.txt", "menu.txt" };
-            bool frame = false;
+            int frame = 500;
+            bool flip = false;
             while (true)
             {
+                Thread.Sleep(1);
+                frame++;
+                if (frame > 50)
+                {
+                    frame = 0;
+                    flip = !flip;
+                }
+                else
+                {
+                    continue;
+                }
+
                 Console.SetCursorPosition(0, 0);
                 char[,] letters = new char[121, 29];
                 for (int y = 0; y < 29; y++)
@@ -30,7 +43,7 @@ namespace Fisherman
                         string[] lines = File.ReadAllLines(path + file);
                         if (lines.Length > 29)
                         {
-                            if (frame)
+                            if (flip)
                             {
                                 lines = lines[..29];
                             }
@@ -64,8 +77,7 @@ namespace Fisherman
                 //Console.WriteLine(sb.ToString());
                 Console.WriteLine(ToText(letters));
                 //Console.ReadLine();   
-                Thread.Sleep(300);
-                frame = !frame;
+                
             }
         }
 
