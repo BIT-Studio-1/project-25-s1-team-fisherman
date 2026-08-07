@@ -298,7 +298,24 @@
                         Thread.Sleep(50);
                     }
                 }
-                return 0;
+                // Game Over Screen 
+                Console.ForegroundColor = ConsoleColor.White;
+                //Console.Write(WHITE);
+                Console.Clear();
+                if (player_health <= 0)
+                {
+                    Console.WriteLine($"You did very bad!\n\nPress Enter to exit...");
+                }
+                else if (player_health < 3)
+                {
+                    Console.WriteLine($"You Survived! Score: {score}\n\nPress Enter to exit...");
+                }
+                else
+                {
+                    Console.WriteLine($"Perfect Dodge! Score: {score} Health: {player_health}\n\nPress Enter to exit...");
+                }
+                Console.ReadLine();
+                return damage;
             }
 
             static int Dodging_3(int player_health, int damage_per_hit)
