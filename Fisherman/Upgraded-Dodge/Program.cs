@@ -366,6 +366,16 @@
                             }
                         }
                     }
+                    // Spawn Logic (drop an X at row 0)
+                    if (score < 41)
+                    {
+                        loop_counter++;
+                        if (rand.Next(0, 100) < 30)
+                        {
+                            int spawn_pos = rand.Next(0, grid_x_limit);
+                            grid[0, player_pos] = 1;
+                        }
+                    }
                 }
                 return 0;
             }
