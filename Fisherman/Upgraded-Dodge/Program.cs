@@ -2,7 +2,7 @@
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Dodging(3, 1);
         }
@@ -328,6 +328,18 @@
                 bool is_running = true;
                 Random rand = new();
 
+                while (is_running)
+                {
+                    // Input Control 
+                    if (Console.KeyAvailable)
+                    {
+                        var key = Console.ReadKey(true).Key;
+
+                        if (key == ConsoleKey.A && player_pos > 0) player_pos--;
+                        if (key == ConsoleKey.D && player_pos < 30) player_pos++;
+                        while (Console.KeyAvailable) Console.ReadKey(true);
+                    }
+                }
                 return 0;
             }
         }
