@@ -339,6 +339,33 @@
                         if (key == ConsoleKey.D && player_pos < 30) player_pos++;
                         while (Console.KeyAvailable) Console.ReadKey(true);
                     }
+
+                    for (int i = grid_y_limit; i >= 0; i--)
+                    {
+                        for (int x = 0; x < grid_x_limit; x++)
+                        {
+                            if (grid[i, x] == 1)
+                            {
+                                grid[i, x] = 0;
+                                if (i < grid_y_limit)
+                                {
+                                    grid[i + 1, x] = 1;
+                                }
+                                else
+                                {
+                                    score++;
+                                    if ((score % 40 == 0) && (score < 40))
+                                    {
+                                        x_number--;
+                                    }
+                                    if (score == 40)
+                                    {
+                                        is_running = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 return 0;
             }
