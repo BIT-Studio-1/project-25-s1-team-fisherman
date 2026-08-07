@@ -114,7 +114,6 @@
                     else
                     {
                         // Rendering What will be displayed on the screen
-                        Console.ForegroundColor = ConsoleColor.White;
                         //Console.Write(WHITE);
                         Console.SetCursorPosition(0, 0);
                         Console.WriteLine("X's missed: " + score + "\t\t Health: " + (player_health) + "\n----------------------------------");
@@ -125,13 +124,11 @@
                             {
                                 if (i == grid_y_limit && j == player_pos)
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Green;
                                     //Console.Write(GREEN);
                                     Console.Write("P");
                                 }
                                 else if (grid[i, j] == 1)
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
                                     //Console.Write(RED);
                                     Console.Write("X");
                                 }
@@ -147,7 +144,6 @@
                 }
 
                 // Game Over Screen
-                Console.ForegroundColor = ConsoleColor.White;
                 //Console.Write(WHITE);
                 Console.Clear();
 
@@ -268,7 +264,6 @@
                     else
                     {
                         // Rendering 
-                        Console.ForegroundColor = ConsoleColor.White;
                         //Console.Write(WHITE);
                         Console.SetCursorPosition(0, 0);
                         Console.WriteLine("X's missed: " + score + "\t\t Health: " + (player_health) + "\n----------------------------------");
@@ -278,13 +273,11 @@
                             {
                                 if (i == grid_y_limit && j == player_pos)
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Green;
                                     //Console.Write(GREEN);
                                     Console.Write("P");
                                 }
                                 else if (grid[i, j] == 1)
                                 {
-                                    Console.ForegroundColor = ConsoleColor.Red;
                                     //Console.Write(RED);
                                     Console.Write("X");
                                 }
@@ -299,7 +292,6 @@
                     }
                 }
                 // Game Over Screen 
-                Console.ForegroundColor = ConsoleColor.White;
                 //Console.Write(WHITE);
                 Console.Clear();
                 if (player_health <= 0)
