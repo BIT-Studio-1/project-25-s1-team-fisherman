@@ -390,14 +390,14 @@ namespace Team_Fisherman
 
         //displays the menu and allows the player to choose between starting the game or exiting.
         //╥
-        static int Get_Item_Count(string name)
+        public static int Get_Item_Count(string name)
         {
             int count = 0;
             inventory.TryGetValue(name, out count);
 
             return count;
         }
-        static string Get_Item_Name(int index)
+        public static string Get_Item_Name(int index)
         {
             int c = 0;
             foreach (string item in inventory.Keys)
@@ -411,7 +411,7 @@ namespace Team_Fisherman
 
             return "";
         }
-        static void Add_Item(string name, int count)
+        public static void Add_Item(string name, int count)
         {
             name = name.ToLower();
             if (inventory.ContainsKey(name))
@@ -423,7 +423,7 @@ namespace Team_Fisherman
                 inventory.Add(name, count);
             }
         }
-        static void Remove_Item(string name, int count)
+        public static void Remove_Item(string name, int count)
         {
             if (inventory.ContainsKey(name))
             {
@@ -434,7 +434,7 @@ namespace Team_Fisherman
                 }
             }
         }
-        static string[] Display_Inventory()
+        public static string[] Display_Inventory()
         {
 
             string[] buffer = Array.Empty<string>();
@@ -449,7 +449,7 @@ namespace Team_Fisherman
             return buffer;
         }
 
-        static void Inventory_Menu()
+        public static void Inventory_Menu()
         {
             while (true)
             {

@@ -1,10 +1,20 @@
 ﻿using System.Text;
+using test_fish;
 using static Team_Fisherman.Program;
 namespace Fisherman
 {
     public class Fishing_Game
     {
         const string RESET = "\x1b[0m";
+        public static Fish[] fish =
+            {
+                new Fish ("Carp",        10, 11, .25 ),
+                new Fish ("Cat fish",    20, 173, .1 ),
+                new Fish ("Bass",        15, 106, .2 ),
+                new Fish ("Sturgeon",    17, 146, .15 ),
+                new Fish ("boot",        1, 249, .35 ),
+                new Fish ("Sardine",     5,  249, .3 )
+            };
         public Fishing_Game()
         {
             Draw2();
@@ -36,6 +46,20 @@ namespace Fisherman
                     frame = 0;
                     flip = !flip;
                 }
+                else if (Console.KeyAvailable)
+                {
+                    Console.SetCursorPosition(7, 26);
+                    ConsoleKey key = Console.ReadKey().Key;
+                    switch (key)
+                    {
+                        case ConsoleKey.X:
+                            Fishes();
+                            break;
+                        case ConsoleKey.Q:
+                            return;
+                    }
+                    continue;
+                }
                 else
                 {
                     continue;
@@ -49,8 +73,10 @@ namespace Fisherman
                     string[] lines = file_cache[file];
                     if (lines.Length > 29)
                     {
-                        if (flip) lines = lines[..29];
-                        else lines = lines[28..];
+                        if (flip)
+                            lines = lines[..29];
+                        else
+                            lines = lines[28..];
                     }
                     int y = 0;
                     foreach (string line in lines)
@@ -80,14 +106,49 @@ namespace Fisherman
             {
                 for (int x = 0; x < 120; x++)
                 {
-                    sb.Append(letters[x, y]);
+                    char c = letters[x, y];
+                    if (c == 'B')
+                        sb.Append(Color_Helper(38, true) + " ");
+                    else if (c == '╥')
+                        sb.Append(RESET + " ");
+                    else
+                        sb.Append(c);
                 }
                 sb.Append('\n');
             }
-            string text = sb.ToString();
-            text = text.Replace("B", Color_Helper(32, true) + " ");
-            text = text.Replace("╥", RESET + " ");
-            return text.Trim('\n');
+            return sb.ToString();
+        }
+        public struct Fish
+        {
+            public string name;
+            public int coins;
+            public int color;
+            public double weight;
+            public Fish(string Name, int Coins, int Color, double Weight)
+            {
+                this.name = Name;
+                this.coins = Coins;
+                this.color = Color;
+                this.weight = Weight;
+            }
+
+        }
+        private static void Fishes()
+        {
+            double normazing_weight = fish.Sum(n => n.weight);
+            Random rand = new Random();
+            int c = 0;
+            foreach (Fish item  in fish)
+            {
+                fish[c].weight = item.weight / normazing_weight;
+
+
+                c++;
+            }
+            
+
+
+
         }
     }
 }
