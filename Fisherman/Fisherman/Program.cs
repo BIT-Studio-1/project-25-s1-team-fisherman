@@ -1618,19 +1618,19 @@ namespace Team_Fisherman
 
             if (selection == 0)
             {
-                return Dodging_1(player_health, damage_per_hit);
+                return Dodging_Rain(player_health, damage_per_hit);
             }
             else if (selection == 1)
             {
-                return Dodging_2(player_health, damage_per_hit);
+                return Dodging_Line(player_health, damage_per_hit);
             }
             else if (selection == 2)
             {
-                return Dodging_3(player_health, damage_per_hit);
+                return Dodging_Seek(player_health, damage_per_hit);
             }
             return 1000;
         }
-        static int Dodging_1(int player_health, int damage_per_hit)
+        static int Dodging_Rain(int player_health, int damage_per_hit)
         {
             // updated variables to snake_case
             Console.CursorVisible = false;
@@ -1721,7 +1721,7 @@ namespace Team_Fisherman
                     // Rendering What will be displayed on the screen
                     Console.Write(WHITE);
                     Console.SetCursorPosition(0, 0);
-                    Console.WriteLine("X's missed: " + score + "\t\t Health: " + (player_health) + "\n----------------------------------");
+                    Console.WriteLine($"X's missed:   {score}\t\t Health:   {player_health}\n----------------------------------");
 
                     for (int i = 0; i < grid_y_limit + 1; i++)
                     {
@@ -1764,12 +1764,10 @@ namespace Team_Fisherman
             {
                 Console.WriteLine($"Perfect Dodge! Score: {score} Health: {player_health}\n\nPress Enter to exit...");
             }
-
-            Console.ReadLine();
             return damage;
         }
 
-        static int Dodging_2(int player_health, int damage_per_hit)
+        static int Dodging_Line(int player_health, int damage_per_hit)
         {
             Console.CursorVisible = false;
 
@@ -1871,7 +1869,7 @@ namespace Team_Fisherman
                     // Rendering 
                     Console.Write(WHITE);
                     Console.SetCursorPosition(0, 0);
-                    Console.WriteLine("X's missed: " + score + "\t\t Health: " + (player_health) + "\n----------------------------------");
+                    Console.WriteLine($"X's missed:   {score}\t\t Health:   {player_health}\n----------------------------------");
                     for (int i = 0; i < grid_y_limit + 1; i++)
                     {
                         for (int j = 0; j < grid_x_limit; j++)
@@ -1911,11 +1909,10 @@ namespace Team_Fisherman
             {
                 Console.WriteLine($"Perfect Dodge! Score: {score} Health: {player_health}\n\nPress Enter to exit...");
             }
-            Console.ReadLine();
             return damage;
         }
 
-        static int Dodging_3(int player_health, int damage_per_hit)
+        static int Dodging_Seek(int player_health, int damage_per_hit)
         {
             // updated variables to snake_case
             Console.CursorVisible = false;
@@ -2005,7 +2002,7 @@ namespace Team_Fisherman
                     // Rendering What will be displayed on the screen
                     Console.Write(WHITE);
                     Console.SetCursorPosition(0, 0);
-                    Console.WriteLine("X's missed: " + score + "\t\t Health: " + (player_health) + "\n----------------------------------");
+                    Console.WriteLine($"X's missed:   {score}\t\t Health:   {player_health}\n----------------------------------");
 
                     for (int i = 0; i < grid_y_limit + 1; i++)
                     {
@@ -2047,8 +2044,6 @@ namespace Team_Fisherman
             {
                 Console.WriteLine($"Perfect Dodge! Score: {score} Health: {player_health}\n\nPress Enter to exit...");
             }
-
-            Console.ReadLine();
             return damage;
         }
 
