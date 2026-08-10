@@ -37,6 +37,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
 
+    <None Update="Map\Fishing\upgrade.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+
     <None Update="Map\Fishing\waves.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

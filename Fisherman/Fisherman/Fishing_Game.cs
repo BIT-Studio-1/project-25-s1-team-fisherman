@@ -5,7 +5,10 @@ namespace Fisherman
 {
     public class Fishing_Game
     {
+        const string PATH = "Map/Fishing/";
         const string RESET = "\x1b[0m";
+        private static int hooks;
+        private static int luck;
         public static Fish[] fish =
             {
                 new Fish("fail",            0,  0 , .50 ),
@@ -19,23 +22,21 @@ namespace Fisherman
         public Fishing_Game()
         {
             Draw2();
-            
         }
         private static void Draw2()
         {
             //29 lines y
-            string path = "Map/Fishing/";
             string[] files = { "waves.txt", "clouds.txt", "rain.txt", "menu.txt" };
             int frame = 500;
             bool flip = false;
             Dictionary<string, string[]> file_cache = new Dictionary<string, string[]>();
             foreach (string file in files)
             {
-                if (!File.Exists(path + file))
+                if (!File.Exists(PATH + file))
                 {
-                    throw new FileNotFoundException($"File not found at {path + file}");
+                    throw new FileNotFoundException($"File not found at {PATH + file}");
                 }
-                file_cache[file] = File.ReadAllLines(path + file);
+                file_cache[file] = File.ReadAllLines(PATH + file);
             }
             char[,] letters = new char[121, 29];
             Fish caught = new Fish("", 0, 0, 0);
@@ -67,7 +68,9 @@ namespace Fisherman
                             return;
                         case ConsoleKey.Z:
                             Inventory_Menu();
-
+                            break;
+                        case ConsoleKey.U:
+                            Upgrade();
                             break;
                     }
                     continue;
@@ -118,8 +121,6 @@ namespace Fisherman
                 {
                     Console.WriteLine("The Fish got away");
                 }
-
-
             }
         }
         private static string ToText(char[,] letters)
@@ -171,7 +172,7 @@ namespace Fisherman
             double total = 0.0;
             foreach (Fish item in fish)
             {
-                if (item.weight + total > guess)
+                if (item.weight * (1.0 + luck * 0.1) + total > guess)
                 {
                     caught = item;
                     break;
@@ -180,11 +181,57 @@ namespace Fisherman
             }
             if (caught.name != "fail" && caught.name != "boot")
             {
-
                 Add_Item("fish", 1);
             }
             return caught;
+        }
+        public static void Upgrade()
+        {
+            Console.Clear();
 
+            if (!File.Exists(PATH + "upgrade.txt"))
+            {
+                throw new FileNotFoundException();
+            }
+            string[] lines = File.ReadAllLines(PATH + "upgrade.txt");
+
+            StringBuilder sb = new StringBuilder();
+            string bar = "##########################";
+            bool pos1 = true;
+
+
+            while (true)
+            {
+                sb.Clear();
+                Console.SetCursorPosition(0, 0);
+                foreach (string line in lines)
+                {
+                    sb.AppendLine(line);
+                }
+
+                sb.Replace('%',$"{luck}".First());
+                sb.Replace('?', $"{hooks}".First());
+                
+                if (pos1)
+                {
+                    sb.Replace("@", bar);
+                    sb.Replace("$", "                          ");
+                }
+                else
+                {
+                    sb.Replace("$", bar);
+                    sb.Replace("@", "                          ");
+                }
+
+
+
+                Console.Write(sb.ToString());
+
+
+                pos1 = !pos1;
+                
+                Console.ReadKey(true);
+            }
         }
     }
 }

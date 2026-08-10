@@ -19,9 +19,9 @@
                                                                                     ╥#            │       €¥L      #B     
                                                                                     ╥#            │         ╰L     #B     
  ╥ #########################################################################        ╥#           ╰┤          ╰L    #B     
- ╥ #                                                                       #        ╥#            O           ╰L   #B     
- ╥ #  >press x to cast                                                     #        ╥#                             #B     
- ╥ #  >press z to show inventory                                           #        ╥###############################B     
+ ╥ #  >press x to cast                                                     #        ╥#            O           ╰L   #B     
+ ╥ #  >press z to show inventory                                           #        ╥#                             #B     
+ ╥ #  >press u to upgrade                                                  #        ╥###############################B     
  ╥ #  >press q to exit                                                     #                                            
  ╥ #                                                                       #                                            
  ╥ #  >                                                                    #                                            
