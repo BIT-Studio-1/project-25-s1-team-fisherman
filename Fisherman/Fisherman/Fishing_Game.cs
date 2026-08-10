@@ -5,10 +5,25 @@ namespace Fisherman
 {
     public class Fishing_Game
     {
+        public struct Fish
+        {
+            public string name;
+            public int coins;
+            public int color;
+            public double weight;
+            public Fish(string Name, int Coins, int Color, double Weight)
+            {
+                this.name = Name;
+                this.coins = Coins;
+                this.color = Color;
+                this.weight = Weight;
+            }
+        }
         const string PATH = "Map/Fishing/";
         const string RESET = "\x1b[0m";
         private static int hooks = 1;
         private static int luck = 1;
+        private static int fish_caught = 0;
         public static Fish[] fish =
             {
                 new Fish("fail",            0,  0 , .50 ),
@@ -17,7 +32,9 @@ namespace Fisherman
                 new Fish("Bass",        15, 106, .2 ),
                 new Fish("Sturgeon",    17, 146, .15),
                 new Fish("boot",        1,  249, .35),
-                new Fish("Sardine",     5,  249, .3 )
+                new Fish("Sardine",     5,  249, .3 ),
+                new Fish("Salmon",      30, 216, .07),
+                
             };
         public Fishing_Game()
         {
@@ -60,6 +77,8 @@ namespace Fisherman
                             {
                                 caught = Fishes();
                                 Remove_Item("bait", 1);
+                                coins += caught.coins;
+
                             }
                             else
                             {
@@ -67,10 +86,13 @@ namespace Fisherman
                                 if (c)
                                 {
                                     caught = Fishes();
+                                    coins += caught.coins;
+
                                 }
                                 else
                                 {
                                     caught.name = "fail";
+
                                 }
                             }
 
@@ -191,22 +213,10 @@ namespace Fisherman
 
             return sb.ToString();
         }
-        public struct Fish
-        {
-            public string name;
-            public int coins;
-            public int color;
-            public double weight;
-            public Fish(string Name, int Coins, int Color, double Weight)
-            {
-                this.name = Name;
-                this.coins = Coins;
-                this.color = Color;
-                this.weight = Weight;
-            }
-        }
+        
         private static Fish Fishes()
         {
+            fish_caught++;
             for (int i = 0; i < fish.Length; i++)
             {
                 if (fish[i].name == "fail")
@@ -242,6 +252,12 @@ namespace Fisherman
             {
                 Add_Item("fish", 1);
             }
+            if (fish_caught == 5)
+            {
+                return new Fish("Memory Fish", 50, 91,0);
+            }
+
+
             return caught;
         }
         public static void Upgrade()
