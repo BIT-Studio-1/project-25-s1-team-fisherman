@@ -8,12 +8,13 @@ namespace Fisherman
         const string RESET = "\x1b[0m";
         public static Fish[] fish =
             {
-                new Fish ("Carp",        10, 11, .25 ),
-                new Fish ("Cat fish",    20, 173, .1 ),
-                new Fish ("Bass",        15, 106, .2 ),
-                new Fish ("Sturgeon",    17, 146, .15 ),
-                new Fish ("boot",        1, 249, .35 ),
-                new Fish ("Sardine",     5,  249, .3 )
+                new Fish("",            0,  0 , .50 ),
+                new Fish("Carp",        10, 11, .25 ),
+                new Fish("Cat fish",    20, 173, .1 ),
+                new Fish("Bass",        15, 106, .2 ),
+                new Fish("Sturgeon",    17, 146, .15),
+                new Fish("boot",        1,  249, .35),
+                new Fish("Sardine",     5,  249, .3 )
             };
         public Fishing_Game()
         {
@@ -37,6 +38,7 @@ namespace Fisherman
                 file_cache[file] = File.ReadAllLines(path + file);
             }
             char[,] letters = new char[121, 29];
+            Fish caught = new Fish();
             while (true)
             {
                 Thread.Sleep(1);
@@ -48,12 +50,12 @@ namespace Fisherman
                 }
                 else if (Console.KeyAvailable)
                 {
-                    Console.SetCursorPosition(7, 26);
-                    ConsoleKey key = Console.ReadKey().Key;
+
+                    ConsoleKey key = Console.ReadKey(true).Key;
                     switch (key)
                     {
                         case ConsoleKey.X:
-                            Fishes();
+                            caught = Fishes();
                             break;
                         case ConsoleKey.Q:
                             return;
@@ -97,6 +99,14 @@ namespace Fisherman
                 //Console.WriteLine(sb.ToString());
                 Console.WriteLine(ToText(letters));
                 //Console.ReadLine();   
+                Console.SetCursorPosition(7, 26);
+                if (caught.name != "")
+                {
+                    Console.WriteLine($"You Caught a {Color_Helper(caught.color, true)}{caught.name}{RESET}, You gain +{caught.coins} Coins");
+                    
+                }
+
+
             }
         }
         private static string ToText(char[,] letters)
@@ -133,22 +143,35 @@ namespace Fisherman
             }
 
         }
-        private static void Fishes()
+        private static Fish Fishes()
         {
             double normazing_weight = fish.Sum(n => n.weight);
             Random rand = new Random();
             int c = 0;
-            foreach (Fish item  in fish)
+            foreach (Fish item in fish)
             {
                 fish[c].weight = item.weight / normazing_weight;
 
 
                 c++;
             }
-            
+            double guess = rand.NextDouble();
+
+            fish = fish.OrderBy(n => n.weight).ToArray();
+            Fish caught = new Fish();
+            double total = 0.0;
+            foreach (Fish item in fish)
+            {
+                if (item.weight + total > guess)
+                {
+                    caught = item;
+                    break;
+                }
+                total += item.weight;
+            }
 
 
-
+            return caught;
         }
     }
 }
