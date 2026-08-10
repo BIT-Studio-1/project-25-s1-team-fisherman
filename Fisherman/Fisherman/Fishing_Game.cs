@@ -254,6 +254,7 @@ namespace Fisherman
             }
             if (fish_caught == 5)
             {
+                memory1 = true;
                 return new Fish("Memory Fish", 50, 91,0);
             }
 
@@ -322,9 +323,9 @@ namespace Fisherman
                         }
                         else
                         {
-                            hooks++;
                             if (coins > 20)
                             {
+                            hooks++;
                                 hooks = Math.Min(hooks, 6);
                                 coins -= 20;
                             }
