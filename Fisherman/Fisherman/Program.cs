@@ -42,7 +42,7 @@ namespace Team_Fisherman
         public static Vector2 screen_size = new Vector2(120, 28);
 
         public static Dictionary<string, int> inventory = new Dictionary<string, int>();
-        public static int coins = 0;
+        public static int coins = 200;
         public static bool memory1 = false;
         public static bool viewed_memory1 = false;
         public static bool memory2 = false;

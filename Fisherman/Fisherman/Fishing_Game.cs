@@ -59,7 +59,7 @@ namespace Fisherman
                             if (Get_Item_Count("bait") > 0)
                             {
                                 caught = Fishes();
-                                Remove_Item("bait",1);
+                                Remove_Item("bait", 1);
                             }
                             else
                             {
@@ -153,6 +153,20 @@ namespace Fisherman
                 }
                 sb.Append('\n');
             }
+            for (char i = 'R'; i < 'R' + hooks; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    sb.Replace($"{i}", "╰");
+                }
+                else
+                {
+                    sb.Replace($"{i}", "╯");
+                }
+            }
+
+
+
             sb.Replace('?', $"{hooks}".First());
             sb.Replace('%', $"{luck}".First());
             if (luck > 9)
@@ -185,6 +199,16 @@ namespace Fisherman
         }
         private static Fish Fishes()
         {
+            for (int i = 0; i < fish.Length; i++)
+            {
+                if (fish[i].name == "fail")
+                {
+
+                    fish[i].weight = Math.Max(0,0.6 - (hooks * 0.1));
+                }
+            }
+
+
             double normazing_weight = fish.Sum(n => n.weight);
             Random rand = new Random();
             int c = 0;
@@ -277,7 +301,7 @@ namespace Fisherman
                             hooks++;
                             if (coins > 20)
                             {
-                                hooks = Math.Min(hooks, 5);
+                                hooks = Math.Min(hooks, 6);
                                 coins -= 20;
                             }
                         }
