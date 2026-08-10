@@ -38,7 +38,7 @@ namespace Fisherman
                 file_cache[file] = File.ReadAllLines(path + file);
             }
             char[,] letters = new char[121, 29];
-            Fish caught = new Fish();
+            Fish caught = fish[0];
             while (true)
             {
                 Thread.Sleep(1);
@@ -55,7 +55,17 @@ namespace Fisherman
                     switch (key)
                     {
                         case ConsoleKey.X:
-                            caught = Fishes();
+                            if (Fishy_Game())
+                            {
+                                caught = Fishes();
+
+                            }
+                            else
+                            {
+                                caught.name = "fail";
+                            }
+
+
                             break;
                         case ConsoleKey.Q:
                             return;
@@ -100,10 +110,17 @@ namespace Fisherman
                 Console.WriteLine(ToText(letters));
                 //Console.ReadLine();   
                 Console.SetCursorPosition(7, 26);
-                if (caught.name != "")
+                
+
+                if (caught.name != "" && caught.name != "fail")
                 {
+
                     Console.WriteLine($"You Caught a {Color_Helper(caught.color, true)}{caught.name}{RESET}, You gain +{caught.coins} Coins");
                     
+                }
+                else if (caught.name == "fail")
+                {
+                    Console.WriteLine("The Fish got away");
                 }
 
 
