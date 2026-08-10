@@ -82,8 +82,6 @@ namespace Team_Fisherman
             bool map_changed = false;
 
 
-
-            Fishing();
             Menu();
             //inventory_menu();
             if (show_intro)
@@ -390,14 +388,14 @@ namespace Team_Fisherman
 
         //displays the menu and allows the player to choose between starting the game or exiting.
         //╥
-        static int Get_Item_Count(string name)
+        public static int Get_Item_Count(string name)
         {
             int count = 0;
             inventory.TryGetValue(name, out count);
 
             return count;
         }
-        static string Get_Item_Name(int index)
+        public static string Get_Item_Name(int index)
         {
             int c = 0;
             foreach (string item in inventory.Keys)
@@ -411,7 +409,7 @@ namespace Team_Fisherman
 
             return "";
         }
-        static void Add_Item(string name, int count)
+        public static void Add_Item(string name, int count)
         {
             name = name.ToLower();
             if (inventory.ContainsKey(name))
@@ -423,7 +421,7 @@ namespace Team_Fisherman
                 inventory.Add(name, count);
             }
         }
-        static void Remove_Item(string name, int count)
+        public static void Remove_Item(string name, int count)
         {
             if (inventory.ContainsKey(name))
             {
@@ -434,7 +432,7 @@ namespace Team_Fisherman
                 }
             }
         }
-        static string[] Display_Inventory()
+        public static string[] Display_Inventory()
         {
 
             string[] buffer = Array.Empty<string>();
@@ -449,7 +447,7 @@ namespace Team_Fisherman
             return buffer;
         }
 
-        static void Inventory_Menu()
+        public static void Inventory_Menu()
         {
             while (true)
             {
@@ -614,7 +612,7 @@ namespace Team_Fisherman
             Dictionary<string, int> items = new Dictionary<string, int>
             {
                 {"health potion", 15 },
-                {"fish bait", 5 },
+                {"bait", 5 },
                 {"jar of dirt", 1},
                 {"protective charm", 100 },
                 {"truth", 50 },
@@ -651,7 +649,7 @@ namespace Team_Fisherman
                         Console.WriteLine("How many");
                         count = Convert.ToInt32(Console.ReadLine());
                         coins -= items["health potion"] * count;
-                        if (coins > 0)
+                        if (coins >= 0)
                         {
                             Add_Item("health potion", count);
                         }
@@ -662,18 +660,18 @@ namespace Team_Fisherman
 
                         break;
                     case "1":
-                    case "fish bait":
+                    case "bait":
                         Console.WriteLine("\"\"");
                         Console.WriteLine("How many");
                         count = Convert.ToInt32(Console.ReadLine());
-                        coins -= items["fish bait"] * count;
-                        if (coins > 0)
+                        coins -= items["bait"] * count;
+                        if (coins >= 0)
                         {
-                            Add_Item("fish bait", count);
+                            Add_Item("bait", count);
                         }
                         else
                         {
-                            coins += items["fish bait"] * count;
+                            coins += items["bait"] * count;
                         }
                         break;
                     case "2":
@@ -682,7 +680,7 @@ namespace Team_Fisherman
                         Console.WriteLine("How many");
                         count = Convert.ToInt32(Console.ReadLine());
                         coins -= items["jar of dirt"] * count;
-                        if (coins > 0)
+                        if (coins >= 0)
                         {
                             Add_Item("Jar of Dirt", count);
                         }
@@ -697,7 +695,7 @@ namespace Team_Fisherman
                         Console.WriteLine("How many");
                         count = Convert.ToInt32(Console.ReadLine());
                         coins -= items["protective charm"] * count;
-                        if (coins > 0)
+                        if (coins >= 0)
                         {
                             Add_Item("Protective Charm", count);
                         }
@@ -710,7 +708,7 @@ namespace Team_Fisherman
                     case "truth":
                         Console.WriteLine("\"\"");
                         coins -= p[4];
-                        if (coins > 0)
+                        if (coins >= 0)
                         {
                             Add_Item("Truth", 1);
                         }
