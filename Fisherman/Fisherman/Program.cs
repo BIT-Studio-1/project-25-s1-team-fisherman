@@ -1719,7 +1719,7 @@ namespace Team_Fisherman
                 else
                 {
                     // Rendering What will be displayed on the screen
-                    //Console.Write(WHITE);
+                    Console.Write(WHITE);
                     Console.SetCursorPosition(0, 0);
                     Console.WriteLine("X's missed: " + score + "\t\t Health: " + (player_health) + "\n----------------------------------");
 
@@ -1729,12 +1729,12 @@ namespace Team_Fisherman
                         {
                             if (i == grid_y_limit && j == player_pos)
                             {
-                                //Console.Write(GREEN);
+                                Console.Write(GREEN);
                                 Console.Write("P");
                             }
                             else if (grid[i, j] == 1)
                             {
-                                //Console.Write(RED);
+                                Console.Write(RED);
                                 Console.Write("X");
                             }
                             else
@@ -1749,7 +1749,7 @@ namespace Team_Fisherman
             }
 
             // Game Over Screen
-            //Console.Write(WHITE);
+            Console.Write(WHITE);
             Console.Clear();
 
             if (player_health <= 1)
@@ -1869,7 +1869,7 @@ namespace Team_Fisherman
                 else
                 {
                     // Rendering 
-                    //Console.Write(WHITE);
+                    Console.Write(WHITE);
                     Console.SetCursorPosition(0, 0);
                     Console.WriteLine("X's missed: " + score + "\t\t Health: " + (player_health) + "\n----------------------------------");
                     for (int i = 0; i < grid_y_limit + 1; i++)
@@ -1878,12 +1878,12 @@ namespace Team_Fisherman
                         {
                             if (i == grid_y_limit && j == player_pos)
                             {
-                                //Console.Write(GREEN);
+                                Console.Write(GREEN);
                                 Console.Write("P");
                             }
                             else if (grid[i, j] == 1)
                             {
-                                //Console.Write(RED);
+                                Console.Write(RED);
                                 Console.Write("X");
                             }
                             else
@@ -1897,7 +1897,7 @@ namespace Team_Fisherman
                 }
             }
             // Game Over Screen 
-            //Console.Write(WHITE);
+            Console.Write(WHITE);
             Console.Clear();
             if (player_health <= 0)
             {
@@ -2003,7 +2003,7 @@ namespace Team_Fisherman
                 else
                 {
                     // Rendering What will be displayed on the screen
-                    //Console.Write(WHITE);
+                    Console.Write(WHITE);
                     Console.SetCursorPosition(0, 0);
                     Console.WriteLine("X's missed: " + score + "\t\t Health: " + (player_health) + "\n----------------------------------");
 
@@ -2013,12 +2013,12 @@ namespace Team_Fisherman
                         {
                             if (i == grid_y_limit && j == player_pos)
                             {
-                                //Console.Write(GREEN);
+                                Console.Write(GREEN);
                                 Console.Write("P");
                             }
                             else if (grid[i, j] == 1)
                             {
-                                //Console.Write(RED);
+                                Console.Write(RED);
                                 Console.Write("X");
                             }
                             else
@@ -2032,7 +2032,7 @@ namespace Team_Fisherman
                 }
             }
             // Game Over Screen
-            //Console.Write(WHITE);
+            Console.Write(WHITE);
             Console.Clear();
 
             if (player_health <= 1)
