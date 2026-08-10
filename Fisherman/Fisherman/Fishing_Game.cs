@@ -7,8 +7,8 @@ namespace Fisherman
     {
         const string PATH = "Map/Fishing/";
         const string RESET = "\x1b[0m";
-        private static int hooks;
-        private static int luck;
+        private static int hooks = 1;
+        private static int luck = 1;
         public static Fish[] fish =
             {
                 new Fish("fail",            0,  0 , .50 ),
@@ -55,14 +55,26 @@ namespace Fisherman
                     switch (key)
                     {
                         case ConsoleKey.X:
-                            if (Fishy_Game())
+                            bool c;
+                            if (Get_Item_Count("bait") > 0)
                             {
                                 caught = Fishes();
+                                Remove_Item("bait",1);
                             }
                             else
                             {
-                                caught.name = "fail";
+                                c = Fishy_Game();
+                                if (c)
+                                {
+                                    caught = Fishes();
+                                }
+                                else
+                                {
+                                    caught.name = "fail";
+                                }
                             }
+
+
                             break;
                         case ConsoleKey.Q:
                             return;
@@ -71,6 +83,7 @@ namespace Fisherman
                             break;
                         case ConsoleKey.U:
                             Upgrade();
+                            frame = 500;
                             break;
                     }
                     continue;
@@ -140,6 +153,20 @@ namespace Fisherman
                 }
                 sb.Append('\n');
             }
+            sb.Replace('?', $"{hooks}".First());
+            sb.Replace('%', $"{luck}".First());
+            if (luck > 9)
+            {
+                sb.Replace('+', '0');
+            }
+            else
+            {
+                sb.Replace('+', ' ');
+            }
+            int bait = Get_Item_Count("bait");
+            sb.Replace("&           ", $"{bait,-12}");
+
+
             return sb.ToString();
         }
         public struct Fish
@@ -188,18 +215,14 @@ namespace Fisherman
         public static void Upgrade()
         {
             Console.Clear();
-
             if (!File.Exists(PATH + "upgrade.txt"))
             {
                 throw new FileNotFoundException();
             }
             string[] lines = File.ReadAllLines(PATH + "upgrade.txt");
-
             StringBuilder sb = new StringBuilder();
-            string bar = "##########################";
+            string bar = "==========================";
             bool pos1 = true;
-
-
             while (true)
             {
                 sb.Clear();
@@ -208,10 +231,16 @@ namespace Fisherman
                 {
                     sb.AppendLine(line);
                 }
-
-                sb.Replace('%',$"{luck}".First());
+                sb.Replace('%', $"{luck}".First());
+                if (luck > 9)
+                {
+                    sb.Replace('+', '0');
+                }
+                else
+                {
+                    sb.Replace('+', ' ');
+                }
                 sb.Replace('?', $"{hooks}".First());
-                
                 if (pos1)
                 {
                     sb.Replace("@", bar);
@@ -222,15 +251,41 @@ namespace Fisherman
                     sb.Replace("$", bar);
                     sb.Replace("@", "                          ");
                 }
-
-
-
                 Console.Write(sb.ToString());
-
-
-                pos1 = !pos1;
-                
-                Console.ReadKey(true);
+                ConsoleKey key = Console.ReadKey(true).Key;
+                switch (key)
+                {
+                    case ConsoleKey.A:
+                        pos1 = true;
+                        break;
+                    case ConsoleKey.D:
+                        pos1 = false;
+                        break;
+                    case ConsoleKey.Spacebar:
+                    case ConsoleKey.Enter:
+                        if (pos1)
+                        {
+                            if (coins > 20)
+                            {
+                                luck++;
+                                luck = Math.Min(luck, 10);
+                                coins -= 20;
+                            }
+                        }
+                        else
+                        {
+                            hooks++;
+                            if (coins > 20)
+                            {
+                                hooks = Math.Min(hooks, 5);
+                                coins -= 20;
+                            }
+                        }
+                        break;
+                    case ConsoleKey.E:
+                        Console.Clear();
+                        return;
+                }
             }
         }
     }
