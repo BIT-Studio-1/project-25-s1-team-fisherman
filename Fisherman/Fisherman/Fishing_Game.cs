@@ -164,6 +164,14 @@ namespace Fisherman
                     sb.Replace($"{i}", "╯");
                 }
             }
+            for (char i = 'R'; i < 'R' + 6; i++)
+            {
+
+
+                sb.Replace($"{i}", " ");
+
+
+            }
 
 
 
@@ -204,7 +212,7 @@ namespace Fisherman
                 if (fish[i].name == "fail")
                 {
 
-                    fish[i].weight = Math.Max(0,0.6 - (hooks * 0.1));
+                    fish[i].weight = Math.Max(0, 0.6 - (hooks * 0.1));
                 }
             }
 

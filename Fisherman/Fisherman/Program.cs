@@ -82,8 +82,6 @@ namespace Team_Fisherman
             bool map_changed = false;
 
 
-
-            Fishing();
             Menu();
             //inventory_menu();
             if (show_intro)
