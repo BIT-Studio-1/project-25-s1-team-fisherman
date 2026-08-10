@@ -38,9 +38,9 @@ namespace Fisherman
             };
         public Fishing_Game()
         {
-            Draw2();
+            Draw();
         }
-        private static void Draw2()
+        private static void Draw()
         {
             //29 lines y
             string[] files = { "waves.txt", "clouds.txt", "rain.txt", "menu.txt" };
@@ -123,9 +123,9 @@ namespace Fisherman
                     string[] lines = file_cache[file];
                     if (lines.Length > 29)
                     {
-                        if (flip)
+                        if (flip) //[..29] is a range operator and returns an array of the first 29 elements.
                             lines = lines[..29];
-                        else
+                        else //[28..] is a range operator and returns an array of elements that are after [27].
                             lines = lines[28..];
                     }
                     int y = 0;
@@ -145,7 +145,7 @@ namespace Fisherman
                     }
                 }
                 //Console.WriteLine(sb.ToString());
-                Console.WriteLine(ToText(letters));
+                Console.WriteLine(To_Text(letters));
                 //Console.ReadLine();   
                 Console.SetCursorPosition(7, 26);
                 if (caught.name != "" && caught.name != "fail")
@@ -158,7 +158,7 @@ namespace Fisherman
                 }
             }
         }
-        private static string ToText(char[,] letters)
+        private static string To_Text(char[,] letters)
         {
             StringBuilder sb = new StringBuilder();
             for (int y = 0; y < 28; y++)
