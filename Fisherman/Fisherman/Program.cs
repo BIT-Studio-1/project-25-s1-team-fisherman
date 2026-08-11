@@ -1166,7 +1166,7 @@ namespace Team_Fisherman
             }
 
             string[] inventory = { "23", "fish", "2", "health potion", "56", "rock" };
-            string[] attacks = { "0 slash (31 damage)", "1 jab (20 - 40 damage)","2 Exit", "3 bow(25 - 36 damage)", " 4 poison (10 damage per round) " };
+            string[] attacks = { "0 slash (31 damage)", "1 jab (20 - 40 damage)","2 Exit", "3 bow(25 - 36 damage)", " 4 poison (10 damage per round) "};
             string[] defence = { "block", "dodge", "parry", "other" };
 
             ConsoleKeyInfo c = new ConsoleKeyInfo();
@@ -1400,26 +1400,33 @@ namespace Team_Fisherman
                     //Console.WriteLine("               === attacks ===");
                     //Console.WriteLine("#################################################################");
 
-                    WriteTing(ref buffer,                      "=== attacks ===", screen_size, new Vector2(20, 19));
-                    WriteTing(ref buffer, "#################################################################", screen_size, new Vector2(20, 20));
+                    WriteTing(ref buffer,                      "=== attacks ===", screen_size, new Vector2(24, 19));
+                    WriteTing(ref buffer, "#################################################################", screen_size, new Vector2(8, 20));
                     Console.Write(buffer.ToString());
-                    int fightingUI = 21;
+                    int fightingUIx = 8;
+                    int fightingUIy = 21;
                     for (int i = 0; i < attacks.Length; i++)
                     {
                         //Console.Write("## ".PadRight(3) + attacks[i].PadRight(5) + " ##");
-                        WriteTing(ref buffer, "## ".PadRight(3) + attacks[i].PadRight(5) + " ##", screen_size, new Vector2(20, fightingUI));
+                        WriteTing(ref buffer, "## ".PadRight(3) + attacks[i].PadRight(5) + " ##", screen_size, new Vector2(fightingUIx, fightingUIy));
+                        fightingUIx += ("## ".PadRight(3) + attacks[i].PadRight(5) + " ##").Count();
+
                         if (((i + 1) % 3) == 0)
                         {
+                            fightingUIx = 8;
+
                             //Console.WriteLine("#################################################################");
-                            //WriteTing(ref buffer, "#################################################################", screen_size, new Vector2(20, fightingUI));
-                            
+                            fightingUIy++;
+                            WriteTing(ref buffer, "#################################################################", screen_size, new Vector2(fightingUIx, fightingUIy));
+                            fightingUIy++;
                         }
-                        fightingUI++;
                     }
                     //Console.WriteLine("#################################################################");
-                    WriteTing(ref buffer, "#################################################################", screen_size, new Vector2(20, 23));
-                    WriteTing(ref buffer, "what attack do you want to do: ", screen_size, new Vector2(20, 24));
+                    WriteTing(ref buffer, "#################################################################", screen_size, new Vector2(8, fightingUIy+1));
+
+                    //WriteTing(ref buffer, "what attack do you want to do: ", screen_size, new Vector2(20, 24));
                     Console.Write(buffer.ToString());
+                    Console.Write("what attack do you want to do: ");
                     string attack = Console.ReadLine();
 
                     switch (attack)
@@ -1445,7 +1452,6 @@ namespace Team_Fisherman
                             {
                                 Console.WriteLine("the bad guy was already poisoned");
                                 Console.Write("but you throw the poison anyway and make it stronger");
-
                             }
                             else
                             {
