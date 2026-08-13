@@ -405,8 +405,6 @@ namespace Team_Fisherman
                 c++;
             }
 
-
-
             return "";
         }
         static void Add_Item(string name, int count)
@@ -434,7 +432,6 @@ namespace Team_Fisherman
         }
         static string[] Display_Inventory()
         {
-
             string[] buffer = Array.Empty<string>();
             foreach (KeyValuePair<string, int> pair in inventory)
             {
@@ -451,8 +448,6 @@ namespace Team_Fisherman
         {
             while (true)
             {
-
-
                 string[] inv = Display_Inventory();
                 Console.Clear();
                 Console.WriteLine("Inventory");
@@ -500,10 +495,6 @@ namespace Team_Fisherman
             Vector2 exit_pos = new Vector2(73, 24);
             Vector2 current = play_pos;
 
-
-
-
-
             //this is the menu loop, it will keep running until the player chooses to start the game or exit, it works by drawing the menu and then checking for input, if the player presses A or D it will move the current selection left or right, if they press any other key it will check which option is currently selected and either start the game or exit based on that
             while (in_menu)
             {
@@ -534,9 +525,7 @@ namespace Team_Fisherman
                         }
                     }
                     buffer.Append("\n");
-
                 }
-
 
 
                 current = Vector2.Clamp(current, play_pos, exit_pos);
@@ -547,7 +536,6 @@ namespace Team_Fisherman
                 {
                     buffer[To_Index(new Vector2(x + 11, 24), screen_size)] = '#';
                 }
-
 
                 //this removes the flickering that happens when you clear the console and redraw everything, instead of clearing the console we just move the cursor back to the top left and overwrite the existing output with the new output, this makes it look like the menu is moving smoothly without any flickering
                 Console.SetCursorPosition(0, 0);
@@ -563,7 +551,6 @@ namespace Team_Fisherman
                     case ConsoleKey.D:
                         current.X += 28;
                         break;
-
                     case ConsoleKey.H:
                         Key_Binds();
                         break;
@@ -584,22 +571,18 @@ namespace Team_Fisherman
                             Environment.Exit(0);
                         }
                         break;
-
                 }
             }
         }
         //Put the code for fishing in here.
         static void Fishing()
         {
-
             Fishing_Base.coins = coins;
             Fishing_Base.Fishing();
             coins = Fishing_Base.coins;
             memory1 = Fishing_Base.memory;
             Thread.Sleep(500);
             Console.Clear();
-
-
         }
         static void Shop()
         {
@@ -746,13 +729,10 @@ namespace Team_Fisherman
             Console.WriteLine();
             shop = Console.ReadLine();
 
-
             switch (shop)
             {
                 case "0":
                 case "buy":
-
-
                     Shop();
                     break;
 
@@ -764,7 +744,6 @@ namespace Team_Fisherman
                         viewed_memory1 = true;
                         break;
                     }
-
 
                     Console.WriteLine();
                     Console.WriteLine("\"So, what's you want to talk to me?\"");
@@ -1048,7 +1027,6 @@ namespace Team_Fisherman
                 Write_Ting(ref buffer, "completion bar:", screen_size, new Vector2(4, 13));
                 Write_Ting(ref buffer, fish_score.ToString(), screen_size, new Vector2(20, 15));
                 Write_Ting(ref buffer, Print_Line(), screen_size, new Vector2(2, 14));
-
 
                 Fish_Sprite_Draw(ref buffer, 8, fish_bar_size, bar_x, 20); // this draw the fish bar
 
@@ -1433,40 +1411,55 @@ namespace Team_Fisherman
                     {
                         case "0":
                         case "slash":
-                            Console.Write("you do the slash");
+                            //Console.Write("you do the slash");
+                            WriteTing(ref buffer, "you do the slash", screen_size, new Vector2(100, 8));
                             Attack(31);
                             break;
                         case "1":
                         case "jab":
-                            Console.Write("you do the jab");
+                            //Console.Write("you do the jab");
+                            WriteTing(ref buffer, "you do the jab", screen_size, new Vector2(100, 8));
+
                             Attack(random.Next(21, 41));
                             break;
                         case "3":
                         case "bow":
-                            Console.Write("you shoot the bow");
+                            //Console.Write("you shoot the bow");
+                            WriteTing(ref buffer, "you shoot the bow", screen_size, new Vector2(100, 8));
                             Attack(random.Next(25, 36));
                             break;
                         case "4":
                         case "poison":
                             if (poison_damage != 0)
                             {
-                                Console.WriteLine("the bad guy was already poisoned");
-                                Console.Write("but you throw the poison anyway and make it stronger");
+                                //Console.WriteLine("the bad guy was already poisoned");
+                                //Console.Write("but you throw the poison anyway and make it stronger");
+
+                                WriteTing(ref buffer, "the bad guy was already poisoned", screen_size, new Vector2(100, 8));
+                                WriteTing(ref buffer, "but you throw the poison anyway and make it stronger", screen_size, new Vector2(100, 8));
+
                             }
                             else
                             {
-                                Console.Write("you throw the poison");
+                                //Console.Write("you throw the poison");
+                                WriteTing(ref buffer, "you throw the poison", screen_size, new Vector2(100, 8));
+
                             }
                             Attack(-1);
                             break;
                         case "2":
                         case "exit":
-                            Console.WriteLine("exit");
+                            //Console.WriteLine("exit");
+                            WriteTing(ref buffer, "exit", screen_size, new Vector2(100, 8));
+
                             break;
                         default:
-                            Console.WriteLine("incorrect input");
+                            //Console.WriteLine("incorrect input");
+                            WriteTing(ref buffer, "incorrect input", screen_size, new Vector2(100, 8));
+
                             break;
                     }
+                    Console.Write(buffer.ToString());
                 }
                 /*
                 else if (c.Key == ConsoleKey.D)
@@ -1563,7 +1556,6 @@ namespace Team_Fisherman
                     }
 
                     Console.WriteLine(inv_int);
-
 
                     Console.WriteLine(inv);
 
