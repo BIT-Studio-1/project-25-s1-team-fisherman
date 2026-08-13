@@ -1352,8 +1352,12 @@ namespace Team_Fisherman
                 //prints other UI elements
                 WriteTing(ref buffer, bad_guy_name, screen_size, new Vector2(66, 13));
                 WriteTing(ref buffer, "enemy health: " + bad_guy_health, screen_size, new Vector2(66, 14));
+
+                //WriteTing(ref buffer, "0====================0", screen_size, new Vector2(66, 14));
                 WriteTing(ref buffer, bad_guy_attack, screen_size, new Vector2(64, 16));
                 WriteTing(ref buffer, "health: " + health, screen_size, new Vector2(10, 22));
+
+
                 Console.Clear();
                 Console.Write(buffer.ToString()); // writes the thing
 
@@ -1378,7 +1382,7 @@ namespace Team_Fisherman
                     //Console.WriteLine("               === attacks ===");
                     //Console.WriteLine("#################################################################");
 
-                    WriteTing(ref buffer,                      "=== attacks ===", screen_size, new Vector2(24, 19));
+                    WriteTing(ref buffer, "=== attacks ===", screen_size, new Vector2(24, 19));
                     WriteTing(ref buffer, "#################################################################", screen_size, new Vector2(8, 20));
                     Console.Clear();
                     Console.Write(buffer.ToString());
