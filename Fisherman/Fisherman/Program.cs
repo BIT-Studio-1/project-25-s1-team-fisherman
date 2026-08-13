@@ -1,5 +1,6 @@
 
 
+using Fisherman;
 using System;
 using System.Data;
 using System.Drawing;
@@ -10,6 +11,7 @@ using System.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using test_fish;
+
 using static System.Net.Mime.MediaTypeNames;
 /*Put suggestions/bugs here 
  ln 1200 put a Console.Readline(); currently skips the text
@@ -25,7 +27,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Team_Fisherman
 {
-    internal class Program
+    public class Program
     {
         //These are ANSI escape sequences, they are the same thing as \n and \t but use a slightly different format. these color the text placed after them until the RESET is added, there are other sequences like underlining and italics as well. Theses are needed because i am using string builders and Console.Color doesn't work with them. you can also combine them.
         //format for custom color is \x1b[38;5;{ID}m for foreground \x1b[48;5;{ID}m for background where {ID} is from the image in the discord
@@ -78,8 +80,6 @@ namespace Team_Fisherman
 
 
             bool map_changed = false;
-
-
 
 
             Menu();
@@ -363,13 +363,13 @@ namespace Team_Fisherman
             return true;
         }
         //this helper function converts a Vector2 into an index for the buffer, this means you can access the buffer my choosing the pixel in the console. it takes a Vector2 (coords) and a Vector2 (size) and returns an int (index) for accessing the buffer.
-        static int To_Index(Vector2 coords, Vector2 size)
+        public static int To_Index(Vector2 coords, Vector2 size)
         {
             int index = (int)(coords.X + (coords.Y * (size.X + 1)));
             return index;
         }
         //This returns the escape code for the specified color based on the image in the discord, setting the is_foreground changes if the text color changes or the highlight color
-        static string Color_Helper(int id, bool is_foreground)
+        public static string Color_Helper(int id, bool is_foreground)
         {
             string color = "";
             if (is_foreground)
@@ -388,14 +388,14 @@ namespace Team_Fisherman
 
         //displays the menu and allows the player to choose between starting the game or exiting.
         //╥
-        static int Get_Item_Count(string name)
+        public static int Get_Item_Count(string name)
         {
             int count = 0;
             inventory.TryGetValue(name, out count);
 
             return count;
         }
-        static string Get_Item_Name(int index)
+        public static string Get_Item_Name(int index)
         {
             int c = 0;
             foreach (string item in inventory.Keys)
@@ -407,7 +407,7 @@ namespace Team_Fisherman
 
             return "";
         }
-        static void Add_Item(string name, int count)
+        public static void Add_Item(string name, int count)
         {
             name = name.ToLower();
             if (inventory.ContainsKey(name))
@@ -419,7 +419,7 @@ namespace Team_Fisherman
                 inventory.Add(name, count);
             }
         }
-        static void Remove_Item(string name, int count)
+        public static void Remove_Item(string name, int count)
         {
             if (inventory.ContainsKey(name))
             {
@@ -430,7 +430,7 @@ namespace Team_Fisherman
                 }
             }
         }
-        static string[] Display_Inventory()
+        public static string[] Display_Inventory()
         {
             string[] buffer = Array.Empty<string>();
             foreach (KeyValuePair<string, int> pair in inventory)
@@ -444,7 +444,7 @@ namespace Team_Fisherman
             return buffer;
         }
 
-        static void Inventory_Menu()
+        public static void Inventory_Menu()
         {
             while (true)
             {
@@ -577,12 +577,17 @@ namespace Team_Fisherman
         //Put the code for fishing in here.
         static void Fishing()
         {
-            Fishing_Base.coins = coins;
-            Fishing_Base.Fishing();
-            coins = Fishing_Base.coins;
-            memory1 = Fishing_Base.memory;
-            Thread.Sleep(500);
-            Console.Clear();
+
+            Fishing_Game fish = new();
+
+            //Fishing_Base.coins = coins;
+            //Fishing_Base.Fishing();
+            //coins = Fishing_Base.coins;
+            //memory1 = Fishing_Base.memory;
+            //Thread.Sleep(500);
+            //Console.Clear();
+
+
         }
         static void Shop()
         {
@@ -592,7 +597,7 @@ namespace Team_Fisherman
             Dictionary<string, int> items = new Dictionary<string, int>
             {
                 {"health potion", 15 },
-                {"fish bait", 5 },
+                {"bait", 5 },
                 {"jar of dirt", 1},
                 {"protective charm", 100 },
                 {"truth", 50 },
@@ -629,7 +634,7 @@ namespace Team_Fisherman
                         Console.WriteLine("How many");
                         count = Convert.ToInt32(Console.ReadLine());
                         coins -= items["health potion"] * count;
-                        if (coins > 0)
+                        if (coins >= 0)
                         {
                             Add_Item("health potion", count);
                         }
@@ -640,18 +645,18 @@ namespace Team_Fisherman
 
                         break;
                     case "1":
-                    case "fish bait":
+                    case "bait":
                         Console.WriteLine("\"\"");
                         Console.WriteLine("How many");
                         count = Convert.ToInt32(Console.ReadLine());
-                        coins -= items["fish bait"] * count;
-                        if (coins > 0)
+                        coins -= items["bait"] * count;
+                        if (coins >= 0)
                         {
-                            Add_Item("fish bait", count);
+                            Add_Item("bait", count);
                         }
                         else
                         {
-                            coins += items["fish bait"] * count;
+                            coins += items["bait"] * count;
                         }
                         break;
                     case "2":
@@ -660,7 +665,7 @@ namespace Team_Fisherman
                         Console.WriteLine("How many");
                         count = Convert.ToInt32(Console.ReadLine());
                         coins -= items["jar of dirt"] * count;
-                        if (coins > 0)
+                        if (coins >= 0)
                         {
                             Add_Item("Jar of Dirt", count);
                         }
@@ -675,7 +680,7 @@ namespace Team_Fisherman
                         Console.WriteLine("How many");
                         count = Convert.ToInt32(Console.ReadLine());
                         coins -= items["protective charm"] * count;
-                        if (coins > 0)
+                        if (coins >= 0)
                         {
                             Add_Item("Protective Charm", count);
                         }
@@ -688,7 +693,7 @@ namespace Team_Fisherman
                     case "truth":
                         Console.WriteLine("\"\"");
                         coins -= p[4];
-                        if (coins > 0)
+                        if (coins >= 0)
                         {
                             Add_Item("Truth", 1);
                         }
@@ -1110,7 +1115,7 @@ namespace Team_Fisherman
                     if (c.Key == ConsoleKey.Spacebar)
                     {
                         waity = 200;
-                        for (int i = 0; i != 20; i++)
+                        for (int i = 0; i != 15; i++)
                         {
                             if (bar_x > 2)
                             {
