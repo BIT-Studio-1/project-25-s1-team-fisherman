@@ -588,7 +588,6 @@ namespace Team_Fisherman
         {
             string buy;
 
-
             int[] p = { 0 };
             Dictionary<string, int> items = new Dictionary<string, int>
             {
@@ -1403,6 +1402,7 @@ namespace Team_Fisherman
                     WriteTing(ref buffer, "#################################################################", screen_size, new Vector2(8, fightingUIy+1));
 
                     //WriteTing(ref buffer, "what attack do you want to do: ", screen_size, new Vector2(20, 24));
+                    Console.Clear();
                     Console.Write(buffer.ToString());
                     Console.Write("what attack do you want to do: ");
                     string attack = Console.ReadLine();
@@ -1412,21 +1412,28 @@ namespace Team_Fisherman
                         case "0":
                         case "slash":
                             //Console.Write("you do the slash");
-                            WriteTing(ref buffer, "you do the slash", screen_size, new Vector2(100, 8));
+                            WriteTing(ref buffer, "you do the slash", screen_size, new Vector2(100, 24));
+                            Console.Clear();
+                            Console.Write(buffer.ToString());
                             Attack(31);
                             break;
                         case "1":
                         case "jab":
                             //Console.Write("you do the jab");
-                            WriteTing(ref buffer, "you do the jab", screen_size, new Vector2(100, 8));
+                            WriteTing(ref buffer, "you do the jab", screen_size, new Vector2(100, 24));
 
+                            Console.Clear();
+                            Console.Write(buffer.ToString());
                             Attack(random.Next(21, 41));
                             break;
                         case "3":
                         case "bow":
                             //Console.Write("you shoot the bow");
-                            WriteTing(ref buffer, "you shoot the bow", screen_size, new Vector2(100, 8));
+                            WriteTing(ref buffer, "you shoot the bow", screen_size, new Vector2(100, 24));
+                            Console.Clear();
+                            Console.Write(buffer.ToString());
                             Attack(random.Next(25, 36));
+                            
                             break;
                         case "4":
                         case "poison":
@@ -1435,30 +1442,30 @@ namespace Team_Fisherman
                                 //Console.WriteLine("the bad guy was already poisoned");
                                 //Console.Write("but you throw the poison anyway and make it stronger");
 
-                                WriteTing(ref buffer, "the bad guy was already poisoned", screen_size, new Vector2(100, 8));
-                                WriteTing(ref buffer, "but you throw the poison anyway and make it stronger", screen_size, new Vector2(100, 8));
-
+                                WriteTing(ref buffer, "the bad guy was already poisoned", screen_size, new Vector2(100, 24));
+                                WriteTing(ref buffer, "but you throw the poison anyway and make it stronger", screen_size, new Vector2(100, 24));
                             }
                             else
                             {
                                 //Console.Write("you throw the poison");
-                                WriteTing(ref buffer, "you throw the poison", screen_size, new Vector2(100, 8));
-
+                                WriteTing(ref buffer, "you throw the poison", screen_size, new Vector2(100, 24));
                             }
+                            Console.Clear();
+                            Console.Write(buffer.ToString());
                             Attack(-1);
                             break;
                         case "2":
                         case "exit":
                             //Console.WriteLine("exit");
-                            WriteTing(ref buffer, "exit", screen_size, new Vector2(100, 8));
+                            WriteTing(ref buffer, "exit", screen_size, new Vector2(100, 24));
 
                             break;
                         default:
                             //Console.WriteLine("incorrect input");
-                            WriteTing(ref buffer, "incorrect input", screen_size, new Vector2(100, 8));
-
+                            WriteTing(ref buffer, "incorrect input", screen_size, new Vector2(100, 24));
                             break;
                     }
+                    Console.Clear();
                     Console.Write(buffer.ToString());
                 }
                 /*
@@ -1637,17 +1644,17 @@ namespace Team_Fisherman
             while (is_running)
             {
                 // Input Control 
-                if (Console.KeyAvailable)
-                {
-                    var key = Console.ReadKey(true).Key;
+                if (Console.KeyAvailable)                                   
+                    {                                                       
+                    var key = Console.ReadKey(true).Key;                    
 
-                    if (key == ConsoleKey.A && player_pos > 0)
-                        player_pos--;
-                    if (key == ConsoleKey.D && player_pos < 30)
-                        player_pos++;
-                    while (Console.KeyAvailable)
-                        Console.ReadKey(true);
-                }
+                    if (key == ConsoleKey.A && player_pos > 0)              
+                        player_pos--;                                       
+                    if (key == ConsoleKey.D && player_pos < 30)             
+                        player_pos++;                                       
+                    while (Console.KeyAvailable)                            
+                        Console.ReadKey(true);                              
+                }                                                           
                 // Game Logic: Move obstacles down (Iterating TOP to BOTTOM to prevent double-moving) 
                 for (int i = grid_y_limit; i >= 0; i--)
                 {
