@@ -1463,11 +1463,17 @@ namespace Team_Fisherman
                         case "exit":
                             //Console.WriteLine("exit");
                             WriteTing(ref buffer, "exit", screen_size, new Vector2(85, 22));
+                            Console.Clear();
+                            Console.Write(buffer.ToString());
+                            Thread.Sleep(1000);
 
                             break;
                         default:
                             //Console.WriteLine("incorrect input");
                             WriteTing(ref buffer, "incorrect input", screen_size, new Vector2(85, 22));
+                            Console.Clear();
+                            Console.Write(buffer.ToString());
+                            Thread.Sleep(1000);
                             break;
                     }
                     Console.Clear();
@@ -1516,30 +1522,42 @@ namespace Team_Fisherman
                 */
                 else if (c.Key == ConsoleKey.X) // if the D key is pressed
                 {
-                    Console.Write("\n");
+                    //Console.Write("\n");
 
-                    Console.WriteLine("    ==== inventory ====");
-                    Console.WriteLine("##########################");
+                    //Console.WriteLine("    ==== inventory ====");
+                    //Console.WriteLine("##########################");
+
+
+                    WriteTing(ref buffer, "     ==== inventory ====", screen_size, new Vector2(10, 21));
+                    WriteTing(ref buffer, "##############################", screen_size, new Vector2(8, 22));
+
                     string[] inventory_array = Display_Inventory();
                     int count = 0;
                     if (inventory_array.Length > 0)
                     {
                         foreach (string item in inventory_array)
                         {
-                            Console.Write(count + " ");
-                            Console.WriteLine(item);
+                            //Console.Write(count + " ");
+                            //Console.WriteLine(item);
+
+                            WriteTing(ref buffer, count.ToString() + "", screen_size, new Vector2(8, 23 + count));
+                            WriteTing(ref buffer, item, screen_size, new Vector2(10, 23 + count));
                             count++;
                         }
-
                     }
                     else
                     {
-                        Console.WriteLine("You dont have any items to use");
+                        //Console.WriteLine("You dont have any items to use");
+
+                        WriteTing(ref buffer, "You dont have any items to use", screen_size, new Vector2(8, 23 + count));
+                        Console.Clear();
+                        Console.Write(buffer.ToString());
                         Console.ReadLine();
                         continue;
                     }
-
-
+                    Console.Clear();
+                    Console.Write(buffer.ToString());
+                    Console.ReadLine();
 
                     Console.Write("what item do you want to use: ");
                     string inv = Console.ReadLine() ?? "";
