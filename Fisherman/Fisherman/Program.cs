@@ -1030,7 +1030,7 @@ namespace Team_Fisherman
                 Fish_Sprite_Draw(ref buffer, 8, fish_bar_size, bar_x, 20); // this draw the fish bar
 
                 Fish_Draw(ref buffer, 6, Fish_Sprite, fish_x, 21); // this draws the fish sprite
-
+                Console.Clear();
                 Console.Write(buffer.ToString());
 
                 ConsoleKeyInfo c = new ConsoleKeyInfo();
@@ -1261,12 +1261,12 @@ namespace Team_Fisherman
                     bad_guy_damage = 15;
                     bad_guy_name = "evil cat";
 
-                    enemy_icon1 = @"               ";
+                    enemy_icon1 = @"              ";
                     enemy_icon2 = @" (\___/)      ";
-                    enemy_icon3 = @" | >:) |    /  ";
-                    enemy_icon4 = @"  -----    /   ";
-                    enemy_icon5 = @"   |_____ /    ";
-                    enemy_icon6 = @"   /\    /\  ";
+                    enemy_icon3 = @" | >:) |    / ";
+                    enemy_icon4 = @"  -----    /  ";
+                    enemy_icon5 = @"   |_____ /   ";
+                    enemy_icon6 = @"   /\    /\   ";
                     break;
                 case 1:
                     bad_guy_health = 80;
@@ -1275,11 +1275,11 @@ namespace Team_Fisherman
                     bad_guy_name = "goblin";
 
                     enemy_icon1 = @"   _/\___/\_  ";
-                    enemy_icon2 = @"  |  @ __ @ |   ";
-                    enemy_icon3 = @"  |_________|   ";
-                    enemy_icon4 = @"   /|.   .|\   ";
-                    enemy_icon5 = @"  / |_____| \  ";
-                    enemy_icon6 = @"    |     |     ";
+                    enemy_icon2 = @"  |  @ __ @ | ";
+                    enemy_icon3 = @"  |_________| ";
+                    enemy_icon4 = @"   /|.   .|\  ";
+                    enemy_icon5 = @"  / |_____| \ ";
+                    enemy_icon6 = @"    |     |   ";
                     break;
                 case 2:
                     bad_guy_health = 120;
@@ -1287,11 +1287,11 @@ namespace Team_Fisherman
                     bad_guy_damage = 20;
                     bad_guy_name = "thing";
 
-                    enemy_icon1 = @" ( | )     ( | ) ";
-                    enemy_icon2 = @"    ||_____||    ";
-                    enemy_icon3 = @"   /        \    ";
-                    enemy_icon4 = @"   | )-----( | ";
-                    enemy_icon5 = @"   \_________/     ";
+                    enemy_icon1 = @" ( | )      ( | )";
+                    enemy_icon2 = @"    ||______||   ";
+                    enemy_icon3 = @"   /         \   ";
+                    enemy_icon4 = @"  | )-----(   |  ";
+                    enemy_icon5 = @"   \_________/   ";
                     enemy_icon6 = @"   / / | | \ \   ";
                     break;
                 case 3:
@@ -1302,10 +1302,10 @@ namespace Team_Fisherman
 
                     enemy_icon1 = @"   _\__|__/_   ";
                     enemy_icon2 = @"  |(o\ O /.)|  ";
-                    enemy_icon3 = @"  |_________|   ";
+                    enemy_icon3 = @"  |_________|  ";
                     enemy_icon4 = @"   /|     |\   ";
                     enemy_icon5 = @"  / |_____| \  ";
-                    enemy_icon6 = @"    |  |  |     ";
+                    enemy_icon6 = @"    |  |  |    ";
                     break;
                 case 4:
                     bad_guy_health = 50;
@@ -1354,6 +1354,7 @@ namespace Team_Fisherman
                 WriteTing(ref buffer, "enemy health: " + bad_guy_health, screen_size, new Vector2(66, 14));
                 WriteTing(ref buffer, bad_guy_attack, screen_size, new Vector2(64, 16));
                 WriteTing(ref buffer, "health: " + health, screen_size, new Vector2(10, 22));
+                Console.Clear();
                 Console.Write(buffer.ToString()); // writes the thing
 
                 while (Console.KeyAvailable == false)// if there is no key input
@@ -1379,6 +1380,7 @@ namespace Team_Fisherman
 
                     WriteTing(ref buffer,                      "=== attacks ===", screen_size, new Vector2(24, 19));
                     WriteTing(ref buffer, "#################################################################", screen_size, new Vector2(8, 20));
+                    Console.Clear();
                     Console.Write(buffer.ToString());
                     int fightingUIx = 8;
                     int fightingUIy = 21;
@@ -1407,12 +1409,16 @@ namespace Team_Fisherman
                     Console.Write("what attack do you want to do: ");
                     string attack = Console.ReadLine();
 
+                    WriteTing(ref buffer, "0==============================0", screen_size, new Vector2(80, 21));
+                    WriteTing(ref buffer, "0==============================0", screen_size, new Vector2(80, 23));
+                    WriteTing(ref buffer, "|", screen_size, new Vector2(80, 22));
+                    WriteTing(ref buffer, "|", screen_size, new Vector2(111, 22));
                     switch (attack)
                     {
                         case "0":
                         case "slash":
                             //Console.Write("you do the slash");
-                            WriteTing(ref buffer, "you do the slash", screen_size, new Vector2(100, 24));
+                            WriteTing(ref buffer, "you do the slash", screen_size, new Vector2(85, 22));
                             Console.Clear();
                             Console.Write(buffer.ToString());
                             Attack(31);
@@ -1420,7 +1426,7 @@ namespace Team_Fisherman
                         case "1":
                         case "jab":
                             //Console.Write("you do the jab");
-                            WriteTing(ref buffer, "you do the jab", screen_size, new Vector2(100, 24));
+                            WriteTing(ref buffer, "you do the jab", screen_size, new Vector2(85, 22));
 
                             Console.Clear();
                             Console.Write(buffer.ToString());
@@ -1429,7 +1435,7 @@ namespace Team_Fisherman
                         case "3":
                         case "bow":
                             //Console.Write("you shoot the bow");
-                            WriteTing(ref buffer, "you shoot the bow", screen_size, new Vector2(100, 24));
+                            WriteTing(ref buffer, "you shoot the bow", screen_size, new Vector2(85, 22));
                             Console.Clear();
                             Console.Write(buffer.ToString());
                             Attack(random.Next(25, 36));
@@ -1442,13 +1448,12 @@ namespace Team_Fisherman
                                 //Console.WriteLine("the bad guy was already poisoned");
                                 //Console.Write("but you throw the poison anyway and make it stronger");
 
-                                WriteTing(ref buffer, "the bad guy was already poisoned", screen_size, new Vector2(100, 24));
-                                WriteTing(ref buffer, "but you throw the poison anyway and make it stronger", screen_size, new Vector2(100, 24));
+                                WriteTing(ref buffer, "you throw the poison again", screen_size, new Vector2(85, 22));
                             }
                             else
                             {
                                 //Console.Write("you throw the poison");
-                                WriteTing(ref buffer, "you throw the poison", screen_size, new Vector2(100, 24));
+                                WriteTing(ref buffer, "you throw the poison", screen_size, new Vector2(85, 22));
                             }
                             Console.Clear();
                             Console.Write(buffer.ToString());
@@ -1457,12 +1462,12 @@ namespace Team_Fisherman
                         case "2":
                         case "exit":
                             //Console.WriteLine("exit");
-                            WriteTing(ref buffer, "exit", screen_size, new Vector2(100, 24));
+                            WriteTing(ref buffer, "exit", screen_size, new Vector2(85, 22));
 
                             break;
                         default:
                             //Console.WriteLine("incorrect input");
-                            WriteTing(ref buffer, "incorrect input", screen_size, new Vector2(100, 24));
+                            WriteTing(ref buffer, "incorrect input", screen_size, new Vector2(85, 22));
                             break;
                     }
                     Console.Clear();
